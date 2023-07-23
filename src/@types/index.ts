@@ -12,6 +12,8 @@ export type Icons = {
   logo: string;
   logout: string;
   search: string;
+  facebook: string;
+  google: string;
 };
 
 export type AssetTypes = "images" | "icons";

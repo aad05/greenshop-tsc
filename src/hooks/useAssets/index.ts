@@ -22,6 +22,10 @@ const icons: Icons = {
     "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Flogout.svg?alt=media&token=46328cb0-7c81-4130-a591-8c46c9ea937a",
   search:
     "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fsearch.svg?alt=media&token=40e4a522-afed-4409-8a64-d89d682e4015",
+  facebook:
+    "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Ffacebook.svg?alt=media&token=d4ec7992-8d0f-4c3e-a047-e3037378f672",
+  google:
+    "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fgoogle.svg?alt=media&token=34b10112-f2a9-4832-b603-41e79e367d48",
 };
 
 function useAssets(type: "images"): Images;

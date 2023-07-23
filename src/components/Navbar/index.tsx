@@ -2,7 +2,10 @@ import type { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
 import SiteNap from "./Site_map";
 import { useReduxDispatch } from "../../hooks/useRedux";
-import { setSiteMapModalVisbility } from "../../redux/modalSlice";
+import {
+  setAuthModalVisibility,
+  setSiteMapModalVisbility,
+} from "../../redux/modalSlice";
 
 const Navbar: FC = () => {
   const dispatch = useReduxDispatch();
@@ -21,7 +24,10 @@ const Navbar: FC = () => {
       <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
         <img src={search} alt="search" className="cursor-pointer" />
         <img src={basket} alt="basket" className="cursor-pointer" />
-        <button className="bg-[#46A358] flex rounded-md w-24 items-center justify-center gap-1 h-9 text-base text-white">
+        <button
+          onClick={() => dispatch(setAuthModalVisibility())}
+          className="bg-[#46A358] flex rounded-md w-24 items-center justify-center gap-1 h-9 text-base text-white cursor-pointer"
+        >
           <img className="w-5 h-5" src={logout} alt="logout-icon" /> Login
         </button>
       </div>

@@ -24,6 +24,8 @@
     "@typescript-eslint/consistent-type-imports": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/semi": "off",
     "no-shadow": "off",
     "react/jsx-uses-react": "off",
