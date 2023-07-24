@@ -16,7 +16,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "react": "^18.2.0",
-    "react-auth-kit": "^2.12.2",
+    "react-auth-kit": "^2.12.4",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.7",
