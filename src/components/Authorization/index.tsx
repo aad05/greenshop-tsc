@@ -25,19 +25,24 @@ const Authorization = () => {
     >
       <div className="flex gap-2.5 items-center justify-center mt-6">
         <h3
-          onClick={() => setActive("login")}
+          onClick={() => !authModalVisbility.loading && setActive("login")}
           className={`cursor-pointer text-xl transition-all ${
             active === "login" && "text-[#46A358]"
+          } ${
+            !(authModalVisbility.loading && active !== "login") || "opacity-20"
           }`}
         >
           Login
         </h3>
         <div className="border h-4 bg-[#3D3D3D]"></div>
         <h3
-          onClick={() => setActive("register")}
+          onClick={() => !authModalVisbility.loading && setActive("register")}
           className={`cursor-pointer text-xl transition-all ${
             active === "register" && "text-[#46A358]"
-          }`}
+          } ${
+            !(authModalVisbility.loading && active !== "register") ||
+            "opacity-20"
+          } `}
         >
           Register
         </h3>
