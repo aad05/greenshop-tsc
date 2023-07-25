@@ -1,25 +1,25 @@
 import type { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
-import SiteNap from "./Site_map";
+import SiteMap from "./Site_map";
 import { useReduxDispatch } from "../../hooks/useRedux";
 import {
   setAuthModalVisibility,
   setSiteMapModalVisbility,
 } from "../../redux/modalSlice";
-import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
+import { useAuthUser } from "react-auth-kit";
+import { useAuthDecider } from "../../tools/authDecider";
 
 const Navbar: FC = () => {
   const authedUser = useAuthUser();
-  const isAuthed = useIsAuthenticated();
   const dispatch = useReduxDispatch();
+  const { auth_decider_func, auth_decider_html } = useAuthDecider();
   const { logo, logout, basket, search, hamburger_menu } = useAssets("icons");
 
-  const authed = isAuthed();
   const userData = authedUser();
 
   return (
     <div className="p-8 flex align-center border-b border-[#46A358]">
-      <SiteNap />
+      <SiteMap />
       <div className="flex-1">
         <img src={logo} alt="logo" className="cursor-pointer" />
       </div>
@@ -32,18 +32,23 @@ const Navbar: FC = () => {
         <img src={basket} alt="basket" className="cursor-pointer" />
         <button
           onClick={() =>
-            !authed &&
-            dispatch(setAuthModalVisibility({ open: true, loading: false }))
+            auth_decider_func({
+              withoutAuth: () =>
+                dispatch(
+                  setAuthModalVisibility({ open: true, loading: false }),
+                ),
+            })
           }
           className="bg-[#46A358] flex rounded-md w-24 items-center justify-center gap-1 h-9 text-base text-white cursor-pointer"
         >
-          {authed ? (
-            userData?.name
-          ) : (
-            <>
-              <img className="w-5 h-5" src={logout} alt="logout-icon" /> Login
-            </>
-          )}
+          {auth_decider_html({
+            withAuth: <>{userData?.name}</>,
+            withoutAuth: (
+              <>
+                <img className="w-5 h-5" src={logout} alt="logout-icon" /> Login
+              </>
+            ),
+          })}
         </button>
       </div>
       <div className="hidden flex-1 justify-end gap-8 max-sm:flex">
