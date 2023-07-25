@@ -37,7 +37,7 @@ const SignUp: FC = () => {
     dispatch(setAuthModalVisibility({ open: true, loading: true }));
 
     axios({
-      url: "/user/sign-up?access_token=64bebc1e2c6d3f056a8c85b7",
+      url: "/user/sign-up",
       method: "POST",
       body: { ...e },
     })

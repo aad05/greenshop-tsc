@@ -20,7 +20,7 @@ export const useAxios = () => {
     const { url, method, body, headers, params, includeToken = true } = props;
     return await axios({
       method,
-      url: `${REACT_APP_BASE_URL}${url}`,
+      url: `${REACT_APP_BASE_URL}${url}?access_token=64bebc1e2c6d3f056a8c85b7`,
       data: {
         ...body,
         params: {
