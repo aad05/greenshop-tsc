@@ -6,16 +6,16 @@ import {
   setAuthModalVisibility,
   setSiteMapModalVisbility,
 } from "../../../redux/modalSlice";
-import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
+import { useAuthUser } from "react-auth-kit";
+import { useAuthDecider } from "../../../tools/authDecider";
 
 const SiteNap: FC = () => {
   const { siteMapModalVisibility } = useReduxSelector((state) => state.modal);
+  const { auth_decider_func, auth_decider_html } = useAuthDecider();
   const { logout } = useAssets("icons");
   const authedUser = useAuthUser();
-  const isAuthed = useIsAuthenticated();
   const dispatch = useReduxDispatch();
 
-  const authed = isAuthed();
   const userData = authedUser();
 
   return (
@@ -31,19 +31,22 @@ const SiteNap: FC = () => {
       </div>
       <button
         onClick={() => {
-          !authed &&
-            dispatch(setAuthModalVisibility({ open: true, loading: false }));
+          auth_decider_func({
+            withoutAuth: () =>
+              dispatch(setAuthModalVisibility({ open: true, loading: false })),
+          });
           dispatch(setSiteMapModalVisbility());
         }}
         className="bg-[#46A358] flex rounded-md w-4/5 m-auto items-center justify-center gap-1 h-9 text-base text-white mt-3"
       >
-        {authed ? (
-          userData?.name
-        ) : (
-          <>
-            <img src={logout} alt="logout" /> Login
-          </>
-        )}
+        {auth_decider_html({
+          withAuth: <>{userData?.name}</>,
+          withoutAuth: (
+            <>
+              <img src={logout} alt="logout" /> Login
+            </>
+          ),
+        })}
       </button>
     </Modal>
   );
