@@ -1,13 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type authModalType = {
+  open: boolean;
+  loading: boolean;
+};
+
 type modalSliceType = {
   siteMapModalVisibility: boolean;
-  authModalVisbility: boolean;
+  authModalVisbility: authModalType;
 };
 
 const initialState: modalSliceType = {
   siteMapModalVisibility: false,
-  authModalVisbility: false,
+  authModalVisbility: {
+    open: false,
+    loading: false,
+  },
 };
 
 const modalSlice = createSlice({
@@ -17,8 +25,8 @@ const modalSlice = createSlice({
     setSiteMapModalVisbility(state) {
       state.siteMapModalVisibility = !state.siteMapModalVisibility;
     },
-    setAuthModalVisibility(state) {
-      state.authModalVisbility = !state.authModalVisbility;
+    setAuthModalVisibility(state, { payload }) {
+      state.authModalVisbility = payload;
     },
   },
 });

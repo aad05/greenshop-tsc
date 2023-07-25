@@ -9,10 +9,18 @@ const Authorization = () => {
   const [active, setActive] = useState<string>("login");
   const dispatch = useReduxDispatch();
   const { authModalVisbility } = useReduxSelector((state) => state.modal);
+
   return (
     <Modal
-      open={authModalVisbility}
-      onCancel={() => dispatch(setAuthModalVisibility())}
+      open={authModalVisbility.open}
+      onCancel={() =>
+        dispatch(
+          setAuthModalVisibility({
+            open: authModalVisbility.loading,
+            loading: authModalVisbility.loading,
+          }),
+        )
+      }
       footer={false}
     >
       <div className="flex gap-2.5 items-center justify-center mt-6">

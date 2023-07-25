@@ -6,10 +6,16 @@ import {
   setAuthModalVisibility,
   setSiteMapModalVisbility,
 } from "../../redux/modalSlice";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 
 const Navbar: FC = () => {
+  const authedUser = useAuthUser();
+  const isAuthed = useIsAuthenticated();
   const dispatch = useReduxDispatch();
   const { logo, logout, basket, search, hamburger_menu } = useAssets("icons");
+
+  const authed = isAuthed();
+  const userData = authedUser();
 
   return (
     <div className="p-8 flex align-center border-b border-[#46A358]">
@@ -25,10 +31,19 @@ const Navbar: FC = () => {
         <img src={search} alt="search" className="cursor-pointer" />
         <img src={basket} alt="basket" className="cursor-pointer" />
         <button
-          onClick={() => dispatch(setAuthModalVisibility())}
+          onClick={() =>
+            !authed &&
+            dispatch(setAuthModalVisibility({ open: true, loading: false }))
+          }
           className="bg-[#46A358] flex rounded-md w-24 items-center justify-center gap-1 h-9 text-base text-white cursor-pointer"
         >
-          <img className="w-5 h-5" src={logout} alt="logout-icon" /> Login
+          {authed ? (
+            userData?.name
+          ) : (
+            <>
+              <img className="w-5 h-5" src={logout} alt="logout-icon" /> Login
+            </>
+          )}
         </button>
       </div>
       <div className="hidden flex-1 justify-end gap-8 max-sm:flex">
