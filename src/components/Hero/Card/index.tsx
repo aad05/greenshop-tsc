@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useAssets } from "../../../hooks/useAssets";
+import Button from "../../../generic/Button";
 
 type CardProps = {
   subtitle?: string;
@@ -11,7 +12,6 @@ type CardProps = {
 const Card: FC<CardProps> = ({
   subtitle = "WELCOME TO GREENSHOP",
   title = "LET'S MAKE A BETTER",
-  description,
   buttonText = "SHOP NOW",
 }) => {
   const { flower_1, flower_2 } = useAssets("images");
@@ -29,9 +29,9 @@ const Card: FC<CardProps> = ({
           plants. Use our plants to create an unique Urban Jungle. Order your
           favorite plants!
         </p>
-        <button className="bg-[#46A358] mt-[40px] flex rounded-md w-[140px] items-center justify-center gap-1 h-9 text-base text-white max-md:mt-[10px]">
+        <Button className="mt-[40px] w-[140px] h-9 max-md:mt-[10px]">
           {buttonText}
-        </button>
+        </Button>
       </div>
       <div className="flex-[1] relative flex justify-center items-center max-md:hidden">
         <img src={flower_1} alt="flower_1" />
