@@ -7,6 +7,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useNotificationAPI } from "../../../generic/NotificationAPI";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../redux/modalSlice";
+import Button from "../../../generic/Button";
 
 type onAuth = {
   email: string;
@@ -89,24 +90,21 @@ const SignIn: FC = () => {
         <h3 className="text-[#46A358] font-normal mt-[14px] cursor-pointer w-fit ml-auto">
           Forgot Password?
         </h3>
-        <button
-          type="submit"
-          className="bg-[#46A358] w-full h-[45px] rounded-md text-white my-[27px]"
-        >
+        <Button type="submit" className="w-full h-[45px] my-[27px]">
           {authModalVisbility.loading ? <LoadingOutlined /> : "Login"}
-        </button>
+        </Button>
       </Form>
       <Divider className="font-normal text-xs " plain>
         Or login with
       </Divider>
-      <div className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md mb-[15px]">
+      <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px]">
         <img className="pl-[15px]" src={google} alt="google" /> Login with
         Google
-      </div>
-      <div className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md">
+      </button>
+      <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md">
         <img className="pl-[15px]" src={facebook} alt="facebook" />
         Login with Facebook
-      </div>
+      </button>
     </div>
   );
 };

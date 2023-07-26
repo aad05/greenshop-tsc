@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
+import Button from "../../generic/Button";
 
 const Footer: FC = () => {
   const {
@@ -57,14 +58,14 @@ const Footer: FC = () => {
             <h3 className="font-bold text-base mt-[17px] mb-[9px]">
               Would you like to join newsletters?
             </h3>
-            <div className="w-full h-[40px] mb-[17px]">
+            <div className="flex w-full h-[40px] mb-[17px]">
               <input
                 className="h-full w-4/5 rounded-s-xl pl-[11px] placeholder:font-light"
                 placeholder="enter your email address..."
               />
-              <button className="bg-[#46A358] h-full w-1/5 text-white rounded-e-xl">
+              <Button className="h-full w-1/5 rounded-none rounded-e-xl">
                 JOIN
-              </button>
+              </Button>
             </div>
             <p className="font-light text-xs leading-6">
               We usually post offers and challenges in newsletter. We’re your
