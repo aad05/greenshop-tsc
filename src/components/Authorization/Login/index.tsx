@@ -8,6 +8,7 @@ import { useNotificationAPI } from "../../../generic/NotificationAPI";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../redux/modalSlice";
 import Button from "../../../generic/Button";
+import { useLoader } from "../../../generic/Loader";
 
 type onAuth = {
   email: string;
@@ -24,6 +25,7 @@ type authResponseType = {
 };
 
 const SignIn: FC = () => {
+  const { IconBasedLoader } = useLoader();
   const { authModalVisbility } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const axios = useAxios();
@@ -98,11 +100,11 @@ const SignIn: FC = () => {
         Or login with
       </Divider>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px]">
-        <img className="pl-[15px]" src={google} alt="google" /> Login with
-        Google
+        <IconBasedLoader className="pl-[15px]" src={google} alt="google" />
+        Login with Google
       </button>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md">
-        <img className="pl-[15px]" src={facebook} alt="facebook" />
+        <IconBasedLoader className="pl-[15px]" src={facebook} alt="facebook" />
         Login with Facebook
       </button>
     </div>

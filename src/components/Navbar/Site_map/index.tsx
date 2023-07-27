@@ -8,8 +8,10 @@ import {
 } from "../../../redux/modalSlice";
 import { useAuthUser } from "react-auth-kit";
 import { useAuthDecider } from "../../../tools/authDecider";
+import { useLoader } from "../../../generic/Loader";
 
 const SiteNap: FC = () => {
+  const { IconBasedLoader } = useLoader();
   const { siteMapModalVisibility } = useReduxSelector((state) => state.modal);
   const { auth_decider_func, auth_decider_html } = useAuthDecider();
   const { logout } = useAssets("icons");
@@ -43,7 +45,7 @@ const SiteNap: FC = () => {
           withAuth: <>{userData?.name}</>,
           withoutAuth: (
             <>
-              <img src={logout} alt="logout" /> Login
+              <IconBasedLoader src={logout} alt="logout" /> Login
             </>
           ),
         })}

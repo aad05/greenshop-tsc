@@ -1,8 +1,10 @@
 import { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
 import Button from "../../generic/Button";
+import { useLoader } from "../../generic/Loader";
 
 const Footer: FC = () => {
+  const { IconBasedLoader } = useLoader();
   const {
     footer_flower_1,
     footer_flower_2,
@@ -20,6 +22,7 @@ const Footer: FC = () => {
     visa,
     amex,
   } = useAssets("icons");
+
   return (
     <div>
       <div className="bg-[#f5f5f5]">
@@ -78,17 +81,21 @@ const Footer: FC = () => {
         <div className="flex justify-between bg-[#46A3581A] p-[23px] max-lg:flex-col max-lg:items-center gap-2.5">
           <img src={logo} alt="logo" className="cursor-pointer w-[150px]" />
           <div className="flex gap-2.5 items-center">
-            <img className="w-5 h-5" src={location} alt={"location"} />
+            <IconBasedLoader
+              className="w-5 h-5"
+              src={location}
+              alt={"location"}
+            />
             <p className="text-sm">
               70 West Buckingham Ave. <br /> Farmingdale, NY 11735
             </p>
           </div>
           <div className="flex gap-2.5 items-center">
-            <img className="w-5 h-5" src={email} alt={"email"} />
+            <IconBasedLoader className="w-5 h-5" src={email} alt={"email"} />
             <p className="text-sm">contact@greenshop.com</p>
           </div>
           <div className="flex gap-2.5 items-center">
-            <img className="w-5 h-5" src={call} alt={"call"} />
+            <IconBasedLoader className="w-5 h-5" src={call} alt={"call"} />
             <p className="text-sm">+88 01911 717 490</p>
           </div>
         </div>
@@ -111,39 +118,39 @@ const Footer: FC = () => {
             <h3 className="font-bold">Social Media</h3>
             <div className="flex gap-3 mt-[20px] ">
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <img src={facebook_green} alt="facebook_green" />
+                <IconBasedLoader src={facebook_green} alt="facebook_green" />
               </div>
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <img src={instagram_green} alt="instagram_green" />
+                <IconBasedLoader src={instagram_green} alt="instagram_green" />
               </div>
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <img src={twitter_green} alt="twitter_green" />
+                <IconBasedLoader src={twitter_green} alt="twitter_green" />
               </div>{" "}
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <img src={linkedin_green} alt="linkedin_green" />
+                <IconBasedLoader src={linkedin_green} alt="linkedin_green" />
               </div>
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <img src={union_green} alt="union_green" />
+                <IconBasedLoader src={union_green} alt="union_green" />
               </div>
             </div>
             <h3 className="font-bold mt-[33px]">We accept</h3>
             <div className="flex gap-3 mt-[20px]">
-              <img
+              <IconBasedLoader
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={paypal}
                 alt="paypal"
               />
-              <img
+              <IconBasedLoader
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={master_card}
                 alt="master_card"
               />
-              <img
+              <IconBasedLoader
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={visa}
                 alt="visa"
               />
-              <img
+              <IconBasedLoader
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={amex}
                 alt="amex"
