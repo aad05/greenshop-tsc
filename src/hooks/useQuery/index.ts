@@ -12,9 +12,13 @@ const useQueryHandler = () => {
   const axios = useAxios();
   const QueryHandler = (props: QueryHandlerProp) => {
     const { queryKEY, method, queryURL, body } = props;
-    return useQuery(queryKEY, () => axios({ url: queryURL, method, body }), {
-      refetchOnWindowFocus: false,
-    });
+    return useQuery(
+      queryKEY,
+      () => axios({ url: queryURL, method, body }).then((res) => res.data.data),
+      {
+        refetchOnWindowFocus: false,
+      },
+    );
   };
   return QueryHandler;
 };

@@ -30,4 +30,6 @@ export type Icons = {
   amex: string;
 };
 
+export type CategoryType = { title: string; count: number; _id: string };
+
 export type AssetTypes = "images" | "icons";
