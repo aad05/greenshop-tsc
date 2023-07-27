@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Navbar from "../Navbar";
-import Hero from "../Hero";
+import Hero from "./Hero";
 import Authorization from "../Authorization";
 import Footer from "../Footer";
 import Category from "./Category";

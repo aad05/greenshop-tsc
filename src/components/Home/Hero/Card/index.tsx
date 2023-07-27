@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { useAssets } from "../../../hooks/useAssets";
-import Button from "../../../generic/Button";
-import { useLoader } from "../../../generic/Loader";
+import { useAssets } from "../../../../hooks/useAssets";
+import Button from "../../../../generic/Button";
+import { useLoader } from "../../../../generic/Loader";
 
 type CardProps = {
   subtitle?: string;

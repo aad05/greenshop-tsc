@@ -1,10 +1,12 @@
 import { FC } from "react";
 import Dashboard from "./Dashboard";
+import MainMapping from "./MainMapping";
 
 const CategoryDashboard: FC = () => {
   return (
-    <div className="my-[26px]">
+    <div className="flex gap-12 my-[26px]">
       <Dashboard />
+      <MainMapping />
     </div>
   );
 };
