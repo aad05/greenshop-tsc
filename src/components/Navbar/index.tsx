@@ -8,8 +8,10 @@ import {
 } from "../../redux/modalSlice";
 import { useAuthUser } from "react-auth-kit";
 import { useAuthDecider } from "../../tools/authDecider";
+import { useLoader } from "../../generic/Loader";
 
 const Navbar: FC = () => {
+  const { IconBasedLoader } = useLoader();
   const authedUser = useAuthUser();
   const dispatch = useReduxDispatch();
   const { auth_decider_func, auth_decider_html } = useAuthDecider();
@@ -28,8 +30,8 @@ const Navbar: FC = () => {
         <h3 className="cursor-pointer">Shop</h3>
       </div>
       <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
-        <img src={search} alt="search" className="cursor-pointer" />
-        <img src={basket} alt="basket" className="cursor-pointer" />
+        <IconBasedLoader alt="search" className="cursor-pointer" src={search} />
+        <IconBasedLoader src={basket} alt="basket" className="cursor-pointer" />
         <button
           onClick={() =>
             auth_decider_func({
@@ -45,16 +47,29 @@ const Navbar: FC = () => {
             withAuth: <>{userData?.name}</>,
             withoutAuth: (
               <>
-                <img className="w-5 h-5" src={logout} alt="logout-icon" /> Login
+                <IconBasedLoader
+                  className="w-5 h-5"
+                  src={logout}
+                  alt="logout-icon"
+                />{" "}
+                Login
               </>
             ),
           })}
         </button>
       </div>
       <div className="hidden flex-1 justify-end gap-8 max-sm:flex">
-        <img src={search} alt="search" className="cursor-pointer w-5 h-5" />
-        <img src={basket} alt="basket" className="cursor-pointer w-5 h-5" />
-        <img
+        <IconBasedLoader
+          className="cursor-pointer w-5 h-5"
+          src={search}
+          alt="search"
+        />
+        <IconBasedLoader
+          src={basket}
+          alt="basket"
+          className="cursor-pointer w-5 h-5"
+        />
+        <IconBasedLoader
           onClick={() => dispatch(setSiteMapModalVisbility())}
           src={hamburger_menu}
           alt="hamburger_menu"

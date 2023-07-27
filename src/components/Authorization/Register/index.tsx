@@ -8,6 +8,7 @@ import { useSignIn } from "react-auth-kit";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setAuthModalVisibility } from "../../../redux/modalSlice";
 import Button from "../../../generic/Button";
+import { useLoader } from "../../../generic/Loader";
 
 type onAuth = {
   surname: string;
@@ -26,6 +27,7 @@ type authResponseType = {
 };
 
 const SignUp: FC = () => {
+  const { IconBasedLoader } = useLoader();
   const { authModalVisbility } = useReduxSelector((state) => state.modal);
   const { google, facebook } = useAssets("icons");
   const notify = useNotificationAPI();
@@ -146,11 +148,11 @@ const SignUp: FC = () => {
         Or register with
       </Divider>
       <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md mb-[15px]">
-        <img className="pl-[15px]" src={google} alt="google" /> Continue with
-        Google
+        <IconBasedLoader className="pl-[15px]" src={google} alt="google" />
+        Continue with Google
       </button>
       <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md">
-        <img className="pl-[15px]" src={facebook} alt="facebook" />
+        <IconBasedLoader className="pl-[15px]" src={facebook} alt="facebook" />
         Continue with Facebook
       </button>
     </div>
