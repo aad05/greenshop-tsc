@@ -27,7 +27,7 @@ type authResponseType = {
 };
 
 const SignUp: FC = () => {
-  const { IconBasedLoader } = useLoader();
+  const { IconAndImageBasedLoader } = useLoader();
   const { authModalVisbility } = useReduxSelector((state) => state.modal);
   const { google, facebook } = useAssets("icons");
   const notify = useNotificationAPI();
@@ -148,11 +148,21 @@ const SignUp: FC = () => {
         Or register with
       </Divider>
       <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md mb-[15px]">
-        <IconBasedLoader className="pl-[15px]" src={google} alt="google" />
+        <IconAndImageBasedLoader
+          type="icon"
+          className="pl-[15px]"
+          src={google}
+          alt="google"
+        />
         Continue with Google
       </button>
       <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md">
-        <IconBasedLoader className="pl-[15px]" src={facebook} alt="facebook" />
+        <IconAndImageBasedLoader
+          type="icon"
+          className="pl-[15px]"
+          src={facebook}
+          alt="facebook"
+        />
         Continue with Facebook
       </button>
     </div>

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useAssets } from "../../../hooks/useAssets";
 import Button from "../../../generic/Button";
+import { useLoader } from "../../../generic/Loader";
 
 type CardProps = {
   subtitle?: string;
@@ -14,7 +15,9 @@ const Card: FC<CardProps> = ({
   title = "LET'S MAKE A BETTER",
   buttonText = "SHOP NOW",
 }) => {
+  const { IconAndImageBasedLoader } = useLoader();
   const { flower_1, flower_2 } = useAssets("images");
+
   return (
     <div className="h-[450px] bg-[#f5f5f5] mt-3 flex max-2xl:h-[400px] max-md:h-[300px]">
       <div className="flex-[2] pl-10">
@@ -34,8 +37,9 @@ const Card: FC<CardProps> = ({
         </Button>
       </div>
       <div className="flex-[1] relative flex justify-center items-center max-md:hidden">
-        <img src={flower_1} alt="flower_1" />
-        <img
+        <IconAndImageBasedLoader type="image" src={flower_1} alt="flower_1" />
+        <IconAndImageBasedLoader
+          type="image"
           src={flower_2}
           alt="flower_2"
           className="absolute bottom-0 left-0"

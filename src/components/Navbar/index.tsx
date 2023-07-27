@@ -11,7 +11,7 @@ import { useAuthDecider } from "../../tools/authDecider";
 import { useLoader } from "../../generic/Loader";
 
 const Navbar: FC = () => {
-  const { IconBasedLoader } = useLoader();
+  const { IconAndImageBasedLoader } = useLoader();
   const authedUser = useAuthUser();
   const dispatch = useReduxDispatch();
   const { auth_decider_func, auth_decider_html } = useAuthDecider();
@@ -30,8 +30,18 @@ const Navbar: FC = () => {
         <h3 className="cursor-pointer">Shop</h3>
       </div>
       <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
-        <IconBasedLoader alt="search" className="cursor-pointer" src={search} />
-        <IconBasedLoader src={basket} alt="basket" className="cursor-pointer" />
+        <IconAndImageBasedLoader
+          type="icon"
+          alt="search"
+          className="cursor-pointer"
+          src={search}
+        />
+        <IconAndImageBasedLoader
+          type="icon"
+          src={basket}
+          alt="basket"
+          className="cursor-pointer"
+        />
         <button
           onClick={() =>
             auth_decider_func({
@@ -47,7 +57,8 @@ const Navbar: FC = () => {
             withAuth: <>{userData?.name}</>,
             withoutAuth: (
               <>
-                <IconBasedLoader
+                <IconAndImageBasedLoader
+                  type="icon"
                   className="w-5 h-5"
                   src={logout}
                   alt="logout-icon"
@@ -59,17 +70,20 @@ const Navbar: FC = () => {
         </button>
       </div>
       <div className="hidden flex-1 justify-end gap-8 max-sm:flex">
-        <IconBasedLoader
+        <IconAndImageBasedLoader
+          type="icon"
           className="cursor-pointer w-5 h-5"
           src={search}
           alt="search"
         />
-        <IconBasedLoader
+        <IconAndImageBasedLoader
+          type="icon"
           src={basket}
           alt="basket"
           className="cursor-pointer w-5 h-5"
         />
-        <IconBasedLoader
+        <IconAndImageBasedLoader
+          type="icon"
           onClick={() => dispatch(setSiteMapModalVisbility())}
           src={hamburger_menu}
           alt="hamburger_menu"
