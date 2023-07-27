@@ -25,7 +25,7 @@ type authResponseType = {
 };
 
 const SignIn: FC = () => {
-  const { IconBasedLoader } = useLoader();
+  const { IconAndImageBasedLoader } = useLoader();
   const { authModalVisbility } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const axios = useAxios();
@@ -100,11 +100,21 @@ const SignIn: FC = () => {
         Or login with
       </Divider>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px]">
-        <IconBasedLoader className="pl-[15px]" src={google} alt="google" />
+        <IconAndImageBasedLoader
+          type="icon"
+          className="pl-[15px]"
+          src={google}
+          alt="google"
+        />
         Login with Google
       </button>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md">
-        <IconBasedLoader className="pl-[15px]" src={facebook} alt="facebook" />
+        <IconAndImageBasedLoader
+          type="icon"
+          className="pl-[15px]"
+          src={facebook}
+          alt="facebook"
+        />
         Login with Facebook
       </button>
     </div>

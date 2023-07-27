@@ -11,7 +11,7 @@ import { useAuthDecider } from "../../../tools/authDecider";
 import { useLoader } from "../../../generic/Loader";
 
 const SiteNap: FC = () => {
-  const { IconBasedLoader } = useLoader();
+  const { IconAndImageBasedLoader } = useLoader();
   const { siteMapModalVisibility } = useReduxSelector((state) => state.modal);
   const { auth_decider_func, auth_decider_html } = useAuthDecider();
   const { logout } = useAssets("icons");
@@ -45,7 +45,8 @@ const SiteNap: FC = () => {
           withAuth: <>{userData?.name}</>,
           withoutAuth: (
             <>
-              <IconBasedLoader src={logout} alt="logout" /> Login
+              <IconAndImageBasedLoader type="icon" src={logout} alt="logout" />{" "}
+              Login
             </>
           ),
         })}

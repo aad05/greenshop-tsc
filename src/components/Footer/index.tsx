@@ -4,7 +4,7 @@ import Button from "../../generic/Button";
 import { useLoader } from "../../generic/Loader";
 
 const Footer: FC = () => {
-  const { IconBasedLoader } = useLoader();
+  const { IconAndImageBasedLoader } = useLoader();
   const {
     footer_flower_1,
     footer_flower_2,
@@ -28,7 +28,11 @@ const Footer: FC = () => {
       <div className="bg-[#f5f5f5]">
         <div className="flex max-sm:flex-col">
           <div className="m-[23px] pr-[23px] border-r border-[#46A358] max-sm:border-r-0 max-sm:border-b-2 pb-[23px]">
-            <img src={footer_flower_1} alt="footer_flower_1" />
+            <IconAndImageBasedLoader
+              type="image"
+              src={footer_flower_1}
+              alt="footer_flower_1"
+            />
             <h3 className="font-bold text-base mt-[17px] mb-[9px]">
               Garden Care
             </h3>
@@ -38,7 +42,11 @@ const Footer: FC = () => {
             </p>
           </div>
           <div className="m-[23px] pr-[23px] border-r border-[#46A358] max-sm:border-r-0 max-sm:border-b-2 pb-[23px]">
-            <img src={footer_flower_2} alt="footer_flower_1" />
+            <IconAndImageBasedLoader
+              type="image"
+              src={footer_flower_2}
+              alt="footer_flower_1"
+            />
             <h3 className="font-bold text-base mt-[17px] mb-[9px]">
               Plant Renovation
             </h3>
@@ -48,7 +56,11 @@ const Footer: FC = () => {
             </p>
           </div>
           <div className="m-[23px]">
-            <img src={footer_flower_1} alt="footer_flower_1" />
+            <IconAndImageBasedLoader
+              type="image"
+              src={footer_flower_1}
+              alt="footer_flower_1"
+            />
             <h3 className="font-bold text-base mt-[17px] mb-[9px]">
               Watering Graden
             </h3>
@@ -81,7 +93,8 @@ const Footer: FC = () => {
         <div className="flex justify-between bg-[#46A3581A] p-[23px] max-lg:flex-col max-lg:items-center gap-2.5">
           <img src={logo} alt="logo" className="cursor-pointer w-[150px]" />
           <div className="flex gap-2.5 items-center">
-            <IconBasedLoader
+            <IconAndImageBasedLoader
+              type="icon"
               className="w-5 h-5"
               src={location}
               alt={"location"}
@@ -91,11 +104,21 @@ const Footer: FC = () => {
             </p>
           </div>
           <div className="flex gap-2.5 items-center">
-            <IconBasedLoader className="w-5 h-5" src={email} alt={"email"} />
+            <IconAndImageBasedLoader
+              type="icon"
+              className="w-5 h-5"
+              src={email}
+              alt={"email"}
+            />
             <p className="text-sm">contact@greenshop.com</p>
           </div>
           <div className="flex gap-2.5 items-center">
-            <IconBasedLoader className="w-5 h-5" src={call} alt={"call"} />
+            <IconAndImageBasedLoader
+              type="icon"
+              className="w-5 h-5"
+              src={call}
+              alt={"call"}
+            />
             <p className="text-sm">+88 01911 717 490</p>
           </div>
         </div>
@@ -118,39 +141,63 @@ const Footer: FC = () => {
             <h3 className="font-bold">Social Media</h3>
             <div className="flex gap-3 mt-[20px] ">
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <IconBasedLoader src={facebook_green} alt="facebook_green" />
+                <IconAndImageBasedLoader
+                  type="icon"
+                  src={facebook_green}
+                  alt="facebook_green"
+                />
               </div>
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <IconBasedLoader src={instagram_green} alt="instagram_green" />
+                <IconAndImageBasedLoader
+                  type="icon"
+                  src={instagram_green}
+                  alt="instagram_green"
+                />
               </div>
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <IconBasedLoader src={twitter_green} alt="twitter_green" />
+                <IconAndImageBasedLoader
+                  type="icon"
+                  src={twitter_green}
+                  alt="twitter_green"
+                />
               </div>{" "}
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <IconBasedLoader src={linkedin_green} alt="linkedin_green" />
+                <IconAndImageBasedLoader
+                  type="icon"
+                  src={linkedin_green}
+                  alt="linkedin_green"
+                />
               </div>
               <div className="border border-[#46A35833] w-[30px] h-[30px] flex justify-center items-center cursor-pointer">
-                <IconBasedLoader src={union_green} alt="union_green" />
+                <IconAndImageBasedLoader
+                  type="icon"
+                  src={union_green}
+                  alt="union_green"
+                />
               </div>
             </div>
             <h3 className="font-bold mt-[33px]">We accept</h3>
             <div className="flex gap-3 mt-[20px]">
-              <IconBasedLoader
+              <IconAndImageBasedLoader
+                type="icon"
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={paypal}
                 alt="paypal"
               />
-              <IconBasedLoader
+              <IconAndImageBasedLoader
+                type="icon"
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={master_card}
                 alt="master_card"
               />
-              <IconBasedLoader
+              <IconAndImageBasedLoader
+                type="icon"
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={visa}
                 alt="visa"
               />
-              <IconBasedLoader
+              <IconAndImageBasedLoader
+                type="icon"
                 className="w-[30px] h-[30px] cursor-pointer"
                 src={amex}
                 alt="amex"
