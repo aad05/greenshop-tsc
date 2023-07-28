@@ -28,6 +28,8 @@ export type Icons = {
   master_card: string;
   visa: string;
   amex: string;
+  controller: string;
+  heart: string;
 };
 
 export type CategoryType = {

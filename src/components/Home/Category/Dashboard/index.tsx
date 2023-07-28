@@ -19,7 +19,7 @@ const Dashboard: FC = () => {
   const category = searchParams.get("category") ?? "house-plants";
 
   return (
-    <div className="w-[310px] bg-[#F5F5F580] p-[15px]">
+    <div className="w-[310px] bg-[#F5F5F580] p-[15px] max-lg:hidden">
       <h3 className="font-bold">Categories</h3>
       <div className="flex flex-col gap-4 mt-[10px] pl-[10px]">
         {isLoading || isError

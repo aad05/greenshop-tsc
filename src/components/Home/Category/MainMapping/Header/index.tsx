@@ -1,12 +1,15 @@
 import { Select } from "antd";
 import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useLoader } from "../../../../../generic/Loader";
+import { useAssets } from "../../../../../hooks/useAssets";
 
 const Header: FC = () => {
+  const { controller } = useAssets("icons");
+  const { IconAndImageBasedLoader } = useLoader();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const active_type_style = "pb-[3px] text-[#46A358] border-b border-[#46A358]";
-
   const paramsType = searchParams.get("type") ?? "all-plants";
   const paramsSort = searchParams.get("sort") ?? "default-sorting";
   const category = searchParams.get("category") ?? "house-plants";
@@ -23,7 +26,7 @@ const Header: FC = () => {
 
   return (
     <div className="flex justify-between">
-      <div className="flex gap-8 p-[5px]">
+      <div className="flex gap-8 p-[5px] max-sm:gap-4">
         <h3
           className={`cursor-pointer font-normal transition-colors ${
             paramsType === "all-plants" && active_type_style
@@ -36,7 +39,7 @@ const Header: FC = () => {
           className={`cursor-pointer font-normal transition-colors ${
             paramsType === "new-arrivals" && active_type_style
           }`}
-          onClick={() => setSearchParams({ type: "new-arrivals", category })}
+          onClick={() => paramsHandler({ type: "new-arrivals" })}
         >
           New Arrivvals
         </h3>
@@ -44,12 +47,12 @@ const Header: FC = () => {
           className={`cursor-pointer font-normal transition-colors ${
             paramsType === "sale" && active_type_style
           }`}
-          onClick={() => setSearchParams({ type: "sale", category })}
+          onClick={() => paramsHandler({ type: "sale" })}
         >
           Sale
         </h3>
       </div>
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2 max-lg:hidden">
         <p>Sort by:</p>
         <Select
           onChange={(e) => paramsHandler({ sort: e })}
@@ -68,6 +71,14 @@ const Header: FC = () => {
               value: "most-expensive",
             },
           ]}
+        />
+      </div>
+      <div className="hidden max-lg:flex">
+        <IconAndImageBasedLoader
+          src={controller}
+          alt="controller"
+          type="icon"
+          className="cursor-pointer"
         />
       </div>
     </div>
