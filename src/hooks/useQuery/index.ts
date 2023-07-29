@@ -6,15 +6,19 @@ interface QueryHandlerProp {
   queryURL: string;
   method: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
   body?: object;
+  params?: object;
 }
 
 const useQueryHandler = () => {
   const axios = useAxios();
   const QueryHandler = (props: QueryHandlerProp) => {
-    const { queryKEY, method, queryURL, body } = props;
+    const { queryKEY, method, queryURL, body, params } = props;
     return useQuery(
       queryKEY,
-      () => axios({ url: queryURL, method, body }).then((res) => res.data.data),
+      () =>
+        axios({ url: queryURL, method, body, params }).then(
+          (res) => res.data.data,
+        ),
       {
         refetchOnWindowFocus: false,
       },

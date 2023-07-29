@@ -56,7 +56,7 @@ const Header: FC = () => {
         <p>Sort by:</p>
         <Select
           onChange={(e) => paramsHandler({ sort: e })}
-          defaultValue="default-sorting"
+          defaultValue={paramsSort || "default-sorting"}
           options={[
             {
               label: "Default Sorting",

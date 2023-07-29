@@ -23,10 +23,8 @@ export const useAxios = () => {
       url: `${REACT_APP_BASE_URL}${url}?access_token=64bebc1e2c6d3f056a8c85b7`,
       data: {
         ...body,
-        params: {
-          ...params,
-        },
       },
+      params: { ...params },
       headers: {
         Authorization: `${
           includeToken && `Bearer ${localStorage.getItem("token")}`
