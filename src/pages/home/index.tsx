@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import HomeComponent from "../../components/home";
+import HomeComponent from "../../components/Home";
 
 const Home: FC = () => {
   return <HomeComponent />;
