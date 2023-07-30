@@ -4,7 +4,7 @@ import Mappping from "./Mapping";
 
 const MainMapping: FC = () => {
   return (
-    <div className="w-full">
+    <div className="w-full max-sm:mx-[10px]">
       <Header />
       <Mappping />
     </div>
