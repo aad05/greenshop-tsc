@@ -13,6 +13,10 @@ type icon_and_based_loader = {
   type: "image" | "icon";
 };
 
+type Card_Based_Loader_Type = {
+  length?: number;
+};
+
 export const useLoader = () => {
   const text_based_loader = ({ length = 10 }: text_based_loader_type) => {
     return Array.from({ length }).map((_, i) => (
@@ -48,8 +52,23 @@ export const useLoader = () => {
     );
   };
 
+  const card_based_loader = ({ length = 10 }: Card_Based_Loader_Type) => {
+    return Array.from({ length }).map((_, index) => (
+      <div key={index} className="h-[300px] flex flex-col">
+        <Skeleton.Image className="w-full main_card" active={true} />
+        <h3 className="font-normal cursor-pointer mt-[12px]">
+          <Skeleton.Input active={true} />
+        </h3>
+        <p className="text-[#46A358] font-bold">
+          <Skeleton.Input active={true} />
+        </p>
+      </div>
+    ));
+  };
+
   return {
     text_based_loader,
     IconAndImageBasedLoader,
+    card_based_loader,
   };
 };
