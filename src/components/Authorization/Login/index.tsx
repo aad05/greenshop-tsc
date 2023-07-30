@@ -1,9 +1,9 @@
-import { Divider, Form, Input } from "antd";
+import { Divider, Form, Input, Modal } from "antd";
 import { FC } from "react";
 import { useAssets } from "../../../hooks/useAssets";
 import { useAxios } from "../../../hooks/useAxios";
 import { useSignIn } from "react-auth-kit";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, ScanOutlined } from "@ant-design/icons";
 import { useNotificationAPI } from "../../../generic/NotificationAPI";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../redux/modalSlice";
@@ -31,7 +31,7 @@ const SignIn: FC = () => {
   const axios = useAxios();
   const sing_in = useSignIn();
   const notify = useNotificationAPI();
-  const { google, facebook } = useAssets("icons");
+  const { google, facebook_color } = useAssets("icons");
 
   const onAuth = (e: onAuth) => {
     dispatch(setAuthModalVisibility({ open: true, loading: true }));
@@ -55,6 +55,7 @@ const SignIn: FC = () => {
 
   return (
     <div className="w-4/5 m-auto">
+      <Modal title="QR Auth" open={true}></Modal>
       <h3 className="text-sm  mt-8 font-normal">
         Enter your username and password to login.
       </h3>
@@ -112,10 +113,14 @@ const SignIn: FC = () => {
         <IconAndImageBasedLoader
           type="icon"
           className="pl-[15px]"
-          src={facebook}
+          src={facebook_color}
           alt="facebook"
         />
         Login with Facebook
+      </button>
+      <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mt-[15px]">
+        <ScanOutlined className="pl-[15px]" />
+        Login with Qr Code
       </button>
     </div>
   );

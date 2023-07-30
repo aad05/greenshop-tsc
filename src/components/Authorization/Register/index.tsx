@@ -29,7 +29,7 @@ type authResponseType = {
 const SignUp: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();
   const { authModalVisbility } = useReduxSelector((state) => state.modal);
-  const { google, facebook } = useAssets("icons");
+  const { google, facebook_color } = useAssets("icons");
   const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
   const axios = useAxios();
@@ -160,7 +160,7 @@ const SignUp: FC = () => {
         <IconAndImageBasedLoader
           type="icon"
           className="pl-[15px]"
-          src={facebook}
+          src={facebook_color}
           alt="facebook"
         />
         Continue with Facebook

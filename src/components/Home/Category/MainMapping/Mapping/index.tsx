@@ -2,6 +2,7 @@ import { FC } from "react";
 import Card from "./Card";
 import useQueryHandler from "../../../../../hooks/useQuery";
 import { useSearchParams } from "react-router-dom";
+import { MainCardType } from "../../../../../@types";
 
 const Mappping: FC = () => {
   const useQuery = useQueryHandler();
@@ -23,19 +24,9 @@ const Mappping: FC = () => {
 
   return (
     <div className="mt-[30px] grid grid-cols-3 gap-4 max-sm:grid-cols-2">
-      {data?.map(
-        (value: {
-          _id: string;
-          discount?: boolean;
-          main_image?: string;
-          title?: string;
-          price?: string;
-          sold_times?: number;
-          created_at?: Date;
-        }) => (
-          <Card key={value._id} value={value} />
-        ),
-      )}
+      {data?.map((value: MainCardType) => (
+        <Card key={value._id} value={value} />
+      ))}
     </div>
   );
 };

@@ -30,6 +30,7 @@ export type Icons = {
   amex: string;
   controller: string;
   heart: string;
+  facebook_color: string;
 };
 
 export type CategoryType = {
@@ -37,6 +38,16 @@ export type CategoryType = {
   count: number;
   _id: string;
   route_path: string;
+};
+
+export type MainCardType = {
+  _id: string;
+  discount?: boolean;
+  main_image?: string;
+  title?: string;
+  price?: string;
+  sold_times?: number;
+  created_at?: Date;
 };
 
 export type AssetTypes = "images" | "icons";

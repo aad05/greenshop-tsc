@@ -1,16 +1,10 @@
 import { FC } from "react";
 import { useLoader } from "../../../../../../generic/Loader";
 import { useAssets } from "../../../../../../hooks/useAssets";
+import { MainCardType } from "../../../../../../@types";
 
 type CardType = {
-  value: {
-    discount?: boolean;
-    main_image?: string;
-    title?: string;
-    price?: string;
-    sold_times?: number;
-    created_at?: Date;
-  };
+  value: MainCardType;
 };
 
 const Card: FC<CardType> = ({ value }) => {

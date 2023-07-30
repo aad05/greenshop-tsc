@@ -55,6 +55,8 @@ const icons: Icons = {
     "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fcontroller.svg?alt=media&token=deb9f856-b453-4688-ad78-293bb8b3fb71",
   heart:
     "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fheart.svg?alt=media&token=22a91433-11d7-4c7f-bd90-83b1a61517b0",
+  facebook_color:
+    "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Ffacebook_color.svg?alt=media&token=ef676ae5-04b3-45f4-9580-c19519c5a8d2",
 };
 
 function useAssets(type: "images"): Images;
