@@ -23,3 +23,7 @@ img {
 .slick-active button {
   background-color: #46a358 !important;
 }
+.main_card.ant-skeleton.ant-skeleton-element .ant-skeleton-image {
+  width: 100%;
+  height: 200px;
+}
