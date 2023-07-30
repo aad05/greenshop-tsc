@@ -1,10 +1,12 @@
-import type { FC } from "react";
+import { FC, useState } from "react";
 import useQueryHandler from "../../../../hooks/useQuery";
 import { CategoryType } from "../../../../@types";
 import { useLoader } from "../../../../generic/Loader";
 import { useSearchParams } from "react-router-dom";
+import { Slider } from "antd";
 
 const Dashboard: FC = () => {
+  const [range_value, setRangeValue] = useState<[number, number]>([0, 1000]);
   const [searchParams, setSearchParams] = useSearchParams();
   const { text_based_loader } = useLoader();
   const useQuery = useQueryHandler();
@@ -42,6 +44,24 @@ const Dashboard: FC = () => {
                 <p>({count})</p>
               </div>
             ))}
+      </div>
+      <div className="mt-[15px]">
+        <h3 className="font-bold">Price Range</h3>
+        <Slider
+          range
+          defaultValue={[0, 1000]}
+          max={1000}
+          onChange={(e) => setRangeValue(e)}
+        />
+        <p className="font-normal">
+          Price:{" "}
+          <span className="font-bold text-[#46A358]">
+            {range_value[0]}$ - {range_value[1]}$
+          </span>
+        </p>
+        <button className="mt-[16px] bg-[#46A358] text-white px-[23px] py-[8px] rounded-lg">
+          Filter
+        </button>
       </div>
     </div>
   );
