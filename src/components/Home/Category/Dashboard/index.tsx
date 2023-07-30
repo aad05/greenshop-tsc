@@ -4,6 +4,7 @@ import { CategoryType } from "../../../../@types";
 import { useLoader } from "../../../../generic/Loader";
 import { useSearchParams } from "react-router-dom";
 import { Slider } from "antd";
+import Discount from "./Discount";
 
 const Dashboard: FC = () => {
   const [range_value, setRangeValue] = useState<[number, number]>([0, 1000]);
@@ -63,6 +64,7 @@ const Dashboard: FC = () => {
           Filter
         </button>
       </div>
+      <Discount />
     </div>
   );
 };
