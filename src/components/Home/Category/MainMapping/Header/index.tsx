@@ -3,11 +3,14 @@ import { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLoader } from "../../../../../generic/Loader";
 import { useAssets } from "../../../../../hooks/useAssets";
+import { useReduxDispatch } from "../../../../../hooks/useRedux";
+import { setDashboardModalVisibility } from "../../../../../redux/modalSlice";
 
 const Header: FC = () => {
   const { controller } = useAssets("icons");
   const { IconAndImageBasedLoader } = useLoader();
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useReduxDispatch();
 
   const active_type_style = "pb-[3px] text-[#46A358] border-b border-[#46A358]";
   const paramsType = searchParams.get("type") ?? "all-plants";
@@ -75,6 +78,7 @@ const Header: FC = () => {
       </div>
       <div className="hidden max-lg:flex">
         <IconAndImageBasedLoader
+          onClick={() => dispatch(setDashboardModalVisibility())}
           src={controller}
           alt="controller"
           type="icon"

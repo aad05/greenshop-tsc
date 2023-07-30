@@ -7,15 +7,17 @@ type authModalType = {
 
 type modalSliceType = {
   siteMapModalVisibility: boolean;
-  authModalVisbility: authModalType;
+  authModalVisibility: authModalType;
+  dashboardModalVisibility: boolean;
 };
 
 const initialState: modalSliceType = {
   siteMapModalVisibility: false,
-  authModalVisbility: {
+  authModalVisibility: {
     open: false,
     loading: false,
   },
+  dashboardModalVisibility: false,
 };
 
 const modalSlice = createSlice({
@@ -26,10 +28,16 @@ const modalSlice = createSlice({
       state.siteMapModalVisibility = !state.siteMapModalVisibility;
     },
     setAuthModalVisibility(state, { payload }) {
-      state.authModalVisbility = payload;
+      state.authModalVisibility = payload;
+    },
+    setDashboardModalVisibility(state) {
+      state.dashboardModalVisibility = !state.dashboardModalVisibility;
     },
   },
 });
-export const { setSiteMapModalVisbility, setAuthModalVisibility } =
-  modalSlice.actions;
+export const {
+  setSiteMapModalVisbility,
+  setAuthModalVisibility,
+  setDashboardModalVisibility,
+} = modalSlice.actions;
 export default modalSlice.reducer;

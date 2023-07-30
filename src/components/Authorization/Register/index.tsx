@@ -28,7 +28,7 @@ type authResponseType = {
 
 const SignUp: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();
-  const { authModalVisbility } = useReduxSelector((state) => state.modal);
+  const { authModalVisibility } = useReduxSelector((state) => state.modal);
   const { google, facebook_color } = useAssets("icons");
   const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
@@ -141,7 +141,7 @@ const SignUp: FC = () => {
           />
         </Form.Item>
         <Button type="submit" className="w-full h-[45px] my-[27px]">
-          {authModalVisbility.loading ? <LoadingOutlined /> : "Register"}
+          {authModalVisibility.loading ? <LoadingOutlined /> : "Register"}
         </Button>
       </Form>
       <Divider className="font-normal text-xs " plain>

@@ -1,17 +1,23 @@
+import { Modal, Slider } from "antd";
 import { FC, useState } from "react";
-import useQueryHandler from "../../../../hooks/useQuery";
-import { CategoryType } from "../../../../@types";
-import { useLoader } from "../../../../generic/Loader";
+import {
+  useReduxDispatch,
+  useReduxSelector,
+} from "../../../../../hooks/useRedux";
+import { setDashboardModalVisibility } from "../../../../../redux/modalSlice";
+import useQueryHandler from "../../../../../hooks/useQuery";
 import { useSearchParams } from "react-router-dom";
-import { Slider } from "antd";
-import Discount from "./Discount";
-import MobileDashboard from "./MobileDashboard";
+import { CategoryType } from "../../../../../@types";
+import { useLoader } from "../../../../../generic/Loader";
 
-const Dashboard: FC = () => {
+const MobileDashboard: FC = () => {
   const [range_value, setRangeValue] = useState<[number, number]>([0, 1000]);
   const [searchParams, setSearchParams] = useSearchParams();
   const { text_based_loader } = useLoader();
+  const dispatch = useReduxDispatch();
   const useQuery = useQueryHandler();
+  const { dashboardModalVisibility } = useReduxSelector((state) => state.modal);
+
   const { data, isLoading, isError } = useQuery({
     queryURL: "/flower/category",
     queryKEY: "/category",
@@ -23,8 +29,12 @@ const Dashboard: FC = () => {
   const category = searchParams.get("category") ?? "house-plants";
 
   return (
-    <div className="w-[310px] bg-[#F5F5F580] p-[15px] max-lg:hidden">
-      <MobileDashboard />
+    <Modal
+      title="Dashboard"
+      open={dashboardModalVisibility}
+      onCancel={() => dispatch(setDashboardModalVisibility())}
+      footer={false}
+    >
       <h3 className="font-bold">Categories</h3>
       <div className="flex flex-col gap-4 mt-[10px] pl-[10px]">
         {isLoading || isError
@@ -35,13 +45,14 @@ const Dashboard: FC = () => {
                 className={`flex w-full justify-between text-base font-normal cursor-pointer hover:text-[#46A358] transition-colors ${
                   category === route_path && "text-[#46A358]"
                 }`}
-                onClick={() =>
+                onClick={() => {
+                  dispatch(setDashboardModalVisibility());
                   setSearchParams({
                     category: route_path,
                     type: paramsType,
                     sort: paramsSort,
-                  })
-                }
+                  });
+                }}
               >
                 <h3>{title}</h3>
                 <p>({count})</p>
@@ -66,9 +77,8 @@ const Dashboard: FC = () => {
           Filter
         </button>
       </div>
-      <Discount />
-    </div>
+    </Modal>
   );
 };
 
-export default Dashboard;
+export default MobileDashboard;

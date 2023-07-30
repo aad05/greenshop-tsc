@@ -8,16 +8,16 @@ import Register from "./Register";
 const Authorization = () => {
   const [active, setActive] = useState<string>("login");
   const dispatch = useReduxDispatch();
-  const { authModalVisbility } = useReduxSelector((state) => state.modal);
+  const { authModalVisibility } = useReduxSelector((state) => state.modal);
 
   return (
     <Modal
-      open={authModalVisbility.open}
+      open={authModalVisibility.open}
       onCancel={() =>
         dispatch(
           setAuthModalVisibility({
-            open: authModalVisbility.loading,
-            loading: authModalVisbility.loading,
+            open: authModalVisibility.loading,
+            loading: authModalVisibility.loading,
           }),
         )
       }
@@ -26,12 +26,12 @@ const Authorization = () => {
       <div className="flex gap-2.5 items-center justify-center mt-6">
         <h3
           tabIndex={0}
-          onKeyUp={() => !authModalVisbility.loading && setActive("login")}
-          onClick={() => !authModalVisbility.loading && setActive("login")}
+          onKeyUp={() => !authModalVisibility.loading && setActive("login")}
+          onClick={() => !authModalVisibility.loading && setActive("login")}
           className={`cursor-pointer text-xl transition-all ${
             active === "login" && "text-[#46A358]"
           } ${
-            !(authModalVisbility.loading && active !== "login") || "opacity-20"
+            !(authModalVisibility.loading && active !== "login") || "opacity-20"
           }`}
         >
           Login
@@ -39,12 +39,12 @@ const Authorization = () => {
         <div className="border h-4 bg-[#3D3D3D]"></div>
         <h3
           tabIndex={0}
-          onKeyUp={() => !authModalVisbility.loading && setActive("register")}
-          onClick={() => !authModalVisbility.loading && setActive("register")}
+          onKeyUp={() => !authModalVisibility.loading && setActive("register")}
+          onClick={() => !authModalVisibility.loading && setActive("register")}
           className={`cursor-pointer text-xl transition-all ${
             active === "register" && "text-[#46A358]"
           } ${
-            !(authModalVisbility.loading && active !== "register") ||
+            !(authModalVisibility.loading && active !== "register") ||
             "opacity-20"
           } `}
         >

@@ -26,7 +26,7 @@ type authResponseType = {
 
 const SignIn: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();
-  const { authModalVisbility } = useReduxSelector((state) => state.modal);
+  const { authModalVisibility } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const axios = useAxios();
   const sing_in = useSignIn();
@@ -94,7 +94,7 @@ const SignIn: FC = () => {
           Forgot Password?
         </h3>
         <Button type="submit" className="w-full h-[45px] my-[27px]">
-          {authModalVisbility.loading ? <LoadingOutlined /> : "Login"}
+          {authModalVisibility.loading ? <LoadingOutlined /> : "Login"}
         </Button>
       </Form>
       <Divider className="font-normal text-xs " plain>
