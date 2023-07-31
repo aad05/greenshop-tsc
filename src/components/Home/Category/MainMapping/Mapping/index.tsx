@@ -1,20 +1,20 @@
 import { FC } from "react";
 import Card from "./Card";
 import useQueryHandler from "../../../../../hooks/useQuery";
-import { useSearchParams } from "react-router-dom";
 import { MainCardType } from "../../../../../@types";
 import { useLoader } from "../../../../../generic/Loader";
+import { useAppSearchParams } from "../../../../../hooks/useSearchParams";
 
 const Mappping: FC = () => {
+  const { getParams } = useAppSearchParams();
   const { card_based_loader } = useLoader();
   const useQuery = useQueryHandler();
-  const [searchParams] = useSearchParams();
 
-  const category = searchParams.get("category") ?? "house-plants";
-  const paramsSort = searchParams.get("sort") ?? "default-sorting";
-  const paramsType = searchParams.get("type") ?? "all-plants";
-  const range_min = searchParams.get("range-min") ?? "0";
-  const range_max = searchParams.get("price-max") ?? "1000";
+  const category = getParams("category");
+  const paramsSort = getParams("sort");
+  const paramsType = getParams("type");
+  const range_min = getParams("range-min");
+  const range_max = getParams("range-max");
 
   const { data, isLoading, isError } = useQuery({
     queryURL: `/flower/category/${category}`,
