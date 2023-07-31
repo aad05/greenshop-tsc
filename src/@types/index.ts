@@ -50,4 +50,8 @@ export type MainCardType = {
   created_at?: Date;
 };
 
+export type Product = {
+  className?: string;
+};
+
 export type AssetTypes = "images" | "icons";

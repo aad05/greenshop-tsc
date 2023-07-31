@@ -19,7 +19,7 @@ const Card: FC<CardProps> = ({
   const { flower_1, flower_2 } = useAssets("images");
 
   return (
-    <div className="h-[450px] bg-[#f5f5f5] mt-3 flex max-2xl:h-[400px] max-md:h-[300px]">
+    <div className="h-[450px] bg-[#F5F5F5] mt-3 flex max-2xl:h-[400px] max-md:h-[300px]">
       <div className="flex-[2] pl-10">
         <h3 className="font-medium text-base mt-[68px] max-lg:text-sm max-md:text-xs max-md:mt-[15px]">
           {subtitle}
