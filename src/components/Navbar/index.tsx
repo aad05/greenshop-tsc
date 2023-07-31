@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
 import SiteMap from "./Site_map";
 import { useReduxDispatch } from "../../hooks/useRedux";
@@ -9,6 +9,7 @@ import {
 import { useAuthUser } from "react-auth-kit";
 import { useAuthDecider } from "../../tools/authDecider";
 import { useLoader } from "../../generic/Loader";
+import { Badge } from "antd";
 
 const Navbar: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();
@@ -36,12 +37,14 @@ const Navbar: FC = () => {
           className="cursor-pointer"
           src={search}
         />
-        <IconAndImageBasedLoader
-          type="icon"
-          src={basket}
-          alt="basket"
-          className="cursor-pointer"
-        />
+        <Badge count={5} className="mt-[5px]">
+          <IconAndImageBasedLoader
+            type="icon"
+            src={basket}
+            alt="basket"
+            className="cursor-pointer"
+          />
+        </Badge>
         <button
           onClick={() =>
             auth_decider_func({

@@ -55,7 +55,7 @@ const SignIn: FC = () => {
 
   return (
     <div className="w-4/5 m-auto">
-      <Modal title="QR Auth" open={true}></Modal>
+      <Modal title="QR Auth" open={false}></Modal>
       <h3 className="text-sm  mt-8 font-normal">
         Enter your username and password to login.
       </h3>
