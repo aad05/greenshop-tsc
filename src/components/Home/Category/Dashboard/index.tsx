@@ -2,14 +2,17 @@ import { FC, useState } from "react";
 import useQueryHandler from "../../../../hooks/useQuery";
 import { CategoryType } from "../../../../@types";
 import { useLoader } from "../../../../generic/Loader";
-import { useSearchParams } from "react-router-dom";
 import { Slider } from "antd";
 import Discount from "./Discount";
 import MobileDashboard from "./MobileDashboard";
+import { useAppSearchParams } from "../../../../hooks/useSearchParams";
 
 const Dashboard: FC = () => {
-  const [range_value, setRangeValue] = useState<[number, number]>([0, 1000]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { getParams, setParams } = useAppSearchParams();
+  const [range_value, setRangeValue] = useState<[number, number]>([
+    Number(getParams("range-min")),
+    Number(getParams("range-max")),
+  ]);
   const { text_based_loader } = useLoader();
   const useQuery = useQueryHandler();
   const { data, isLoading, isError } = useQuery({
@@ -18,11 +21,9 @@ const Dashboard: FC = () => {
     method: "GET",
   });
 
-  const paramsType = searchParams.get("type") ?? "all-plants";
-  const paramsSort = searchParams.get("sort") ?? "default-sorting";
-  const category = searchParams.get("category") ?? "house-plants";
-  const range_min = searchParams.get("range-min") ?? "0";
-  const range_max = searchParams.get("price-max") ?? "1000";
+  const category = getParams("category");
+  const range_min = getParams("range-min");
+  const range_max = getParams("range-max");
 
   return (
     <div className="w-[310px] bg-[#F5F5F580] p-[15px] max-lg:hidden">
@@ -38,12 +39,8 @@ const Dashboard: FC = () => {
                   category === route_path && "text-[#46A358]"
                 }`}
                 onClick={() =>
-                  setSearchParams({
+                  setParams({
                     category: route_path,
-                    type: paramsType,
-                    sort: paramsSort,
-                    "range-min": String(range_value[0]),
-                    "range-max": String(range_value[1]),
                   })
                 }
               >
@@ -68,10 +65,7 @@ const Dashboard: FC = () => {
         </p>
         <button
           onClick={() =>
-            setSearchParams({
-              category,
-              type: paramsType,
-              sort: paramsSort,
+            setParams({
               "range-min": String(range_value[0]),
               "range-max": String(range_value[1]),
             })

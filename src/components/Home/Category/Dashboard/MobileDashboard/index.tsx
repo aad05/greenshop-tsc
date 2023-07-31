@@ -6,13 +6,16 @@ import {
 } from "../../../../../hooks/useRedux";
 import { setDashboardModalVisibility } from "../../../../../redux/modalSlice";
 import useQueryHandler from "../../../../../hooks/useQuery";
-import { useSearchParams } from "react-router-dom";
 import { CategoryType } from "../../../../../@types";
 import { useLoader } from "../../../../../generic/Loader";
+import { useAppSearchParams } from "../../../../../hooks/useSearchParams";
 
 const MobileDashboard: FC = () => {
-  const [range_value, setRangeValue] = useState<[number, number]>([0, 1000]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { getParams, setParams } = useAppSearchParams();
+  const [range_value, setRangeValue] = useState<[number, number]>([
+    Number(getParams("range-min")),
+    Number(getParams("range-max")),
+  ]);
   const { text_based_loader } = useLoader();
   const dispatch = useReduxDispatch();
   const useQuery = useQueryHandler();
@@ -24,11 +27,9 @@ const MobileDashboard: FC = () => {
     method: "GET",
   });
 
-  const paramsType = searchParams.get("type") ?? "all-plants";
-  const paramsSort = searchParams.get("sort") ?? "default-sorting";
-  const category = searchParams.get("category") ?? "house-plants";
-  const range_min = searchParams.get("range-min") ?? "0";
-  const range_max = searchParams.get("price-max") ?? "1000";
+  const category = getParams("category");
+  const range_min = getParams("range-min");
+  const range_max = getParams("range-max");
 
   return (
     <Modal
@@ -49,12 +50,8 @@ const MobileDashboard: FC = () => {
                 }`}
                 onClick={() => {
                   dispatch(setDashboardModalVisibility());
-                  setSearchParams({
+                  setParams({
                     category: route_path,
-                    type: paramsType,
-                    sort: paramsSort,
-                    "range-min": range_min,
-                    "range-max": range_max,
                   });
                 }}
               >
@@ -67,7 +64,7 @@ const MobileDashboard: FC = () => {
         <h3 className="font-bold">Price Range</h3>
         <Slider
           range
-          defaultValue={[0, 1000]}
+          defaultValue={[Number(range_min), Number(range_max)]}
           max={1000}
           onChange={(e) => setRangeValue(e)}
         />
@@ -77,7 +74,16 @@ const MobileDashboard: FC = () => {
             {range_value[0]}$ - {range_value[1]}$
           </span>
         </p>
-        <button className="mt-[16px] bg-[#46A358] text-white px-[23px] py-[8px] rounded-lg">
+        <button
+          onClick={() => {
+            dispatch(setDashboardModalVisibility());
+            setParams({
+              "range-min": String(range_value[0]),
+              "range-max": String(range_value[1]),
+            });
+          }}
+          className="mt-[16px] bg-[#46A358] text-white px-[23px] py-[8px] rounded-lg"
+        >
           Filter
         </button>
       </div>

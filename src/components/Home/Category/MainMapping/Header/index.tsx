@@ -1,39 +1,20 @@
 import { Select } from "antd";
 import { FC } from "react";
-import { useSearchParams } from "react-router-dom";
 import { useLoader } from "../../../../../generic/Loader";
 import { useAssets } from "../../../../../hooks/useAssets";
 import { useReduxDispatch } from "../../../../../hooks/useRedux";
 import { setDashboardModalVisibility } from "../../../../../redux/modalSlice";
+import { useAppSearchParams } from "../../../../../hooks/useSearchParams";
 
 const Header: FC = () => {
+  const { getParams, setParams } = useAppSearchParams();
   const { controller } = useAssets("icons");
   const { IconAndImageBasedLoader } = useLoader();
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useReduxDispatch();
 
   const active_type_style = "pb-[3px] text-[#46A358] border-b border-[#46A358]";
-  const paramsType = searchParams.get("type") ?? "all-plants";
-  const paramsSort = searchParams.get("sort") ?? "default-sorting";
-  const category = searchParams.get("category") ?? "house-plants";
-  const range_min = searchParams.get("range-min") ?? "0";
-  const range_max = searchParams.get("price-max") ?? "1000";
-
-  const paramsHandler = ({
-    type = paramsType,
-    sort = paramsSort,
-  }: {
-    type?: string;
-    sort?: string;
-  }) => {
-    setSearchParams({
-      category,
-      type,
-      sort,
-      "range-min": String(range_min),
-      "range-max": String(range_max),
-    });
-  };
+  const paramsType = getParams("type");
+  const paramsSort = getParams("sort");
 
   return (
     <div className="flex justify-between">
@@ -42,7 +23,7 @@ const Header: FC = () => {
           className={`cursor-pointer font-normal transition-colors ${
             paramsType === "all-plants" && active_type_style
           }`}
-          onClick={() => paramsHandler({ type: "all-plants" })}
+          onClick={() => setParams({ type: "all-plants" })}
         >
           All Plants
         </h3>
@@ -50,7 +31,7 @@ const Header: FC = () => {
           className={`cursor-pointer font-normal transition-colors ${
             paramsType === "new-arrivals" && active_type_style
           }`}
-          onClick={() => paramsHandler({ type: "new-arrivals" })}
+          onClick={() => setParams({ type: "new-arrivals" })}
         >
           New Arrivvals
         </h3>
@@ -58,7 +39,7 @@ const Header: FC = () => {
           className={`cursor-pointer font-normal transition-colors ${
             paramsType === "sale" && active_type_style
           }`}
-          onClick={() => paramsHandler({ type: "sale" })}
+          onClick={() => setParams({ type: "sale" })}
         >
           Sale
         </h3>
@@ -66,7 +47,7 @@ const Header: FC = () => {
       <div className="flex items-center justify-center gap-2 max-lg:hidden">
         <p>Sort by:</p>
         <Select
-          onChange={(e) => paramsHandler({ sort: e })}
+          onChange={(e) => setParams({ sort: e })}
           defaultValue={paramsSort || "default-sorting"}
           options={[
             {
