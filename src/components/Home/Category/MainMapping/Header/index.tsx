@@ -16,6 +16,8 @@ const Header: FC = () => {
   const paramsType = searchParams.get("type") ?? "all-plants";
   const paramsSort = searchParams.get("sort") ?? "default-sorting";
   const category = searchParams.get("category") ?? "house-plants";
+  const range_min = searchParams.get("range-min") ?? "0";
+  const range_max = searchParams.get("price-max") ?? "1000";
 
   const paramsHandler = ({
     type = paramsType,
@@ -24,7 +26,13 @@ const Header: FC = () => {
     type?: string;
     sort?: string;
   }) => {
-    setSearchParams({ category, type, sort });
+    setSearchParams({
+      category,
+      type,
+      sort,
+      "range-min": String(range_min),
+      "range-max": String(range_max),
+    });
   };
 
   return (

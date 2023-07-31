@@ -13,14 +13,18 @@ const Mappping: FC = () => {
   const category = searchParams.get("category") ?? "house-plants";
   const paramsSort = searchParams.get("sort") ?? "default-sorting";
   const paramsType = searchParams.get("type") ?? "all-plants";
+  const range_min = searchParams.get("range-min") ?? "0";
+  const range_max = searchParams.get("price-max") ?? "1000";
 
   const { data, isLoading, isError } = useQuery({
     queryURL: `/flower/category/${category}`,
-    queryKEY: `flower/${category}?sort=${paramsSort}&type=${paramsType}`,
+    queryKEY: `flower/${category}?sort=${paramsSort}&type=${paramsType}&range_min=${range_min}&range_max=${range_max}`,
     method: "GET",
     params: {
       sort: paramsSort,
       type: paramsType,
+      range_min,
+      range_max,
     },
   });
 

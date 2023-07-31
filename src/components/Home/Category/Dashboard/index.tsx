@@ -21,6 +21,8 @@ const Dashboard: FC = () => {
   const paramsType = searchParams.get("type") ?? "all-plants";
   const paramsSort = searchParams.get("sort") ?? "default-sorting";
   const category = searchParams.get("category") ?? "house-plants";
+  const range_min = searchParams.get("range-min") ?? "0";
+  const range_max = searchParams.get("price-max") ?? "1000";
 
   return (
     <div className="w-[310px] bg-[#F5F5F580] p-[15px] max-lg:hidden">
@@ -40,6 +42,8 @@ const Dashboard: FC = () => {
                     category: route_path,
                     type: paramsType,
                     sort: paramsSort,
+                    "range-min": String(range_value[0]),
+                    "range-max": String(range_value[1]),
                   })
                 }
               >
@@ -52,7 +56,7 @@ const Dashboard: FC = () => {
         <h3 className="font-bold">Price Range</h3>
         <Slider
           range
-          defaultValue={[0, 1000]}
+          defaultValue={[Number(range_min), Number(range_max)]}
           max={1000}
           onChange={(e) => setRangeValue(e)}
         />
@@ -62,7 +66,18 @@ const Dashboard: FC = () => {
             {range_value[0]}$ - {range_value[1]}$
           </span>
         </p>
-        <button className="mt-[16px] bg-[#46A358] text-white px-[23px] py-[8px] rounded-lg">
+        <button
+          onClick={() =>
+            setSearchParams({
+              category,
+              type: paramsType,
+              sort: paramsSort,
+              "range-min": String(range_value[0]),
+              "range-max": String(range_value[1]),
+            })
+          }
+          className="mt-[16px] bg-[#46A358] text-white px-[23px] py-[8px] rounded-lg"
+        >
           Filter
         </button>
       </div>

@@ -27,6 +27,8 @@ const MobileDashboard: FC = () => {
   const paramsType = searchParams.get("type") ?? "all-plants";
   const paramsSort = searchParams.get("sort") ?? "default-sorting";
   const category = searchParams.get("category") ?? "house-plants";
+  const range_min = searchParams.get("range-min") ?? "0";
+  const range_max = searchParams.get("price-max") ?? "1000";
 
   return (
     <Modal
@@ -51,6 +53,8 @@ const MobileDashboard: FC = () => {
                     category: route_path,
                     type: paramsType,
                     sort: paramsSort,
+                    "range-min": range_min,
+                    "range-max": range_max,
                   });
                 }}
               >
