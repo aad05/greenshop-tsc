@@ -9,7 +9,7 @@ const Root: FC = () => {
     <Routes>
       <Route element={<Navbar />} path="/">
         <Route index element={<Home />} />
-        <Route path={"/shop/:category/:product_id"} element={<ProductView />} />
+        <Route path={"/shop/:category/:_id"} element={<ProductView />} />
       </Route>
     </Routes>
   );

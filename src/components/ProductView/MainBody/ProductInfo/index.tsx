@@ -1,29 +1,34 @@
 import { FC } from "react";
 import { Product } from "../../../../@types";
-import { Descriptions, Rate } from "antd";
+import { Descriptions, Rate, Skeleton } from "antd";
 import Button from "../../../../generic/Button";
 import { useAssets } from "../../../../hooks/useAssets";
 import { useLoader } from "../../../../generic/Loader";
+import { useParams } from "react-router-dom";
 
-const ProductInfo: FC<Product> = ({ className }) => {
+const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
+  const { category } = useParams();
   const { IconAndImageBasedLoader } = useLoader();
   const { heart } = useAssets("icons");
   return (
     <div className={`${className}`}>
-      <h1 className="font-bold text-[28px]">Barberton Daisy</h1>
+      <h1 className="font-bold text-[28px]">
+        {isLoading ?? isError ? <Skeleton.Input /> : data?.title}
+      </h1>
       <div className="flex justify-between">
-        <h3 className="font-bold text-[#46A358] text-[22px]">$119.00</h3>
+        <h3 className="font-bold text-[#46A358] text-[22px]">
+          {isLoading ?? isError ? <Skeleton.Input /> : data?.price}
+        </h3>
         <div className="flex gap-2 justify-center items-center font-light text-[12px]">
-          <Rate /> <p>19 Customer Review</p>
+          <Rate defaultValue={data?.rate} />{" "}
+          <p>{data?.comments.length} Customer Review</p>
         </div>
       </div>
       <div className="border border-[#46A35880] mt-[12px]" />
       <div className="mt-[12px]">
         <h3 className="font-medium text-[20px]">Short Description:</h3>
         <p className="font-light mt-[10px]">
-          The ceramic cylinder planters come with a wooden stand to help elevate
-          your plants off the ground. The ceramic cylinder planters come with a
-          wooden stand to help elevate your plants off the ground.{" "}
+          {isLoading ?? isError ? <Skeleton /> : data?.short_description}
         </p>
       </div>
       <div className="mt-[12px]">
@@ -56,7 +61,7 @@ const ProductInfo: FC<Product> = ({ className }) => {
       </div>
       <div className="flex mt-[10px] gap-3">
         <Button className="w-[130px] h-[40px]">BUY NOW</Button>
-        <Button className="w-[130px] h-[40px] bg-transparent border border-[#46A358] text-black">
+        <Button className="w-[130px] h-[40px] border border-[#46A358] text-black">
           ADD TO CARD
         </Button>
         <Button className="w-[40px] h-[40px] bg-transparent border border-[#46A358] text-black">
@@ -65,10 +70,10 @@ const ProductInfo: FC<Product> = ({ className }) => {
       </div>
       <Descriptions className="mt-[12px]">
         <Descriptions.Item span={3} label="SKU">
-          1231241312873
+          {isLoading ?? isError ? <Skeleton.Input /> : data?._id}
         </Descriptions.Item>
         <Descriptions.Item span={3} label="Categories">
-          Potter Plants
+          {isLoading ?? isError ? <Skeleton.Input /> : category?.toUpperCase()}
         </Descriptions.Item>
         <Descriptions.Item span={3} label="Tags">
           Home, Garden, Plants

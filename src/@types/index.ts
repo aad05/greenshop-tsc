@@ -52,6 +52,19 @@ export type MainCardType = {
 
 export type Product = {
   className?: string;
+  isLoading?: boolean;
+  data?: {
+    detailed_images: string[];
+    main_image: string;
+    title: string;
+    price: string;
+    rate: number;
+    comments: [];
+    short_description: string;
+    _id: string;
+    description: string;
+  };
+  isError?: boolean;
 };
 
 export type AssetTypes = "images" | "icons";

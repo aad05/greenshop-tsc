@@ -4,8 +4,10 @@ import useQueryHandler from "../../../../../hooks/useQuery";
 import { MainCardType } from "../../../../../@types";
 import { useLoader } from "../../../../../generic/Loader";
 import { useAppSearchParams } from "../../../../../hooks/useSearchParams";
+import { useNavigate } from "react-router-dom";
 
 const Mappping: FC = () => {
+  const navigate = useNavigate();
   const { getParams } = useAppSearchParams();
   const { card_based_loader } = useLoader();
   const useQuery = useQueryHandler();
@@ -28,12 +30,29 @@ const Mappping: FC = () => {
     },
   });
 
+  const clickNavigator = ({
+    category,
+    _id,
+  }: {
+    category: string;
+    _id: string;
+  }) => navigate(`/shop/${category}/${_id}`);
+
   return (
     <div className="mt-[30px] grid grid-cols-3 gap-4 max-sm:grid-cols-2">
       {isLoading || isError
         ? card_based_loader({ length: 9 })
         : data?.map((value: MainCardType) => (
-            <Card key={value._id} value={value} />
+            <Card
+              clickNavigator={() =>
+                clickNavigator({
+                  category: String(category),
+                  _id: String(value._id),
+                })
+              }
+              key={value._id}
+              value={value}
+            />
           ))}
     </div>
   );

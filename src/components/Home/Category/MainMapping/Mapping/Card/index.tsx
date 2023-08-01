@@ -5,9 +5,10 @@ import { MainCardType } from "../../../../../../@types";
 
 type CardType = {
   value: MainCardType;
+  clickNavigator: () => any;
 };
 
-const Card: FC<CardType> = ({ value }) => {
+const Card: FC<CardType> = ({ value, clickNavigator }) => {
   const { search, basket, heart } = useAssets("icons");
   const { IconAndImageBasedLoader } = useLoader();
 
@@ -33,11 +34,21 @@ const Card: FC<CardType> = ({ value }) => {
             <IconAndImageBasedLoader src={heart} alt="heart" type="icon" />
           </div>
           <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
-            <IconAndImageBasedLoader src={search} alt="search" type="icon" />
+            <IconAndImageBasedLoader
+              onClick={clickNavigator}
+              src={search}
+              alt="search"
+              type="icon"
+            />
           </div>
         </div>
       </div>
-      <h3 className="font-normal cursor-pointer mt-[12px]">{value.title}</h3>
+      <h3
+        className="font-normal cursor-pointer mt-[12px]"
+        onClick={clickNavigator}
+      >
+        {value.title}
+      </h3>
       <p className="text-[#46A358] font-bold">
         ${value.price}
         {value?.discount && (
