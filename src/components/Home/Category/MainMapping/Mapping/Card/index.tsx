@@ -2,6 +2,9 @@ import { FC } from "react";
 import { useLoader } from "../../../../../../generic/Loader";
 import { useAssets } from "../../../../../../hooks/useAssets";
 import { MainCardType } from "../../../../../../@types";
+import { useAuthDecider } from "../../../../../../tools/authDecider";
+import { useReduxDispatch } from "../../../../../../hooks/useRedux";
+import { setAuthModalVisibility } from "../../../../../../redux/modalSlice";
 
 type CardType = {
   value: MainCardType;
@@ -9,6 +12,8 @@ type CardType = {
 };
 
 const Card: FC<CardType> = ({ value, clickNavigator }) => {
+  const dispatch = useReduxDispatch();
+  const { auth_decider_func } = useAuthDecider();
   const { search, basket, heart } = useAssets("icons");
   const { IconAndImageBasedLoader } = useLoader();
 
@@ -30,7 +35,17 @@ const Card: FC<CardType> = ({ value, clickNavigator }) => {
           <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
             <IconAndImageBasedLoader src={basket} alt="basket" type="icon" />
           </div>
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer">
+          <div
+            onClick={() =>
+              auth_decider_func({
+                withoutAuth: () =>
+                  dispatch(
+                    setAuthModalVisibility({ open: true, loading: false }),
+                  ),
+              })
+            }
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer"
+          >
             <IconAndImageBasedLoader src={heart} alt="heart" type="icon" />
           </div>
           <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">

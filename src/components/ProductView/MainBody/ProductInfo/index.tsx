@@ -5,11 +5,17 @@ import Button from "../../../../generic/Button";
 import { useAssets } from "../../../../hooks/useAssets";
 import { useLoader } from "../../../../generic/Loader";
 import { useParams } from "react-router-dom";
+import { useAuthDecider } from "../../../../tools/authDecider";
+import { useReduxDispatch } from "../../../../hooks/useRedux";
+import { setAuthModalVisibility } from "../../../../redux/modalSlice";
 
 const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
+  const dispatch = useReduxDispatch();
+  const { auth_decider_func } = useAuthDecider();
   const { category } = useParams();
   const { IconAndImageBasedLoader } = useLoader();
   const { heart } = useAssets("icons");
+
   return (
     <div className={`${className}`}>
       <h1 className="font-bold text-[28px]">
@@ -17,7 +23,7 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
       </h1>
       <div className="flex justify-between">
         <h3 className="font-bold text-[#46A358] text-[22px]">
-          {isLoading ?? isError ? <Skeleton.Input /> : data?.price}
+          {isLoading ?? isError ? <Skeleton.Input /> : `$${data?.price}`}
         </h3>
         <div className="flex gap-2 justify-center items-center font-light text-[12px]">
           <Rate defaultValue={data?.rate} />{" "}
@@ -60,11 +66,35 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
         </div>
       </div>
       <div className="flex mt-[10px] gap-3">
-        <Button className="w-[130px] h-[40px]">BUY NOW</Button>
+        <Button
+          className="w-[130px] h-[40px]"
+          onClick={() =>
+            auth_decider_func({
+              withoutAuth: () => {
+                dispatch(
+                  setAuthModalVisibility({ open: true, loading: false }),
+                );
+              },
+            })
+          }
+        >
+          BUY NOW
+        </Button>
         <Button className="w-[130px] h-[40px] border border-[#46A358] text-black">
           ADD TO CARD
         </Button>
-        <Button className="w-[40px] h-[40px] bg-transparent border border-[#46A358] text-black">
+        <Button
+          onClick={() =>
+            auth_decider_func({
+              withoutAuth: () => {
+                dispatch(
+                  setAuthModalVisibility({ open: true, loading: false }),
+                );
+              },
+            })
+          }
+          className="w-[40px] h-[40px] bg-transparent border border-[#46A358] text-black"
+        >
           <IconAndImageBasedLoader type="icon" src={heart} alt="" />
         </Button>
       </div>

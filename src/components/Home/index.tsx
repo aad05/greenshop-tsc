@@ -1,6 +1,5 @@
 import { FC } from "react";
 import Hero from "./Hero";
-import Authorization from "../Authorization";
 import Category from "./Category";
 
 const Home: FC = () => {
@@ -8,7 +7,6 @@ const Home: FC = () => {
     <div>
       <Hero />
       <Category />
-      <Authorization />
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
-import SiteMap from "./Site_map";
 import { useReduxDispatch } from "../../hooks/useRedux";
 import {
   setAuthModalVisibility,
@@ -12,6 +11,7 @@ import { useLoader } from "../../generic/Loader";
 import { Badge } from "antd";
 import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
+import ModalVisibility from "../ModalVisibility";
 
 const Navbar: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();
@@ -24,8 +24,8 @@ const Navbar: FC = () => {
 
   return (
     <div className="w-4/5 m-auto max-sm:w-full">
+      <ModalVisibility />
       <div className="p-8 flex align-center border-b border-[#46A358]">
-        <SiteMap />
         <div className="flex-1">
           <img src={logo} alt="logo" className="cursor-pointer" />
         </div>
