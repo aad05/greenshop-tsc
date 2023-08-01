@@ -3,11 +3,11 @@ import useBreadCrumbAPI from "../../generic/BreadCrumb";
 import MainBody from "./MainBody";
 
 const ProductView: FC = () => {
-  const { ProductViewCrumb } = useBreadCrumbAPI();
+  const breadCrumb = useBreadCrumbAPI();
 
   return (
     <div className="mt-3">
-      <ProductViewCrumb />
+      {breadCrumb("product_view")}
       <MainBody />
     </div>
   );

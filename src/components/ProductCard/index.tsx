@@ -4,10 +4,10 @@ import Products from "./Products";
 import CardTotal from "./CardTotal";
 
 const ProductCard: FC = () => {
-  const { ProductCardCrumb } = useBreadCrumbAPI();
+  const breadCrumb = useBreadCrumbAPI();
   return (
     <div className="mt-[12px]">
-      <ProductCardCrumb />
+      {breadCrumb("product_card")}
       <div className="flex justify-between gap-9 max-lg:flex-col mt-[50px]">
         <Products />
         <CardTotal />
