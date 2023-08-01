@@ -19,8 +19,22 @@ const useBreadCrumbAPI = () => {
       ]}
     />
   );
+  const ProductCardCrumb: FC = () => (
+    <Breadcrumb
+      items={[
+        {
+          title: "Home",
+          onClick: () => navigate("/"),
+          className: "cursor-pointer",
+        },
+        {
+          title: "Shop Card",
+        },
+      ]}
+    />
+  );
 
-  return { ProductViewCrumb };
+  return { ProductViewCrumb, ProductCardCrumb };
 };
 
 export default useBreadCrumbAPI;
