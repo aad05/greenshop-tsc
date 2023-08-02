@@ -2,6 +2,7 @@ import { FC } from "react";
 import useBreadCrumbAPI from "../../generic/BreadCrumb";
 import Products from "./Products";
 import CardTotal from "./CardTotal";
+import RelatedProducts from "../RelatedProducts";
 
 const ProductCard: FC = () => {
   const breadCrumb = useBreadCrumbAPI();
@@ -12,6 +13,7 @@ const ProductCard: FC = () => {
         <Products />
         <CardTotal />
       </div>
+      <RelatedProducts />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { FC } from "react";
 import useBreadCrumbAPI from "../../generic/BreadCrumb";
 import BillingAddress from "./BillingAddress";
 import Order from "./Order";
+import RelatedProducts from "../RelatedProducts";
 
 const ProductCheckout: FC = () => {
   const breadCrumb = useBreadCrumbAPI();
@@ -13,6 +14,7 @@ const ProductCheckout: FC = () => {
         <BillingAddress />
         <Order />
       </div>
+      <RelatedProducts />
     </div>
   );
 };
