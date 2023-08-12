@@ -1,14 +1,14 @@
 import type { FC } from "react";
 import { Modal } from "antd";
-import { useAssets } from "../../../hooks/useAssets";
-import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
+import { useAssets } from "../../../../hooks/useAssets";
+import { useReduxDispatch, useReduxSelector } from "../../../../hooks/useRedux";
 import {
   setAuthModalVisibility,
   setSiteMapModalVisbility,
-} from "../../../redux/modalSlice";
+} from "../../../../redux/modalSlice";
 import { useAuthUser } from "react-auth-kit";
-import { useAuthDecider } from "../../../tools/authDecider";
-import { useLoader } from "../../../generic/Loader";
+import { useAuthDecider } from "../../../../tools/authDecider";
+import { useLoader } from "../../../../generic/Loader";
 
 const SiteNap: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();

@@ -9,6 +9,7 @@ type modalSliceType = {
   siteMapModalVisibility: boolean;
   authModalVisibility: authModalType;
   dashboardModalVisibility: boolean;
+  confirmationModalVisibility: boolean;
 };
 
 const initialState: modalSliceType = {
@@ -18,6 +19,7 @@ const initialState: modalSliceType = {
     loading: false,
   },
   dashboardModalVisibility: false,
+  confirmationModalVisibility: false,
 };
 
 const modalSlice = createSlice({
@@ -33,11 +35,15 @@ const modalSlice = createSlice({
     setDashboardModalVisibility(state) {
       state.dashboardModalVisibility = !state.dashboardModalVisibility;
     },
+    setConfirmationModalVisibility(state) {
+      state.confirmationModalVisibility = !state.confirmationModalVisibility;
+    },
   },
 });
 export const {
   setSiteMapModalVisbility,
   setAuthModalVisibility,
   setDashboardModalVisibility,
+  setConfirmationModalVisibility,
 } = modalSlice.actions;
 export default modalSlice.reducer;

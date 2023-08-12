@@ -2,9 +2,13 @@ import { FC } from "react";
 import { useLoader } from "../../../generic/Loader";
 import { Checkbox, Descriptions } from "antd";
 import Button from "../../../generic/Button";
+import { useReduxDispatch } from "../../../hooks/useRedux";
+import { setConfirmationModalVisibility } from "../../../redux/modalSlice";
 
 const Order: FC = () => {
+  const dispatch = useReduxDispatch();
   const { IconAndImageBasedLoader } = useLoader();
+
   return (
     <div className="w-[40%] max-md:w-[100%]">
       <h3 className="font-bold mb-[20px]">Your Order</h3>
@@ -61,7 +65,12 @@ const Order: FC = () => {
           Cash on delivery
         </Checkbox>
       </div>
-      <Button className="mt-[40px] w-full h-[40px]">Place Order</Button>
+      <Button
+        onClick={() => dispatch(setConfirmationModalVisibility())}
+        className="mt-[40px] w-full h-[40px]"
+      >
+        Place Order
+      </Button>
     </div>
   );
 };

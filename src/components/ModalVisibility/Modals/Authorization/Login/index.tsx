@@ -1,14 +1,17 @@
 import { Divider, Form, Input, Modal } from "antd";
 import { FC } from "react";
-import { useAssets } from "../../../hooks/useAssets";
-import { useAxios } from "../../../hooks/useAxios";
+import { useAssets } from "../../../../../hooks/useAssets";
+import { useAxios } from "../../../../../hooks/useAxios";
 import { useSignIn } from "react-auth-kit";
 import { LoadingOutlined, ScanOutlined } from "@ant-design/icons";
-import { useNotificationAPI } from "../../../generic/NotificationAPI";
-import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
-import { setAuthModalVisibility } from "../../../redux/modalSlice";
-import Button from "../../../generic/Button";
-import { useLoader } from "../../../generic/Loader";
+import { useNotificationAPI } from "../../../../../generic/NotificationAPI";
+import {
+  useReduxDispatch,
+  useReduxSelector,
+} from "../../../../../hooks/useRedux";
+import { setAuthModalVisibility } from "../../../../../redux/modalSlice";
+import Button from "../../../../../generic/Button";
+import { useLoader } from "../../../../../generic/Loader";
 
 type onAuth = {
   email: string;
