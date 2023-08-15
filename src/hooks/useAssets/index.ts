@@ -57,6 +57,13 @@ const icons: Icons = {
     "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fheart.svg?alt=media&token=22a91433-11d7-4c7f-bd90-83b1a61517b0",
   facebook_color:
     "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Ffacebook_color.svg?alt=media&token=ef676ae5-04b3-45f4-9580-c19519c5a8d2",
+  user: "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fuser.svg?alt=media&token=3696da21-3544-4362-a848-4d374ed96a0b",
+  product:
+    "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Fproduct.svg?alt=media&token=66199b89-83e1-4d5f-aae1-ac9b207b982c",
+  location_black:
+    "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Flocation_black.svg?alt=media&token=4c1129fa-949a-4bdf-8aa5-c44b37e8e7f6",
+  logout_black:
+    "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Ficons%2Flogout_black.svg?alt=media&token=c4a0315c-78d5-4fa5-a785-edd8fd343fa8",
 };
 
 function useAssets(type: "images"): Images;

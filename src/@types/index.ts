@@ -31,6 +31,10 @@ export type Icons = {
   controller: string;
   heart: string;
   facebook_color: string;
+  product: string;
+  user: string;
+  location_black: string;
+  logout_black: string;
 };
 
 export type CategoryType = {
