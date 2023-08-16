@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import AccountDetails from "../../components/Profile/AccountDetails";
+import MyProducts from "../../components/Profile/MyProducts";
 import {
   UserOutlined,
   HeartOutlined,
@@ -24,7 +25,7 @@ export const dashboard_mock: dashboard_items[] = [
   {
     path: "my-products",
     Icon: ShoppingOutlined,
-    Component: AccountDetails,
+    Component: MyProducts,
     title: "My Products",
   },
   {
