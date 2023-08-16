@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { dashboard_mock } from "../../../utils/root_utils";
 import { useLocation, useNavigate } from "react-router-dom";
-import { LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { Modal } from "antd";
+const { confirm } = Modal;
 
 const active_style =
   "border-l-[5px] border-[#46A358] text-[#46A358] text-bold bg-white";
@@ -9,7 +11,17 @@ const active_style =
 const Dashboard: FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
+  const onLogOut = () => {
+    return confirm({
+      title: "Do you want to logout?",
+      icon: <ExclamationCircleFilled />,
+      content: "Please make sure, bacause this action cannot be undone!",
+      okButtonProps: {
+        danger: true,
+      },
+      okText: "I'm sure",
+    });
+  };
   return (
     <div className="bg-[#FBFBFB] w-[310px] text-xl p-[15px] max-sm:hidden">
       <h1 className="font-bold">My Account</h1>
@@ -26,7 +38,10 @@ const Dashboard: FC = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] mt-[20px] text-base text-red-600">
+      <div
+        onClick={() => onLogOut()}
+        className="flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] mt-[20px] text-base text-red-600"
+      >
         <LogoutOutlined className="w-[20px] h-[20px]" />
         <h3 className="font-normal">Log out</h3>
       </div>
