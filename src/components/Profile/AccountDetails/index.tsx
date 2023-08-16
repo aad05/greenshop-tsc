@@ -135,7 +135,7 @@ const AccountDetails: FC = () => {
             margin: "0 8px",
           }}
         >
-          <Upload>
+          <Upload listType="picture">
             <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>
         </Form.Item>

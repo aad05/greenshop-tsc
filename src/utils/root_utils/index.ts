@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import AccountDetails from "../../components/Profile/AccountDetails";
 import MyProducts from "../../components/Profile/MyProducts";
 import Address from "../../components/Profile/Address";
+import Wishlist from "../../components/Profile/Wishlist";
 import {
   UserOutlined,
   HeartOutlined,
@@ -38,7 +39,7 @@ export const dashboard_mock: dashboard_items[] = [
   {
     path: "wishlist",
     Icon: HeartOutlined,
-    Component: AccountDetails,
+    Component: Wishlist,
     title: "Wishlist",
   },
 ];
