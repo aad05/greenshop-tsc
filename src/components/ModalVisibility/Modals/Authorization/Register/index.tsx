@@ -1,6 +1,5 @@
 import { Divider, Form, Input } from "antd";
 import { FC } from "react";
-import { useAssets } from "../../../../../hooks/useAssets";
 import { useNotificationAPI } from "../../../../../generic/NotificationAPI";
 import {
   useReduxDispatch,
@@ -8,10 +7,13 @@ import {
 } from "../../../../../hooks/useRedux";
 import { useAxios } from "../../../../../hooks/useAxios";
 import { useSignIn } from "react-auth-kit";
-import { LoadingOutlined } from "@ant-design/icons";
+import {
+  LoadingOutlined,
+  GoogleOutlined,
+  FacebookFilled,
+} from "@ant-design/icons";
 import { setAuthModalVisibility } from "../../../../../redux/modalSlice";
 import Button from "../../../../../generic/Button";
-import { useLoader } from "../../../../../generic/Loader";
 
 type onAuth = {
   surname: string;
@@ -30,9 +32,7 @@ type authResponseType = {
 };
 
 const SignUp: FC = () => {
-  const { IconAndImageBasedLoader } = useLoader();
   const { authModalVisibility } = useReduxSelector((state) => state.modal);
-  const { google, facebook_color } = useAssets("icons");
   const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
   const axios = useAxios();
@@ -151,21 +151,11 @@ const SignUp: FC = () => {
         Or register with
       </Divider>
       <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md mb-[15px]">
-        <IconAndImageBasedLoader
-          type="icon"
-          className="pl-[15px]"
-          src={google}
-          alt="google"
-        />
+        <GoogleOutlined className="pl-[15px]" />
         Continue with Google
       </button>
       <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md">
-        <IconAndImageBasedLoader
-          type="icon"
-          className="pl-[15px]"
-          src={facebook_color}
-          alt="facebook"
-        />
+        <FacebookFilled className="pl-[15px]" />
         Continue with Facebook
       </button>
     </div>

@@ -1,9 +1,13 @@
 import { Divider, Form, Input, Modal } from "antd";
 import { FC } from "react";
-import { useAssets } from "../../../../../hooks/useAssets";
 import { useAxios } from "../../../../../hooks/useAxios";
 import { useSignIn } from "react-auth-kit";
-import { LoadingOutlined, ScanOutlined } from "@ant-design/icons";
+import {
+  LoadingOutlined,
+  ScanOutlined,
+  GoogleOutlined,
+  FacebookFilled,
+} from "@ant-design/icons";
 import { useNotificationAPI } from "../../../../../generic/NotificationAPI";
 import {
   useReduxDispatch,
@@ -11,7 +15,6 @@ import {
 } from "../../../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../../../redux/modalSlice";
 import Button from "../../../../../generic/Button";
-import { useLoader } from "../../../../../generic/Loader";
 
 type onAuth = {
   email: string;
@@ -28,13 +31,11 @@ type authResponseType = {
 };
 
 const SignIn: FC = () => {
-  const { IconAndImageBasedLoader } = useLoader();
   const { authModalVisibility } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const axios = useAxios();
   const sing_in = useSignIn();
   const notify = useNotificationAPI();
-  const { google, facebook_color } = useAssets("icons");
 
   const onAuth = (e: onAuth) => {
     dispatch(setAuthModalVisibility({ open: true, loading: true }));
@@ -104,21 +105,11 @@ const SignIn: FC = () => {
         Or login with
       </Divider>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px]">
-        <IconAndImageBasedLoader
-          type="icon"
-          className="pl-[15px]"
-          src={google}
-          alt="google"
-        />
+        <FacebookFilled className="pl-[15px]" />
         Login with Google
       </button>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md">
-        <IconAndImageBasedLoader
-          type="icon"
-          className="pl-[15px]"
-          src={facebook_color}
-          alt="facebook"
-        />
+        <GoogleOutlined className="pl-[15px]" />
         Login with Facebook
       </button>
       <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mt-[15px]">
