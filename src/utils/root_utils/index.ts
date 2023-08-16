@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import AccountDetails from "../../components/Profile/AccountDetails";
 import MyProducts from "../../components/Profile/MyProducts";
+import Address from "../../components/Profile/Address";
 import {
   UserOutlined,
   HeartOutlined,
@@ -31,7 +32,7 @@ export const dashboard_mock: dashboard_items[] = [
   {
     path: "address",
     Icon: EnvironmentOutlined,
-    Component: AccountDetails,
+    Component: Address,
     title: "Address",
   },
   {
