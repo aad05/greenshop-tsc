@@ -1,8 +1,9 @@
 import { Button, Form, Input, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import GenericButton from "../../../generic/Button";
+import { FC } from "react";
 
-const AccountDetails = () => {
+const AccountDetails: FC = () => {
   return (
     <Form
       name="complex-form"
