@@ -1,62 +1,34 @@
 import { FC } from "react";
-import { useLoader } from "../../../generic/Loader";
+import { dashboard_mock } from "../../../utils/root_utils";
+import { useLocation, useNavigate } from "react-router-dom";
+import { LogoutOutlined } from "@ant-design/icons";
 
-import { useAssets } from "../../../hooks/useAssets";
+const active_style =
+  "border-l-[5px] border-[#46A358] text-[#46A358] text-bold bg-white";
 
 const Dashboard: FC = () => {
-  const { user, product, location_black, heart, logout_black } =
-    useAssets("icons");
-  const { IconAndImageBasedLoader } = useLoader();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-[#FBFBFB] w-[310px] text-xl p-[15px]">
       <h1 className="font-bold">My Account</h1>
       <div className="flex flex-col gap-3 mt-[15px] border-b border-[#46A35880] pb-[35px]">
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
-          <IconAndImageBasedLoader
-            className="w-[20px] h-[20px]"
-            type="icon"
-            src={user}
-            alt="user"
-          />
-          <h3 className="font-normal text-base">Account Details</h3>
-        </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
-          <IconAndImageBasedLoader
-            className="w-[20px] h-[20px]"
-            type="icon"
-            src={product}
-            alt="product"
-          />
-          <h3 className="font-normal text-base">My Products</h3>
-        </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
-          <IconAndImageBasedLoader
-            className="w-[20px] h-[20px]"
-            type="icon"
-            src={location_black}
-            alt="location_black"
-          />
-          <h3 className="font-normal text-base">Address</h3>
-        </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
-          <IconAndImageBasedLoader
-            className="w-[20px] h-[20px]"
-            type="icon"
-            src={heart}
-            alt="heart"
-          />
-          <h3 className="font-normal text-base">Wishlist</h3>
-        </div>
+        {dashboard_mock.map(({ Icon, title, path }) => (
+          <div
+            onClick={() => navigate(path)}
+            className={`transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold ${
+              `${pathname.slice(9)}` === `${path}` && active_style
+            }`}
+          >
+            <Icon />
+            <h3 className="font-normal text-base">{title}</h3>
+          </div>
+        ))}
       </div>
-      <div className="flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] mt-[20px]">
-        <IconAndImageBasedLoader
-          className="w-[20px] h-[20px]"
-          type="icon"
-          src={logout_black}
-          alt="logout_black"
-        />
-        <h3 className="font-normal text-base text-red-600">Log out</h3>
+      <div className="flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] mt-[20px] text-base text-red-600">
+        <LogoutOutlined className="w-[20px] h-[20px]" />
+        <h3 className="font-normal">Log out</h3>
       </div>
     </div>
   );
