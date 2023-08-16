@@ -6,6 +6,7 @@ import ProductView from "../pages/product_view";
 import ProductCard from "../pages/product_card";
 import ProductCheckout from "../pages/product_checkout";
 import Profile from "../components/Profile";
+import AccountDetails from "../components/Profile/AccountDetails";
 
 const Root: FC = () => {
   return (
@@ -15,7 +16,9 @@ const Root: FC = () => {
         <Route path="/shop/:category/:_id" element={<ProductView />} />
         <Route path="/product-card" element={<ProductCard />} />
         <Route path="/product-checkout" element={<ProductCheckout />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />}>
+          <Route index element={<AccountDetails />} />
+        </Route>
       </Route>
     </Routes>
   );

@@ -9,10 +9,10 @@ const Dashboard: FC = () => {
   const { IconAndImageBasedLoader } = useLoader();
 
   return (
-    <div className="bg-[#FBFBFB] w-[310px] my-[62px] text-xl p-[15px]">
+    <div className="bg-[#FBFBFB] w-[310px] text-xl p-[15px]">
       <h1 className="font-bold">My Account</h1>
       <div className="flex flex-col gap-3 mt-[15px] border-b border-[#46A35880] pb-[35px]">
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358]">
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
           <IconAndImageBasedLoader
             className="w-[20px] h-[20px]"
             type="icon"
@@ -21,7 +21,7 @@ const Dashboard: FC = () => {
           />
           <h3 className="font-normal text-base">Account Details</h3>
         </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358]">
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
           <IconAndImageBasedLoader
             className="w-[20px] h-[20px]"
             type="icon"
@@ -30,7 +30,7 @@ const Dashboard: FC = () => {
           />
           <h3 className="font-normal text-base">My Products</h3>
         </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358]">
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
           <IconAndImageBasedLoader
             className="w-[20px] h-[20px]"
             type="icon"
@@ -39,7 +39,7 @@ const Dashboard: FC = () => {
           />
           <h3 className="font-normal text-base">Address</h3>
         </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358]">
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
           <IconAndImageBasedLoader
             className="w-[20px] h-[20px]"
             type="icon"
@@ -56,7 +56,7 @@ const Dashboard: FC = () => {
           src={logout_black}
           alt="logout_black"
         />
-        <h3 className="font-normal text-base">Log out</h3>
+        <h3 className="font-normal text-base text-red-600">Log out</h3>
       </div>
     </div>
   );
