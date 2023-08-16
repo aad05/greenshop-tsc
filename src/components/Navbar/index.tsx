@@ -9,11 +9,12 @@ import { useAuthUser } from "react-auth-kit";
 import { useAuthDecider } from "../../tools/authDecider";
 import { useLoader } from "../../generic/Loader";
 import { Badge } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import ModalVisibility from "../ModalVisibility";
 
 const Navbar: FC = () => {
+  const navigate = useNavigate();
   const { IconAndImageBasedLoader } = useLoader();
   const authedUser = useAuthUser();
   const dispatch = useReduxDispatch();
@@ -27,10 +28,17 @@ const Navbar: FC = () => {
       <ModalVisibility />
       <div className="p-8 flex align-center border-b border-[#46A358]">
         <div className="flex-1">
-          <img src={logo} alt="logo" className="cursor-pointer" />
+          <img
+            onClick={() => navigate("/")}
+            src={logo}
+            alt="logo"
+            className="cursor-pointer"
+          />
         </div>
         <div className="flex-1 flex justify-center gap-8 max-sm:hidden">
-          <h3 className="cursor-pointer">Home</h3>
+          <h3 className="cursor-pointer" onClick={() => navigate("/")}>
+            Home
+          </h3>
           <h3 className="cursor-pointer">Shop</h3>
         </div>
         <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
