@@ -1,40 +1,32 @@
 import { FC } from "react";
-import { useLoader } from "../../../generic/Loader";
 import { Checkbox, Descriptions } from "antd";
 import Button from "../../../generic/Button";
-import { useReduxDispatch } from "../../../hooks/useRedux";
+import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
 import { setConfirmationModalVisibility } from "../../../redux/modalSlice";
+import Card from "./Card";
 
 const Order: FC = () => {
+  const { data } = useReduxSelector((state) => state.shopping);
   const dispatch = useReduxDispatch();
-  const { IconAndImageBasedLoader } = useLoader();
 
   return (
     <div className="w-[40%] max-md:w-[100%]">
       <h3 className="font-bold mb-[20px]">Your Order</h3>
-      <div className="bg-[#FBFBFB] h-[70px] w-full mt-[11px] flex">
-        <div className="w-[40%] flex items-center gap-2">
-          <IconAndImageBasedLoader
-            type={"image"}
-            src=""
-            alt=""
-            className="w-[70px] h-[70px]"
-          />
-          <div>
-            <h3>Barberton Daisy</h3>
-            <p className="font-light text-[14px]">SKU: 1995751877966</p>
-          </div>
-        </div>
-        <div className="w-[30%] flex items-center text-[#727272] justify-center">
-          (x 2)
-        </div>
-        <div className="w-[30%] flex items-center justify-between pr-[10px]">
-          <h3>$238.00</h3>
-        </div>
+      <div className="flex flex-col gap-3">
+        {data.map((value) => (
+          <Card key={value._id} {...value} />
+        ))}
       </div>
       <Descriptions className="mt-[30px]">
         <Descriptions.Item span={3} label="Subtotal">
-          $2.000.23
+          $
+          {Number(
+            data.reduce(
+              (acc, currentValue) =>
+                Number(currentValue?.count) * Number(currentValue?.price) + acc,
+              0,
+            ),
+          ).toFixed(2)}
         </Descriptions.Item>
         <Descriptions.Item span={3} label="Coupon Discount">
           - (0.00)
@@ -45,7 +37,16 @@ const Order: FC = () => {
       </Descriptions>
       <div className="flex justify-between">
         <h1>Total</h1>
-        <h1 className="text-[#46A358]">$2,699.00</h1>
+        <h1 className="text-[#46A358]">
+          $
+          {Number(
+            data.reduce(
+              (acc, currentValue) =>
+                Number(currentValue?.count) * Number(currentValue?.price) + acc,
+              0,
+            ),
+          ).toFixed(2)}
+        </h1>
       </div>
       <div className="mt-[47px] flex flex-col gap-4">
         <h3 className="font-bold mb-[20px]">Payment Method</h3>

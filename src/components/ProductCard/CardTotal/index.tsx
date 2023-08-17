@@ -1,8 +1,12 @@
 import { FC } from "react";
 import Button from "../../../generic/Button";
 import { Descriptions } from "antd";
+import { useReduxSelector } from "../../../hooks/useRedux";
+import { useNavigate } from "react-router-dom";
 
 const CardTotal: FC = () => {
+  const navigate = useNavigate();
+  const { data } = useReduxSelector((state) => state.shopping);
   return (
     <div className="w-[30%] max-lg:w-[100%]">
       <h3 className="font-bold pb-[11px] border-b border-[#46A35880]">
@@ -17,7 +21,14 @@ const CardTotal: FC = () => {
       </div>
       <Descriptions className="mt-[30px]">
         <Descriptions.Item span={3} label="Subtotal">
-          $2.000.23
+          $
+          {Number(
+            data.reduce(
+              (acc, currentValue) =>
+                Number(currentValue?.count) * Number(currentValue?.price) + acc,
+              0,
+            ),
+          ).toFixed(2)}
         </Descriptions.Item>
         <Descriptions.Item span={3} label="Coupon Discount">
           - (0.00)
@@ -28,10 +39,27 @@ const CardTotal: FC = () => {
       </Descriptions>
       <div className="flex justify-between">
         <h1>Total</h1>
-        <h1 className="text-[#46A358]">$2,699.00</h1>
+        <h1 className="text-[#46A358]">
+          $
+          {Number(
+            data.reduce(
+              (acc, currentValue) =>
+                Number(currentValue?.count) * Number(currentValue?.price) + acc,
+              0,
+            ),
+          ).toFixed(2)}
+        </h1>
       </div>
-      <Button className="w-full h-[40px] mt-[30px]">Proceed to Checkout</Button>
-      <h3 className="mt-[14px] text-center text-[#46A358]">
+      <Button
+        onClick={() => navigate("/product-checkout")}
+        className="w-full h-[40px] mt-[30px]"
+      >
+        Proceed to Checkout
+      </Button>
+      <h3
+        className="mt-[14px] text-center text-[#46A358] cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         Continue Shopping
       </h3>
     </div>

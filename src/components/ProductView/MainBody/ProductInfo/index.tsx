@@ -4,12 +4,14 @@ import { Descriptions, Rate, Skeleton } from "antd";
 import Button from "../../../../generic/Button";
 import { useAssets } from "../../../../hooks/useAssets";
 import { useLoader } from "../../../../generic/Loader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthDecider } from "../../../../tools/authDecider";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../../redux/modalSlice";
+import { addDataToShopping } from "../../../../redux/shoppingSlice";
 
 const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
+  const navigate = useNavigate();
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
   const { category } = useParams();
@@ -75,12 +77,18 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
                   setAuthModalVisibility({ open: true, loading: false }),
                 );
               },
+              withAuth: () => {
+                navigate("/product-card");
+              },
             })
           }
         >
           BUY NOW
         </Button>
-        <Button className="w-[130px] h-[40px] border border-[#46A358] text-black">
+        <Button
+          onClick={() => dispatch(addDataToShopping(data))}
+          className="w-[130px] h-[40px] border border-[#46A358] text-black"
+        >
           ADD TO CARD
         </Button>
         <Button

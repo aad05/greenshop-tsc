@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useAssets } from "../../hooks/useAssets";
-import { useReduxDispatch } from "../../hooks/useRedux";
+import { useReduxDispatch, useReduxSelector } from "../../hooks/useRedux";
 import {
   setAuthModalVisibility,
   setSiteMapModalVisbility,
@@ -19,6 +19,7 @@ import Footer from "../Footer";
 import ModalVisibility from "../ModalVisibility";
 
 const Navbar: FC = () => {
+  const { data } = useReduxSelector((state) => state.shopping);
   const navigate = useNavigate();
   const authedUser = useAuthUser();
   const dispatch = useReduxDispatch();
@@ -26,6 +27,8 @@ const Navbar: FC = () => {
   const { logo } = useAssets("icons");
 
   const userData = authedUser();
+
+  console.log(data);
 
   return (
     <div className="w-4/5 m-auto max-sm:w-full">
@@ -47,8 +50,11 @@ const Navbar: FC = () => {
         </div>
         <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
           <SearchOutlined className="cursor-pointer text-[20px]" />
-          <Badge count={5} className="mt-[5px]">
-            <ShoppingCartOutlined className="cursor-pointer text-[25px]" />
+          <Badge count={data.length} className="mt-[5px]">
+            <ShoppingCartOutlined
+              onClick={() => navigate("/product-card")}
+              className="cursor-pointer text-[25px]"
+            />
           </Badge>
           <button
             onClick={() =>
@@ -75,8 +81,11 @@ const Navbar: FC = () => {
         </div>
         <div className="hidden flex-1 justify-end gap-8 max-sm:flex">
           <SearchOutlined className="cursor-pointer text-[20px]" />
-          <Badge count={5} className="mt-[5px]">
-            <ShoppingCartOutlined className="cursor-pointer text-[25px]" />
+          <Badge count={data.length} className="mt-[5px]">
+            <ShoppingCartOutlined
+              onClick={() => navigate("/product-card")}
+              className="cursor-pointer text-[25px]"
+            />
           </Badge>
           <MenuOutlined
             className="cursor-pointer text-[20px]"

@@ -1,10 +1,15 @@
 import { FC } from "react";
 import { useLoader } from "../../../../../../generic/Loader";
-import { useAssets } from "../../../../../../hooks/useAssets";
 import { MainCardType } from "../../../../../../@types";
 import { useAuthDecider } from "../../../../../../tools/authDecider";
 import { useReduxDispatch } from "../../../../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../../../../redux/modalSlice";
+import {
+  ShoppingCartOutlined,
+  SearchOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
+import { addDataToShopping } from "../../../../../../redux/shoppingSlice";
 
 type CardType = {
   value: MainCardType;
@@ -14,7 +19,6 @@ type CardType = {
 const Card: FC<CardType> = ({ value, clickNavigator }) => {
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
-  const { search, basket, heart } = useAssets("icons");
   const { IconAndImageBasedLoader } = useLoader();
 
   return (
@@ -32,8 +36,13 @@ const Card: FC<CardType> = ({ value, clickNavigator }) => {
           className="w-4/5"
         />
         <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
-            <IconAndImageBasedLoader src={basket} alt="basket" type="icon" />
+          <div
+            onClick={() => {
+              dispatch(addDataToShopping(value));
+            }}
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]"
+          >
+            <ShoppingCartOutlined />
           </div>
           <div
             onClick={() =>
@@ -44,17 +53,15 @@ const Card: FC<CardType> = ({ value, clickNavigator }) => {
                   ),
               })
             }
-            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer"
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
           >
-            <IconAndImageBasedLoader src={heart} alt="heart" type="icon" />
+            <HeartOutlined />
           </div>
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
-            <IconAndImageBasedLoader
-              onClick={clickNavigator}
-              src={search}
-              alt="search"
-              type="icon"
-            />
+          <div
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]"
+            onClick={clickNavigator}
+          >
+            <SearchOutlined />
           </div>
         </div>
       </div>
