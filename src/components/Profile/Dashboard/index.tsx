@@ -2,6 +2,7 @@ import { FC } from "react";
 import { dashboard_mock } from "../../../utils/root_utils";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LogoutOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { useSignOut } from "react-auth-kit";
 import { Modal } from "antd";
 const { confirm } = Modal;
 
@@ -9,6 +10,7 @@ const active_style =
   "border-l-[5px] border-[#46A358] text-[#46A358] text-bold bg-white";
 
 const Dashboard: FC = () => {
+  const signOut = useSignOut();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const onLogOut = () => {
@@ -20,6 +22,10 @@ const Dashboard: FC = () => {
         danger: true,
       },
       okText: "I'm sure",
+      onOk: () => {
+        navigate("/");
+        signOut();
+      },
     });
   };
   return (
