@@ -21,6 +21,7 @@ type main_route_type = {
   Component: FC;
   hasChild?: boolean;
   children?: dashboard_items[];
+  shouldAuth?: boolean;
 };
 
 type dashboard_items = {
@@ -89,5 +90,6 @@ export const main_route: main_route_type[] = [
     Component: Profile,
     hasChild: true,
     children: dashboard_mock,
+    shouldAuth: true,
   },
 ];
