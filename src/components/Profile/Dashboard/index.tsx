@@ -26,8 +26,9 @@ const Dashboard: FC = () => {
     <div className="bg-[#FBFBFB] w-[310px] text-xl p-[15px] max-sm:hidden">
       <h1 className="font-bold">My Account</h1>
       <div className="flex flex-col gap-3 mt-[15px] border-b border-[#46A35880] pb-[35px]">
-        {dashboard_mock.map(({ Icon, title, path }) => (
+        {dashboard_mock.map(({ Icon, title, path, id }) => (
           <div
+            key={id}
             onClick={() => navigate(path)}
             className={`transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold ${
               `${pathname.slice(9)}` === `${path}` && active_style
