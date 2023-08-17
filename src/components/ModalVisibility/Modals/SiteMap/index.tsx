@@ -6,13 +6,15 @@ import {
   setAuthModalVisibility,
   setSiteMapModalVisbility,
 } from "../../../../redux/modalSlice";
-import { useAuthUser } from "react-auth-kit";
+import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 import { useAuthDecider } from "../../../../tools/authDecider";
 import { useLoader } from "../../../../generic/Loader";
 import { dashboard_mock } from "../../../../utils/root_utils";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SiteNap: FC = () => {
+  const isAuthed = useIsAuthenticated();
+  const authed = isAuthed();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { IconAndImageBasedLoader } = useLoader();
@@ -49,33 +51,36 @@ const SiteNap: FC = () => {
         <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
           <h3 className="font-normal text-base">Shop</h3>
         </div>
-        <div className="mt-[15px]">
-          <h3 className="text-[#46A358] font-bold text-xl">Profile</h3>
-          <div className="flex flex-col gap-3 border-b border-[#46A35880] pb-[35px]">
-            {dashboard_mock.map(({ Icon, title, path }) => (
-              <div
-                onClick={() => {
-                  navigate(`/profile/${path}`);
-                  dispatch(setSiteMapModalVisbility());
-                }}
-                className={`transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold ${
-                  `${pathname.slice(9)}` === `${path}` &&
-                  pathname.includes("/profile") &&
-                  active_style
-                }`}
-              >
-                <Icon />
-                <h3 className="font-normal text-base">{title}</h3>
-              </div>
-            ))}
+        {authed && (
+          <div className="mt-[15px]">
+            <h3 className="text-[#46A358] font-bold text-xl">Profile</h3>
+            <div className="flex flex-col gap-3 border-b border-[#46A35880] pb-[35px]">
+              {dashboard_mock.map(({ Icon, title, path }) => (
+                <div
+                  onClick={() => {
+                    navigate(`/profile/${path}`);
+                    dispatch(setSiteMapModalVisbility());
+                  }}
+                  className={`transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold ${
+                    `${pathname.slice(9)}` === `${path}` &&
+                    pathname.includes("/profile") &&
+                    active_style
+                  }`}
+                >
+                  <Icon />
+                  <h3 className="font-normal text-base">{title}</h3>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <button
         onClick={() => {
           auth_decider_func({
             withoutAuth: () =>
               dispatch(setAuthModalVisibility({ open: true, loading: false })),
+            withAuth: () => navigate("/profile"),
           });
           dispatch(setSiteMapModalVisbility());
         }}
