@@ -7,19 +7,23 @@ import {
 } from "../../redux/modalSlice";
 import { useAuthUser } from "react-auth-kit";
 import { useAuthDecider } from "../../tools/authDecider";
-import { useLoader } from "../../generic/Loader";
 import { Badge } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
+import {
+  SearchOutlined,
+  ShoppingCartOutlined,
+  MenuOutlined,
+  LoginOutlined,
+} from "@ant-design/icons";
 import Footer from "../Footer";
 import ModalVisibility from "../ModalVisibility";
 
 const Navbar: FC = () => {
   const navigate = useNavigate();
-  const { IconAndImageBasedLoader } = useLoader();
   const authedUser = useAuthUser();
   const dispatch = useReduxDispatch();
   const { auth_decider_func, auth_decider_html } = useAuthDecider();
-  const { logo, logout, basket, search, hamburger_menu } = useAssets("icons");
+  const { logo } = useAssets("icons");
 
   const userData = authedUser();
 
@@ -42,19 +46,9 @@ const Navbar: FC = () => {
           <h3 className="cursor-pointer">Shop</h3>
         </div>
         <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
-          <IconAndImageBasedLoader
-            type="icon"
-            alt="search"
-            className="cursor-pointer"
-            src={search}
-          />
+          <SearchOutlined className="cursor-pointer text-[20px]" />
           <Badge count={5} className="mt-[5px]">
-            <IconAndImageBasedLoader
-              type="icon"
-              src={basket}
-              alt="basket"
-              className="cursor-pointer"
-            />
+            <ShoppingCartOutlined className="cursor-pointer text-[25px]" />
           </Badge>
           <button
             onClick={() =>
@@ -71,12 +65,7 @@ const Navbar: FC = () => {
               withAuth: <>{userData?.name}</>,
               withoutAuth: (
                 <>
-                  <IconAndImageBasedLoader
-                    type="icon"
-                    className="w-5 h-5"
-                    src={logout}
-                    alt="logout-icon"
-                  />{" "}
+                  <LoginOutlined className="text-[20px]" />
                   Login
                 </>
               ),
@@ -84,24 +73,13 @@ const Navbar: FC = () => {
           </button>
         </div>
         <div className="hidden flex-1 justify-end gap-8 max-sm:flex">
-          <IconAndImageBasedLoader
-            type="icon"
-            className="cursor-pointer w-5 h-5"
-            src={search}
-            alt="search"
-          />
-          <IconAndImageBasedLoader
-            type="icon"
-            src={basket}
-            alt="basket"
-            className="cursor-pointer w-5 h-5"
-          />
-          <IconAndImageBasedLoader
-            type="icon"
+          <SearchOutlined className="cursor-pointer text-[20px]" />
+          <Badge count={5} className="mt-[5px]">
+            <ShoppingCartOutlined className="cursor-pointer text-[25px]" />
+          </Badge>
+          <MenuOutlined
+            className="cursor-pointer text-[20px]"
             onClick={() => dispatch(setSiteMapModalVisbility())}
-            src={hamburger_menu}
-            alt="hamburger_menu"
-            className="cursor-pointer w-5 h-5"
           />
         </div>
       </div>
