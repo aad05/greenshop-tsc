@@ -57,6 +57,7 @@ const Navbar: FC = () => {
                   dispatch(
                     setAuthModalVisibility({ open: true, loading: false }),
                   ),
+                withAuth: () => navigate("/profile"),
               })
             }
             className="bg-[#46A358] flex rounded-md w-24 items-center justify-center gap-1 h-9 text-base text-white cursor-pointer"
