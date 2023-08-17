@@ -1,22 +1,25 @@
 import { FC } from "react";
-import { useAssets } from "../../../../hooks/useAssets";
 import Button from "../../../../generic/Button";
 import { useLoader } from "../../../../generic/Loader";
 
 type CardProps = {
-  subtitle?: string;
-  title?: string;
-  description?: string;
-  buttonText?: string;
+  subtitle: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  flower_1: string;
+  flower_2: string;
 };
 
 const Card: FC<CardProps> = ({
   subtitle = "WELCOME TO GREENSHOP",
   title = "LET'S MAKE A BETTER",
   buttonText = "SHOP NOW",
+  description,
+  flower_1,
+  flower_2,
 }) => {
   const { IconAndImageBasedLoader } = useLoader();
-  const { flower_1, flower_2 } = useAssets("images");
 
   return (
     <div className="h-[450px] bg-[#F5F5F5] mt-3 flex max-2xl:h-[400px] max-md:h-[300px]">
@@ -28,9 +31,7 @@ const Card: FC<CardProps> = ({
           {title} <span className="text-[#46A358]">PLANET</span>
         </h1>
         <p className="text-sm font-normal text-[#727272] w-3/5 max-lg:text-xs mt-[10px] ">
-          We are an online plant shop offering a wide range of cheap and trendy
-          plants. Use our plants to create an unique Urban Jungle. Order your
-          favorite plants!
+          {description}
         </p>
         <Button className="mt-[40px] w-[140px] h-9 max-md:mt-[10px]">
           {buttonText}
