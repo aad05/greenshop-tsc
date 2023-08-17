@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { main_route } from "../utils/root_utils";
 import { useIsAuthenticated } from "react-auth-kit";
+import NotFound from "../components/status/NotFound";
 
 const Root: FC = () => {
   const isAuthed = useIsAuthenticated();
@@ -34,6 +35,7 @@ const Root: FC = () => {
             ),
         )}
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
