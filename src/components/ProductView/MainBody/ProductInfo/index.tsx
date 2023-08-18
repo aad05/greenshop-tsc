@@ -8,8 +8,10 @@ import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../../redux/modalSlice";
 import { addDataToShopping } from "../../../../redux/shoppingSlice";
 import { HeartOutlined } from "@ant-design/icons";
+import { useNotificationAPI } from "../../../../generic/NotificationAPI";
 
 const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
+  const notify = useNotificationAPI();
   const navigate = useNavigate();
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
@@ -84,7 +86,10 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
           BUY NOW
         </Button>
         <Button
-          onClick={() => dispatch(addDataToShopping(data))}
+          onClick={() => {
+            notify("added_to_shopping_cart");
+            dispatch(addDataToShopping(data));
+          }}
           className="w-[130px] h-[40px] border border-[#46A358] bg-transparent"
         >
           <p className="text-black">ADD TO CARD</p>

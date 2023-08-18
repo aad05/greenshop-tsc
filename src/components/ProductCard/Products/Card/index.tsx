@@ -9,8 +9,10 @@ import {
   increaseCountFromShopping,
 } from "../../../../redux/shoppingSlice";
 import { Tooltip } from "antd";
+import { useNotificationAPI } from "../../../../generic/NotificationAPI";
 
 const Card: FC<MainCardType> = ({ title, _id, price, count, main_image }) => {
+  const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
   const { IconAndImageBasedLoader } = useLoader();
   return (
@@ -49,7 +51,10 @@ const Card: FC<MainCardType> = ({ title, _id, price, count, main_image }) => {
         <h3>${Number(Number(price) * Number(count)).toFixed(2)}</h3>
         <Tooltip title="Delete">
           <DeleteOutlined
-            onClick={() => dispatch(deleteFlowerFromShopping({ _id }))}
+            onClick={() => {
+              notify("deleted_from_shopping_cart");
+              dispatch(deleteFlowerFromShopping({ _id }));
+            }}
             className="cursor-pointer"
           />
         </Tooltip>
