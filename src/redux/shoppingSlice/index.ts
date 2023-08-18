@@ -39,11 +39,15 @@ const shoppingSlice = createSlice({
           : value,
       );
     },
+    deleteFlowerFromShopping(state, { payload }) {
+      state.data = state.data.filter((value) => value._id !== payload._id);
+    },
   },
 });
 export const {
   addDataToShopping,
   increaseCountFromShopping,
   decreaseCountFromShopping,
+  deleteFlowerFromShopping,
 } = shoppingSlice.actions;
 export default shoppingSlice.reducer;

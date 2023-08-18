@@ -2,21 +2,18 @@ import { FC } from "react";
 import { Product } from "../../../../@types";
 import { Descriptions, Rate, Skeleton } from "antd";
 import Button from "../../../../generic/Button";
-import { useAssets } from "../../../../hooks/useAssets";
-import { useLoader } from "../../../../generic/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthDecider } from "../../../../tools/authDecider";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../../redux/modalSlice";
 import { addDataToShopping } from "../../../../redux/shoppingSlice";
+import { HeartOutlined } from "@ant-design/icons";
 
 const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
   const navigate = useNavigate();
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
   const { category } = useParams();
-  const { IconAndImageBasedLoader } = useLoader();
-  const { heart } = useAssets("icons");
 
   return (
     <div className={`${className}`}>
@@ -78,6 +75,7 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
                 );
               },
               withAuth: () => {
+                dispatch(addDataToShopping(data));
                 navigate("/product-card");
               },
             })
@@ -87,9 +85,9 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
         </Button>
         <Button
           onClick={() => dispatch(addDataToShopping(data))}
-          className="w-[130px] h-[40px] border border-[#46A358] text-black"
+          className="w-[130px] h-[40px] border border-[#46A358] bg-transparent"
         >
-          ADD TO CARD
+          <p className="text-black">ADD TO CARD</p>
         </Button>
         <Button
           onClick={() =>
@@ -101,9 +99,9 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
               },
             })
           }
-          className="w-[40px] h-[40px] bg-transparent border border-[#46A358] text-black"
+          className="w-[40px] h-[40px] bg-transparent border border-[#46A358] text-[20px] "
         >
-          <IconAndImageBasedLoader type="icon" src={heart} alt="" />
+          <HeartOutlined className="text-black" />
         </Button>
       </div>
       <Descriptions className="mt-[12px]">

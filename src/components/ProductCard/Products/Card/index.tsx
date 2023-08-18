@@ -5,8 +5,10 @@ import { MainCardType } from "../../../../@types";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import {
   decreaseCountFromShopping,
+  deleteFlowerFromShopping,
   increaseCountFromShopping,
 } from "../../../../redux/shoppingSlice";
+import { Tooltip } from "antd";
 
 const Card: FC<MainCardType> = ({ title, _id, price, count, main_image }) => {
   const dispatch = useReduxDispatch();
@@ -45,7 +47,12 @@ const Card: FC<MainCardType> = ({ title, _id, price, count, main_image }) => {
       </div>
       <div className="w-[20%] flex items-center justify-between pr-[10px]">
         <h3>${Number(Number(price) * Number(count)).toFixed(2)}</h3>
-        <DeleteOutlined className="cursor-pointer" />
+        <Tooltip title="Delete">
+          <DeleteOutlined
+            onClick={() => dispatch(deleteFlowerFromShopping({ _id }))}
+            className="cursor-pointer"
+          />
+        </Tooltip>
       </div>
     </div>
   );
