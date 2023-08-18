@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { FC, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { main_route } from "../utils/root_utils";
@@ -8,6 +8,15 @@ import NotFound from "../components/status/NotFound";
 const Root: FC = () => {
   const isAuthed = useIsAuthenticated();
   const authed = isAuthed();
+
+  useEffect(() => {
+    if (!localStorage.getItem("shopping_card")) {
+      localStorage.setItem("shopping_card", JSON.stringify([]));
+    }
+    if (!localStorage.getItem("total_price")) {
+      localStorage.setItem("total_price", JSON.stringify(0));
+    }
+  }, []);
 
   return (
     <Routes>
