@@ -10,6 +10,7 @@ import {
   HeartOutlined,
 } from "@ant-design/icons";
 import { addDataToShopping } from "../../../../../../redux/shoppingSlice";
+import { useNotificationAPI } from "../../../../../../generic/NotificationAPI";
 
 type CardType = {
   value: MainCardType;
@@ -17,6 +18,7 @@ type CardType = {
 };
 
 const Card: FC<CardType> = ({ value, clickNavigator }) => {
+  const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
   const { IconAndImageBasedLoader } = useLoader();
@@ -38,6 +40,7 @@ const Card: FC<CardType> = ({ value, clickNavigator }) => {
         <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
           <div
             onClick={() => {
+              notify("added_to_shopping_cart");
               dispatch(addDataToShopping(value));
             }}
             className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]"
