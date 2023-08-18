@@ -28,6 +28,7 @@ const CardTotal: FC = () => {
           coupon_code: String(coupon_ref?.current?.value),
         },
       });
+      notify("coupon_success");
       dispatch(setCoupon(data.data));
     } catch (error) {
       notify("coupon_notfound");

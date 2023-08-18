@@ -7,7 +7,7 @@ import Card from "./Card";
 
 const Confirmation: FC = () => {
   const dispatch = useReduxDispatch();
-  const { data } = useReduxSelector((state) => state.shopping);
+  const { data, total, coupon } = useReduxSelector((state) => state.shopping);
   const { confirmationModalVisibility } = useReduxSelector(
     (state) => state.modal,
   );
@@ -22,7 +22,7 @@ const Confirmation: FC = () => {
       <div className="grid grid-cols-4 max-sm:grid-cols-2">
         <div className="border-r m-[4px] border-[#46A35833]">
           <h3 className="font-light">Order Number</h3>
-          <p className="font-bold">19586687</p>
+          <p className="font-bold">{new Date().getTime()}</p>
         </div>
         <div className="border-r m-[4px] border-[#46A35833]">
           <h3 className="font-light">Date</h3>
@@ -30,17 +30,19 @@ const Confirmation: FC = () => {
         </div>
         <div className="border-r m-[4px] border-[#46A35833]">
           <h3 className="font-light">Total</h3>
-          <p className="font-bold">
-            $
-            {Number(
-              data.reduce(
-                (acc, currentValue) =>
-                  Number(currentValue?.count) * Number(currentValue?.price) +
-                  acc,
-                0,
-              ),
-            ).toFixed(2)}
-          </p>
+          {coupon.has_coupon ? (
+            <div>
+              <p className="font-bold line-through">${total || 0}</p>
+              <p className="font-bold">
+                $
+                {Number(
+                  total - Number(total * Number(`0.${coupon.discount_for}`)),
+                ).toFixed(2) || 0}
+              </p>
+            </div>
+          ) : (
+            <p className="font-bold">${total || 0}</p>
+          )}
         </div>
         <div className="border-r m-[4px] border-[#46A35833]">
           <h3 className="font-light">Payment Method</h3>
@@ -63,15 +65,19 @@ const Confirmation: FC = () => {
         <div className="flex justify-between">
           <h1>Total</h1>
           <h1 className="font-bold text-[#46A358]">
-            $
-            {Number(
-              data.reduce(
-                (acc, currentValue) =>
-                  Number(currentValue?.count) * Number(currentValue?.price) +
-                  acc,
-                0,
-              ),
-            ).toFixed(2)}
+            {coupon.has_coupon ? (
+              <div>
+                <h1 className="text-[#46A358] line-through">${total || 0}</h1>
+                <h1 className="text-[#46A358]">
+                  $
+                  {Number(
+                    total - Number(total * Number(`0.${coupon.discount_for}`)),
+                  ).toFixed(2) || 0}
+                </h1>
+              </div>
+            ) : (
+              <h1 className="text-[#46A358]">${total || 0}</h1>
+            )}
           </h1>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { setConfirmationModalVisibility } from "../../../redux/modalSlice";
 import Card from "./Card";
 
 const Order: FC = () => {
-  const { data } = useReduxSelector((state) => state.shopping);
+  const { data, total, coupon } = useReduxSelector((state) => state.shopping);
   const dispatch = useReduxDispatch();
 
   return (
@@ -19,17 +19,14 @@ const Order: FC = () => {
       </div>
       <Descriptions className="mt-[30px]">
         <Descriptions.Item span={3} label="Subtotal">
-          $
-          {Number(
-            data.reduce(
-              (acc, currentValue) =>
-                Number(currentValue?.count) * Number(currentValue?.price) + acc,
-              0,
-            ),
-          ).toFixed(2)}
+          ${total || 0}
         </Descriptions.Item>
         <Descriptions.Item span={3} label="Coupon Discount">
-          - (0.00)
+          - $(
+          {coupon.has_coupon
+            ? Number(total * Number(`0.${coupon.discount_for}`)).toFixed(2)
+            : "0.00"}
+          )
         </Descriptions.Item>
         <Descriptions.Item span={3} label="Shiping">
           $16
@@ -37,16 +34,19 @@ const Order: FC = () => {
       </Descriptions>
       <div className="flex justify-between">
         <h1>Total</h1>
-        <h1 className="text-[#46A358]">
-          $
-          {Number(
-            data.reduce(
-              (acc, currentValue) =>
-                Number(currentValue?.count) * Number(currentValue?.price) + acc,
-              0,
-            ),
-          ).toFixed(2)}
-        </h1>
+        {coupon.has_coupon ? (
+          <div>
+            <h1 className="text-[#46A358] line-through">${total || 0}</h1>
+            <h1 className="text-[#46A358]">
+              $
+              {Number(
+                total - Number(total * Number(`0.${coupon.discount_for}`)),
+              ).toFixed(2) || 0}
+            </h1>
+          </div>
+        ) : (
+          <h1 className="text-[#46A358]">${total || 0}</h1>
+        )}
       </div>
       <div className="mt-[47px] flex flex-col gap-4">
         <h3 className="font-bold mb-[20px]">Payment Method</h3>
