@@ -38,3 +38,11 @@ img {
 .ant-slider .ant-slider-handler-1::after:hover {
   box-shadow: 0 0 0 2px #46a358;
 }
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: #46a358;
+  background-color: #46a358;
+}
+.ant-radio-wrapper:hover .ant-radio-inner {
+  border-color: #46a358;
+}

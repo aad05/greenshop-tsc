@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Checkbox, Descriptions } from "antd";
+import { Descriptions, Radio } from "antd";
 import Button from "../../../generic/Button";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
 import { setConfirmationModalVisibility } from "../../../redux/modalSlice";
@@ -50,21 +50,32 @@ const Order: FC = () => {
       </div>
       <div className="mt-[47px] flex flex-col gap-4">
         <h3 className="font-bold mb-[20px]">Payment Method</h3>
-        <Checkbox className="border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg">
-          Hey
-        </Checkbox>
-        <Checkbox
-          name="payment_method"
-          className="border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg"
+        <Radio.Group
+          defaultValue={"other-payment-methods"}
+          className="flex flex-col gap-3"
         >
-          Dorect bank transfer
-        </Checkbox>
-        <Checkbox
-          name="payment_method"
-          className="border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg"
-        >
-          Cash on delivery
-        </Checkbox>
+          <Radio
+            value="other-payment-methods"
+            className="border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg"
+          >
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Fimages%2Fpayment_collected_methods.png?alt=media&token=c4bfd991-8bd8-4e6b-97dc-83381db193f7"
+              alt="methods"
+            />
+          </Radio>
+          <Radio
+            value="Dorect bank transfer"
+            className="border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg"
+          >
+            Dorect bank transfer
+          </Radio>
+          <Radio
+            value="Cash on delivery"
+            className="border border-[#46A358] w-full h-[40px] flex items-center pl-[10px] rounded-lg"
+          >
+            Cash on delivery
+          </Radio>
+        </Radio.Group>
       </div>
       <Button
         onClick={() => dispatch(setConfirmationModalVisibility())}
