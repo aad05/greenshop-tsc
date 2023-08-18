@@ -28,8 +28,6 @@ const Navbar: FC = () => {
 
   const userData = authedUser();
 
-  console.log(data);
-
   return (
     <div className="w-4/5 m-auto max-sm:w-full">
       <ModalVisibility />

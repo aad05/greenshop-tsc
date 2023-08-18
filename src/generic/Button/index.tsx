@@ -5,6 +5,7 @@ type ButtonType = {
   className?: string;
   type?: "submit" | "reset";
   onClick?: () => any;
+  disabled?: boolean;
 };
 
 const Button: FC<ButtonType> = ({
@@ -12,12 +13,14 @@ const Button: FC<ButtonType> = ({
   className = "",
   type,
   onClick,
+  disabled,
 }) => {
   return (
     <button
       onClick={onClick}
       type={type}
       className={`bg-[#46A358] flex rounded-md items-center justify-center gap-1 text-base text-white ${className}`}
+      disabled={disabled}
     >
       {children}
     </button>

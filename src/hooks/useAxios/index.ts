@@ -4,7 +4,7 @@ import axios from "axios";
 
 interface AxiosProp {
   url: string;
-  method: "POST" | "PUT" | "PATCH" | "GET" | "DELETE";
+  method?: "POST" | "PUT" | "PATCH" | "GET" | "DELETE";
   body?: object;
   headers?: object;
   includeToken?: boolean;
@@ -17,7 +17,14 @@ export const useAxios = () => {
   //   const signOut = useSignOut();
 
   const request = async (props: AxiosProp) => {
-    const { url, method, body, headers, params, includeToken = true } = props;
+    const {
+      url,
+      method = "GET",
+      body,
+      headers,
+      params,
+      includeToken = true,
+    } = props;
     return await axios({
       method,
       url: `${REACT_APP_BASE_URL}${url}?access_token=64bebc1e2c6d3f056a8c85b7`,

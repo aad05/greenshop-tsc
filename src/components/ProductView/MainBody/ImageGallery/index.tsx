@@ -17,8 +17,11 @@ const ImageGallery: FC<Product> = ({ className, isLoading, isError, data }) => {
     <div className={`${className} flex gap-6 max-lg:flex-col`}>
       <div className="flex flex-col justify-between max-lg:order-2 max-lg:flex-row max-lg:gap-3 max-lg:overflow-x-scroll ">
         {isLoading ?? isError
-          ? Array.from({ length: 4 }).map(() => (
-              <div className="w-[100px] h-[100px] bg-[#e5e5e5] cursor-pointer border-2 hover:border-[#46A358] transition-colors">
+          ? Array.from({ length: 4 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="w-[100px] h-[100px] bg-[#e5e5e5] cursor-pointer border-2 hover:border-[#46A358] transition-colors"
+              >
                 <IconAndImageBasedLoader
                   className="w-full h-full"
                   type="image"
@@ -27,8 +30,9 @@ const ImageGallery: FC<Product> = ({ className, isLoading, isError, data }) => {
                 />
               </div>
             ))
-          : data?.detailed_images.map((src) => (
+          : data?.detailed_images.map((src, _idx) => (
               <div
+                key={_idx}
                 className="w-[100px] h-[100px] bg-[#e5e5e5] cursor-pointer border-2 hover:border-[#46A358] transition-colors"
                 onClick={() => setActiveImage({ isSelected: true, src })}
               >

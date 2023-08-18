@@ -55,8 +55,9 @@ const SiteNap: FC = () => {
           <div className="mt-[15px]">
             <h3 className="text-[#46A358] font-bold text-xl">Profile</h3>
             <div className="flex flex-col gap-3 border-b border-[#46A35880] pb-[35px]">
-              {dashboard_mock.map(({ Icon, title, path }) => (
+              {dashboard_mock.map(({ Icon, title, path, id }) => (
                 <div
+                  key={id}
                   onClick={() => {
                     navigate(`/profile/${path}`);
                     dispatch(setSiteMapModalVisbility());

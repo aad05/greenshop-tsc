@@ -2,7 +2,9 @@ import { notification } from "antd";
 type status_string_type =
   | "not_equal"
   | "added_to_shopping_cart"
-  | "deleted_from_shopping_cart";
+  | "deleted_from_shopping_cart"
+  | "missing_value"
+  | "coupon_notfound";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -20,6 +22,12 @@ export const useNotificationAPI = () => {
   const deletedFromShopping = {
     message: "Removed from your shopping card!",
   };
+  const missingValue = {
+    message: "Please fill all fields!",
+  };
+  const couponNotFound = {
+    message: "Coupon not found!",
+  };
 
   return (status: number | status_string_type) => {
     switch (status) {
@@ -31,6 +39,10 @@ export const useNotificationAPI = () => {
         return notification.success(addedToShopping);
       case "deleted_from_shopping_cart":
         return notification.success(deletedFromShopping);
+      case "missing_value":
+        return notification.error(missingValue);
+      case "coupon_notfound":
+        return notification.error(couponNotFound);
       default:
         return notification.error({
           message: "Missing status!",

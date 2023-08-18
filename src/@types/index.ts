@@ -73,3 +73,13 @@ export type Product = {
 };
 
 export type AssetTypes = "images" | "icons";
+
+export type CouponData = {
+  message: string;
+  data: {
+    id: number;
+    discount_for: number;
+    title: "string";
+    code: string;
+  };
+};

@@ -6,8 +6,8 @@ import { hero_mock } from "../../../utils";
 const Hore: FC = () => {
   return (
     <Carousel autoplay effect="scrollx">
-      {hero_mock.map((value) => (
-        <Card {...value} />
+      {hero_mock.map((value, index) => (
+        <Card key={index} {...value} />
       ))}
     </Carousel>
   );
