@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { MainCardType } from "../../@types";
+import { getter, setter } from "../../hooks/useLocalStorage";
 
 type shoppingSliceType = {
   data: MainCardType[];
@@ -25,12 +26,12 @@ const _calcTotal = (data: MainCardType[]): number => {
 };
 
 const initialState: shoppingSliceType = {
-  data: [],
+  data: getter({ key: "shopping_card" }) ?? [],
   coupon: {
     has_coupon: false,
     discount_for: 0,
   },
-  total: 0,
+  total: getter({ key: "total_price" }) ?? 0,
 };
 
 const shoppingSlice = createSlice({
@@ -47,6 +48,8 @@ const shoppingSlice = createSlice({
         : [...state.data, { ...payload, count: 1 }];
 
       state.total = _calcTotal(state.data);
+      setter({ key: "shopping_card", setValue: state.data });
+      setter({ key: "total_price", setValue: state.total });
     },
     increaseCountFromShopping(state, { payload }) {
       state.data = state.data.map((value) =>
@@ -55,6 +58,8 @@ const shoppingSlice = createSlice({
           : value,
       );
       state.total = _calcTotal(state.data);
+      setter({ key: "shopping_card", setValue: state.data });
+      setter({ key: "total_price", setValue: state.total });
     },
     decreaseCountFromShopping(state, { payload }) {
       state.data = state.data.map((value) =>
@@ -66,10 +71,14 @@ const shoppingSlice = createSlice({
           : value,
       );
       state.total = _calcTotal(state.data);
+      setter({ key: "shopping_card", setValue: state.data });
+      setter({ key: "total_price", setValue: state.total });
     },
     deleteFlowerFromShopping(state, { payload }) {
       state.data = state.data.filter((value) => value._id !== payload._id);
       state.total = _calcTotal(state.data);
+      setter({ key: "shopping_card", setValue: state.data });
+      setter({ key: "total_price", setValue: state.total });
     },
     setCoupon(state, { payload }) {
       state.coupon = { ...payload, has_coupon: true };
