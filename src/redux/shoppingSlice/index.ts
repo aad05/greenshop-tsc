@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { MainCardType } from "../../@types";
-import { getter, setter } from "../../hooks/useLocalStorage";
+import { deletter, getter, setter } from "../../hooks/useLocalStorage";
 
 type shoppingSliceType = {
   data: MainCardType[];
@@ -83,6 +83,16 @@ const shoppingSlice = createSlice({
     setCoupon(state, { payload }) {
       state.coupon = { ...payload, has_coupon: true };
     },
+    makeEverythingZero(state) {
+      state.data = [];
+      state.coupon = {
+        has_coupon: false,
+        discount_for: 0,
+      };
+      state.total = 0;
+      deletter({ key: "shopping_card" });
+      deletter({ key: "total_price" });
+    },
   },
 });
 export const {
@@ -91,5 +101,6 @@ export const {
   decreaseCountFromShopping,
   deleteFlowerFromShopping,
   setCoupon,
+  makeEverythingZero,
 } = shoppingSlice.actions;
 export default shoppingSlice.reducer;
