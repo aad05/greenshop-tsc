@@ -2,10 +2,15 @@ import { FC } from "react";
 import { Descriptions, Radio } from "antd";
 import Button from "../../../generic/Button";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
-import { setConfirmationModalVisibility } from "../../../redux/modalSlice";
+import {
+  setAuthModalVisibility,
+  setConfirmationModalVisibility,
+} from "../../../redux/modalSlice";
 import Card from "./Card";
+import { useAuthDecider } from "../../../tools/authDecider";
 
 const Order: FC = () => {
+  const { auth_decider_func } = useAuthDecider();
   const { data, total, coupon } = useReduxSelector((state) => state.shopping);
   const dispatch = useReduxDispatch();
 
@@ -78,7 +83,13 @@ const Order: FC = () => {
         </Radio.Group>
       </div>
       <Button
-        onClick={() => dispatch(setConfirmationModalVisibility())}
+        onClick={() => {
+          auth_decider_func({
+            withoutAuth: () =>
+              dispatch(setAuthModalVisibility({ open: true, loading: false })),
+            withAuth: () => dispatch(setConfirmationModalVisibility()),
+          });
+        }}
         className="mt-[40px] w-full h-[40px]"
       >
         Place Order
