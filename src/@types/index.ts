@@ -83,3 +83,20 @@ export type CouponData = {
     code: string;
   };
 };
+
+export type CheckoutFormType = {
+  first_name: string;
+  last_name: string;
+  country: string;
+  town: string;
+  street_address: string;
+  additional_street_address?: string;
+  state: string;
+  zip: string;
+  email: string;
+  phone_number: string;
+  payment_method:
+    | "other-payment-methods"
+    | "dorect-bank-transfer"
+    | "cash-on-delivery";
+};

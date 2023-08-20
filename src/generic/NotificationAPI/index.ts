@@ -5,7 +5,8 @@ type status_string_type =
   | "deleted_from_shopping_cart"
   | "missing_value"
   | "coupon_notfound"
-  | "coupon_success";
+  | "coupon_success"
+  | "smth_wrong";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -32,6 +33,9 @@ export const useNotificationAPI = () => {
   const couponSuccess = {
     message: "Coupon set successfully!",
   };
+  const smthWentWrong = {
+    message: "Something went wrong. Please try again!",
+  };
 
   return (status: number | status_string_type) => {
     switch (status) {
@@ -49,6 +53,8 @@ export const useNotificationAPI = () => {
         return notification.error(couponNotFound);
       case "coupon_success":
         return notification.success(couponSuccess);
+      case "smth_wrong":
+        return notification.error(smthWentWrong);
       default:
         return notification.error({
           message: "Missing status!",

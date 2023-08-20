@@ -4,8 +4,11 @@ import { useReduxDispatch, useReduxSelector } from "../../../../hooks/useRedux";
 import { setConfirmationModalVisibility } from "../../../../redux/modalSlice";
 import Button from "../../../../generic/Button";
 import Card from "./Card";
+import { makeEverythingZero } from "../../../../redux/shoppingSlice";
+import { useNavigate } from "react-router-dom";
 
 const Confirmation: FC = () => {
+  const navigate = useNavigate();
   const dispatch = useReduxDispatch();
   const { data, total, coupon } = useReduxSelector((state) => state.shopping);
   const { confirmationModalVisibility } = useReduxSelector(
@@ -14,7 +17,11 @@ const Confirmation: FC = () => {
   return (
     <Modal
       open={confirmationModalVisibility}
-      onCancel={() => dispatch(setConfirmationModalVisibility())}
+      onCancel={() => {
+        dispatch(setConfirmationModalVisibility());
+        dispatch(makeEverythingZero());
+        navigate("/");
+      }}
       title="Order Confirmation"
       footer={false}
       width={600}
