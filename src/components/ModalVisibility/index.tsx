@@ -4,6 +4,7 @@ import SiteMap from "./Modals/SiteMap";
 import Authorization from "./Modals/Authorization";
 import MobileDashboard from "../Home/Category/Dashboard/MobileDashboard";
 import Confirmation from "./Modals/Confirmation";
+import TrackOrder from "./Modals/TrackOrder";
 
 const ModalVisibility: FC = () => {
   const {
@@ -11,6 +12,7 @@ const ModalVisibility: FC = () => {
     authModalVisibility,
     dashboardModalVisibility,
     confirmationModalVisibility,
+    trackOrderModalVisibility,
   } = useReduxSelector((state) => state.modal);
   return (
     <>
@@ -22,6 +24,8 @@ const ModalVisibility: FC = () => {
       {dashboardModalVisibility && <MobileDashboard />}
       {/* Confirmation Modal */}
       {confirmationModalVisibility && <Confirmation />}
+      {/* Track Order Modal */}
+      {trackOrderModalVisibility && <TrackOrder />}
     </>
   );
 };

@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { main_route } from "../utils/root_utils";
 import { useIsAuthenticated } from "react-auth-kit";
 import NotFound from "../components/status/NotFound";
+import ModalVisibility from "../components/ModalVisibility";
 
 const Root: FC = () => {
   const isAuthed = useIsAuthenticated();
@@ -19,33 +20,42 @@ const Root: FC = () => {
   }, []);
 
   return (
-    <Routes>
-      <Route element={<Navbar />} path="/">
-        {main_route.map(
-          ({
-            path,
-            id,
-            Component,
-            hasChild = false,
-            children,
-            shouldAuth = false,
-          }) =>
-            hasChild ? (
-              shouldAuth &&
-              authed && (
-                <Route key={id} path={path} element={<Component />}>
-                  {children?.map(({ path, Component: ChildComponent, id }) => (
-                    <Route key={id} path={path} element={<ChildComponent />} />
-                  ))}
-                </Route>
-              )
-            ) : (
-              <Route key={id} path={path} element={<Component />} />
-            ),
-        )}
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <ModalVisibility />
+      <Routes>
+        <Route element={<Navbar />} path="/">
+          {main_route.map(
+            ({
+              path,
+              id,
+              Component,
+              hasChild = false,
+              children,
+              shouldAuth = false,
+            }) =>
+              hasChild ? (
+                shouldAuth &&
+                authed && (
+                  <Route key={id} path={path} element={<Component />}>
+                    {children?.map(
+                      ({ path, Component: ChildComponent, id }) => (
+                        <Route
+                          key={id}
+                          path={path}
+                          element={<ChildComponent />}
+                        />
+                      ),
+                    )}
+                  </Route>
+                )
+              ) : (
+                <Route key={id} path={path} element={<Component />} />
+              ),
+          )}
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 

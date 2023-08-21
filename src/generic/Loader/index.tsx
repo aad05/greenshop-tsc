@@ -66,9 +66,35 @@ export const useLoader = () => {
     ));
   };
 
+  const order_based_loader = ({ length = 5 }) => {
+    return Array.from({ length }).map((_, index) => (
+      <div key={index} className="bg-[#FBFBFB] h-[70px] w-full flex">
+        <div className="w-full grid grid-cols-4 max-sm:grid-cols-2">
+          <div className="border-r m-[4px] border-[#46A35833]">
+            <h3 className="font-light">Order Number</h3>
+            <Skeleton.Input active={true} />
+          </div>
+          <div className="border-r m-[4px] border-[#46A35833]">
+            <h3 className="font-light">Date</h3>
+            <Skeleton.Input active={true} />
+          </div>
+          <div className="border-r m-[4px] border-[#46A35833]">
+            <h3 className="font-light">Total</h3>
+            <Skeleton.Input active={true} />
+          </div>
+          <div className="border-r m-[4px] border-[#46A35833]">
+            <h3 className="font-light">More</h3>
+            <Skeleton.Input active={true} />
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
   return {
     text_based_loader,
     IconAndImageBasedLoader,
     card_based_loader,
+    order_based_loader,
   };
 };

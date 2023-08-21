@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MainCardType } from "../../@types";
+import { MainCardType, OrderType } from "../../@types";
 import { deletter, getter, setter } from "../../hooks/useLocalStorage";
 
 type shoppingSliceType = {
@@ -11,6 +11,7 @@ type shoppingSliceType = {
     title?: string;
   };
   total: number;
+  track_order?: OrderType;
 };
 
 const _calcTotal = (data: MainCardType[]): number => {
@@ -93,6 +94,9 @@ const shoppingSlice = createSlice({
       deletter({ key: "shopping_card" });
       deletter({ key: "total_price" });
     },
+    setTrackOrder(state, { payload }) {
+      state.track_order = payload;
+    },
   },
 });
 export const {
@@ -102,5 +106,6 @@ export const {
   deleteFlowerFromShopping,
   setCoupon,
   makeEverythingZero,
+  setTrackOrder,
 } = shoppingSlice.actions;
 export default shoppingSlice.reducer;

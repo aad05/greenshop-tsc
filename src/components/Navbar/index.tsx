@@ -16,7 +16,6 @@ import {
   LoginOutlined,
 } from "@ant-design/icons";
 import Footer from "../Footer";
-import ModalVisibility from "../ModalVisibility";
 
 const Navbar: FC = () => {
   const { data } = useReduxSelector((state) => state.shopping);
@@ -30,7 +29,6 @@ const Navbar: FC = () => {
 
   return (
     <div className="w-4/5 m-auto max-sm:w-full">
-      <ModalVisibility />
       <div className="p-8 flex align-center border-b border-[#46A358]">
         <div className="flex-1">
           <img
