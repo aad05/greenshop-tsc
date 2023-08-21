@@ -10,6 +10,7 @@ type modalSliceType = {
   authModalVisibility: authModalType;
   dashboardModalVisibility: boolean;
   confirmationModalVisibility: boolean;
+  trackOrderModalVisibility: boolean;
 };
 
 const initialState: modalSliceType = {
@@ -20,6 +21,7 @@ const initialState: modalSliceType = {
   },
   dashboardModalVisibility: false,
   confirmationModalVisibility: false,
+  trackOrderModalVisibility: false,
 };
 
 const modalSlice = createSlice({
@@ -38,6 +40,9 @@ const modalSlice = createSlice({
     setConfirmationModalVisibility(state) {
       state.confirmationModalVisibility = !state.confirmationModalVisibility;
     },
+    setTrackOrderModalVisibility(state) {
+      state.trackOrderModalVisibility = !state.trackOrderModalVisibility;
+    },
   },
 });
 export const {
@@ -45,5 +50,6 @@ export const {
   setAuthModalVisibility,
   setDashboardModalVisibility,
   setConfirmationModalVisibility,
+  setTrackOrderModalVisibility,
 } = modalSlice.actions;
 export default modalSlice.reducer;

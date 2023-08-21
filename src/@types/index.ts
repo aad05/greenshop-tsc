@@ -100,3 +100,20 @@ export type CheckoutFormType = {
     | "dorect-bank-transfer"
     | "cash-on-delivery";
 };
+
+export type OrderType = {
+  _id: string;
+  billing_address: CheckoutFormType;
+  created_at: Date;
+  created_by: string;
+  extra_shop_info: {
+    total_price: number;
+    coupon: {
+      has_coupon: boolean;
+      discount_for: number;
+      code?: string;
+      title?: string;
+    };
+  };
+  shop_list: MainCardType[];
+};

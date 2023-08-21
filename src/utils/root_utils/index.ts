@@ -4,6 +4,7 @@ import {
   HeartOutlined,
   ShoppingOutlined,
   EnvironmentOutlined,
+  DashboardOutlined,
 } from "@ant-design/icons";
 import Home from "../../pages/home";
 import AccountDetails from "../../components/Profile/AccountDetails";
@@ -14,6 +15,7 @@ import Profile from "../../pages/profile";
 import MyProducts from "../../components/Profile/MyProducts";
 import Address from "../../components/Profile/Address";
 import Wishlist from "../../components/Profile/Wishlist";
+import TrackOrder from "../../components/Profile/TrackOrder";
 
 type main_route_type = {
   id: number;
@@ -59,6 +61,13 @@ export const dashboard_mock: dashboard_items[] = [
     Icon: HeartOutlined,
     Component: Wishlist,
     title: "Wishlist",
+    id: 3,
+  },
+  {
+    path: "track-order",
+    Icon: DashboardOutlined,
+    Component: TrackOrder,
+    title: "Track Order",
     id: 3,
   },
 ];
