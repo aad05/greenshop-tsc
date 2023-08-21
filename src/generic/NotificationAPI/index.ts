@@ -6,7 +6,8 @@ type status_string_type =
   | "missing_value"
   | "coupon_notfound"
   | "coupon_success"
-  | "smth_wrong";
+  | "smth_wrong"
+  | "proceed_to_checkout_error";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -36,6 +37,9 @@ export const useNotificationAPI = () => {
   const smthWentWrong = {
     message: "Something went wrong. Please try again!",
   };
+  const proceedToCheckoutError = {
+    message: "Nothing to proceed!",
+  };
 
   return (status: number | status_string_type) => {
     switch (status) {
@@ -55,6 +59,8 @@ export const useNotificationAPI = () => {
         return notification.success(couponSuccess);
       case "smth_wrong":
         return notification.error(smthWentWrong);
+      case "proceed_to_checkout_error":
+        return notification.error(proceedToCheckoutError);
       default:
         return notification.error({
           message: "Missing status!",
