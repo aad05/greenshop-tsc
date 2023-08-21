@@ -16,7 +16,7 @@ const CardTotal: FC = () => {
   const coupon_ref = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { coupon, total } = useReduxSelector((state) => state.shopping);
+  const { coupon, total, data } = useReduxSelector((state) => state.shopping);
 
   const handleCouponDiscount: any = async () => {
     if (!coupon_ref?.current?.value) return notify("missing_value");
@@ -99,7 +99,10 @@ const CardTotal: FC = () => {
         )}
       </div>
       <Button
-        onClick={() => navigate("/product-checkout")}
+        onClick={() => {
+          if (data.length) navigate("/product-checkout");
+          else notify("proceed_to_checkout_error");
+        }}
         className="w-full h-[40px] mt-[30px]"
       >
         Proceed to Checkout
