@@ -8,9 +8,13 @@ import {
   ShoppingCartOutlined,
   SearchOutlined,
   HeartOutlined,
+  HeartFilled,
 } from "@ant-design/icons";
 import { addDataToShopping } from "../../../../../../redux/shoppingSlice";
 import { useNotificationAPI } from "../../../../../../generic/NotificationAPI";
+import { useAuthUser } from "react-auth-kit";
+import { useHandler } from "../../../../../../generic/Handlers";
+import { useAppSearchParams } from "../../../../../../hooks/useSearchParams";
 
 type CardType = {
   value: MainCardType;
@@ -18,10 +22,17 @@ type CardType = {
 };
 
 const Card: FC<CardType> = ({ value, clickNavigator }) => {
+  const { getParams } = useAppSearchParams();
+  const { likeHandler } = useHandler();
+  const auth = useAuthUser();
   const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
   const { IconAndImageBasedLoader } = useLoader();
+
+  const foundData = auth()?.wishlist.find(
+    (v: { flower_id: string }) => v?.flower_id === value._id,
+  );
 
   return (
     <div className="">
@@ -54,11 +65,20 @@ const Card: FC<CardType> = ({ value, clickNavigator }) => {
                   dispatch(
                     setAuthModalVisibility({ open: true, loading: false }),
                   ),
+                withAuth: () =>
+                  likeHandler({
+                    category: getParams("category"),
+                    main_flower_data: value,
+                  }),
               })
             }
             className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
           >
-            <HeartOutlined />
+            {foundData?.flower_id === value._id ? (
+              <HeartFilled className="text-[red]" />
+            ) : (
+              <HeartOutlined />
+            )}
           </div>
           <div
             className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]"

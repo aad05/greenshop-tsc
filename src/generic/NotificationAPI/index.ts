@@ -7,7 +7,9 @@ type status_string_type =
   | "coupon_notfound"
   | "coupon_success"
   | "smth_wrong"
-  | "proceed_to_checkout_error";
+  | "proceed_to_checkout_error"
+  | "added_to_wishlist"
+  | "removed_from_wishlist";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -61,6 +63,10 @@ export const useNotificationAPI = () => {
         return notification.error(smthWentWrong);
       case "proceed_to_checkout_error":
         return notification.error(proceedToCheckoutError);
+      case "added_to_wishlist":
+        return notification.success({ message: "Added to your wishlist!" });
+      case "removed_from_wishlist":
+        return notification.success({ message: "Removed from your wishlist!" });
       default:
         return notification.error({
           message: "Missing status!",

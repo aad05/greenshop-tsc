@@ -1,13 +1,29 @@
 import { FC } from "react";
 import { useLoader } from "../../../../generic/Loader";
 import {
-  HeartOutlined,
+  HeartFilled,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { MainCardType } from "../../../../@types";
+import { useAuthUser } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
+import { useReduxDispatch } from "../../../../hooks/useRedux";
+import { useNotificationAPI } from "../../../../generic/NotificationAPI";
+import { addDataToShopping } from "../../../../redux/shoppingSlice";
+import { useDeleteWishlistDataFromCache } from "../../../../hooks/useQuery/useQueryAction";
 
-const Card: FC = () => {
+const Card: FC<MainCardType> = (props) => {
+  const deleteWishlistData = useDeleteWishlistDataFromCache();
+  const notify = useNotificationAPI();
+  const dispatch = useReduxDispatch();
+  const auth = useAuthUser();
+  const navigate = useNavigate();
   const { IconAndImageBasedLoader } = useLoader();
+
+  const foundWishData = auth()?.wishlist.find(
+    (value: { flower_id: string }) => value.flower_id === props._id,
+  );
 
   return (
     <div className="">
@@ -19,27 +35,41 @@ const Card: FC = () => {
         )}
         <IconAndImageBasedLoader
           type="image"
-          src={
-            "https://cdn.pixabay.com/photo/2019/02/16/11/34/potted-plant-4000135_960_720.png"
-          }
+          src={String(props.main_image)}
           alt="img"
           className="w-4/5"
         />
         <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
+          <div
+            onClick={() => {
+              notify("added_to_shopping_cart");
+              dispatch(addDataToShopping(props));
+            }}
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer"
+          >
             <ShoppingCartOutlined />
           </div>
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer">
-            <HeartOutlined />
+          <div
+            onClick={() => deleteWishlistData(props)}
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer"
+          >
+            <HeartFilled className="text-[red]" />
           </div>
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
+          <div
+            onClick={() =>
+              navigate(
+                `/shop/${foundWishData?.route_path}/${foundWishData?.flower_id}`,
+              )
+            }
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer"
+          >
             <SearchOutlined />
           </div>
         </div>
       </div>
       <h3 className="font-normal cursor-pointer mt-[12px]">Barberton Daisy</h3>
       <p className="text-[#46A358] font-bold">
-        $119.00
+        ${props.price}
         {false && (
           <span className="font-thin text-[#A5A5A5] ml-[5px] line-through">
             $229.00
