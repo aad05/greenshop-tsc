@@ -9,7 +9,9 @@ type status_string_type =
   | "smth_wrong"
   | "proceed_to_checkout_error"
   | "added_to_wishlist"
-  | "removed_from_wishlist";
+  | "removed_from_wishlist"
+  | "account_details_updated"
+  | "address_updated";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -67,6 +69,14 @@ export const useNotificationAPI = () => {
         return notification.success({ message: "Added to your wishlist!" });
       case "removed_from_wishlist":
         return notification.success({ message: "Removed from your wishlist!" });
+      case "account_details_updated":
+        return notification.success({
+          message: "Your account details has been updated!",
+        });
+      case "address_updated":
+        return notification.success({
+          message: "Your address has been updated!",
+        });
       default:
         return notification.error({
           message: "Missing status!",

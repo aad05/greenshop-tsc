@@ -2,8 +2,15 @@ import { Button, Form, Input, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import GenericButton from "../../../generic/Button";
 import { FC } from "react";
+import { useAuthUser } from "react-auth-kit";
+import { useHandler } from "../../../generic/Handlers";
 
 const AccountDetails: FC = () => {
+  const { accountDetailsUpdater } = useHandler();
+  const auth = useAuthUser()();
+
+  const onFinish = (e: object) => accountDetailsUpdater({ shouldUpdate: e });
+
   return (
     <Form
       name="complex-form"
@@ -16,6 +23,14 @@ const AccountDetails: FC = () => {
       layout="vertical"
       className="w-full"
       size="large"
+      initialValues={{
+        name: String(auth?.name),
+        surname: String(auth?.surname),
+        email: String(auth?.email),
+        phone_number: String(auth?.phone_number),
+        username: String(auth?.username),
+      }}
+      onFinish={onFinish}
     >
       <Form.Item
         rules={[
@@ -29,7 +44,7 @@ const AccountDetails: FC = () => {
       >
         <Form.Item
           label="First name"
-          name="first_name"
+          name="name"
           rules={[
             {
               required: true,
@@ -44,7 +59,7 @@ const AccountDetails: FC = () => {
         </Form.Item>
         <Form.Item
           label="Last name"
-          name="last_name"
+          name="surname"
           rules={[
             {
               required: true,
@@ -98,7 +113,7 @@ const AccountDetails: FC = () => {
             margin: "0 8px",
           }}
         >
-          <Input placeholder="Your phone number..." />
+          <Input addonBefore={"+998"} placeholder="Your phone number..." />
         </Form.Item>
       </Form.Item>
       <Form.Item
