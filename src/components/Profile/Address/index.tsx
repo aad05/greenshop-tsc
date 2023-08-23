@@ -1,8 +1,15 @@
 import { Input, Form, Checkbox } from "antd";
 import { FC } from "react";
 import Button from "../../../generic/Button";
+import { useAuthUser } from "react-auth-kit";
+import { useHandler } from "../../../generic/Handlers";
 
 const Address: FC = () => {
+  const { addressUpdater } = useHandler();
+  const auth = useAuthUser()();
+
+  const onFinish = (e: object) => addressUpdater({ shouldUpdate: e });
+
   return (
     <div className="w-full">
       <div className="flex justify-between mb-[30px]">
@@ -26,6 +33,19 @@ const Address: FC = () => {
         layout="vertical"
         className="w-full"
         size="large"
+        onFinish={onFinish}
+        initialValues={{
+          name: String(auth?.name),
+          surname: String(auth?.surname),
+          email: String(auth?.email),
+          phone_number: String(auth?.phone_number),
+          country: String(auth?.billing_address?.country),
+          town: String(auth?.billing_address?.town),
+          street_address: String(auth?.billing_address?.street_address),
+          extra_address: String(auth?.billing_address?.extra_address),
+          state: String(auth?.billing_address?.state),
+          zip: String(auth?.billing_address?.zip),
+        }}
       >
         <Form.Item
           rules={[
@@ -39,7 +59,7 @@ const Address: FC = () => {
         >
           <Form.Item
             label="First name"
-            name="first_name"
+            name="name"
             rules={[
               {
                 required: true,
@@ -54,7 +74,7 @@ const Address: FC = () => {
           </Form.Item>
           <Form.Item
             label="Last name"
-            name="last_name"
+            name="surname"
             rules={[
               {
                 required: true,
@@ -137,8 +157,8 @@ const Address: FC = () => {
             <Input placeholder="House number and street name" />
           </Form.Item>
           <Form.Item
-            label=" "
-            name="additional_street_address"
+            label="Extra address"
+            name="extra_address"
             style={{
               display: "inline-block",
               width: "calc(50% - 8px)",
@@ -237,7 +257,6 @@ const Address: FC = () => {
         </Form.Item>
         <Button className="h-[40px] px-[10px]">Save Address</Button>
       </Form>
-
       <div className="flex justify-between mt-[30px]">
         <div>
           <h3 className="mb-[10px]">Shipping Address</h3>
