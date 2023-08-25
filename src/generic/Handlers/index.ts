@@ -148,5 +148,22 @@ export const useHandler = () => {
       notify("smth_wrong");
     }
   };
-  return { likeHandler, accountDetailsUpdater, addressUpdater };
+  const emailSubscriber = async ({ email }: { email: string }) => {
+    try {
+      await axios({
+        url: "/features/email-subscribe",
+        method: "POST",
+        body: { email },
+      });
+      notify("email_success");
+    } catch (error) {
+      notify("smth_wrong");
+    }
+  };
+  return {
+    likeHandler,
+    accountDetailsUpdater,
+    addressUpdater,
+    emailSubscriber,
+  };
 };

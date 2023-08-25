@@ -11,7 +11,8 @@ type status_string_type =
   | "added_to_wishlist"
   | "removed_from_wishlist"
   | "account_details_updated"
-  | "address_updated";
+  | "address_updated"
+  | "email_success";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -77,6 +78,8 @@ export const useNotificationAPI = () => {
         return notification.success({
           message: "Your address has been updated!",
         });
+      case "email_success":
+        return notification.success({ message: "Successfully subscribed!" });
       default:
         return notification.error({
           message: "Missing status!",

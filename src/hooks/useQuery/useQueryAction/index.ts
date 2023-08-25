@@ -1,6 +1,7 @@
-import { useQueryClient } from "react-query";
-import { MainCardType } from "../../../@types";
+import { useMutation, useQueryClient } from "react-query";
+import { AddFlowerType, MainCardType } from "../../../@types";
 import { useHandler } from "../../../generic/Handlers";
+import { useAxios } from "../../useAxios";
 
 // Cache Handler
 const useDeleteWishlistDataFromCache = () => {
@@ -15,4 +16,16 @@ const useDeleteWishlistDataFromCache = () => {
   };
 };
 
-export { useDeleteWishlistDataFromCache };
+// Mutation
+const useAddProduct = () => {
+  const axios = useAxios();
+  return useMutation(({ uploadData }: { uploadData: AddFlowerType }) => {
+    return axios({
+      url: `/flower/category/${uploadData.category}`,
+      method: "POST",
+      body: { ...uploadData },
+    });
+  });
+};
+
+export { useDeleteWishlistDataFromCache, useAddProduct };

@@ -46,3 +46,14 @@ img {
 .ant-radio-wrapper:hover .ant-radio-inner {
   border-color: #46a358;
 }
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  width: 100%;
+}
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload-list.ant-upload-list-picture-card
+  .ant-upload-list-item-container {
+  width: 100%;
+  height: 200px;
+}

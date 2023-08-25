@@ -117,3 +117,95 @@ export type OrderType = {
   };
   shop_list: MainCardType[];
 };
+
+export type AuthUserType = {
+  name?: string;
+};
+
+export type UploadType = {
+  file: {
+    lastModified: number;
+    lastModifiedDate: Date;
+    name: string;
+    originalFileObj: typeof File;
+    response: {
+      message: string;
+      image_url: {
+        api_key: string;
+        asset_id: string;
+        bytes: number;
+        created_at: string;
+        etag: string;
+        folder: string;
+        format:
+          | "jpg"
+          | "svg"
+          | "jpag"
+          | "jpeg"
+          | "gif"
+          | "png"
+          | "eps"
+          | "raw"
+          | "cr2"
+          | "nef"
+          | "orf"
+          | "sr2";
+        height: number;
+        width: number;
+        original_extension: string;
+        original_filename: string;
+        placeholder: boolean;
+        public_id: string;
+        resource_type: "image" | "video" | "images" | "videos";
+        secure_url: string;
+        signature: string;
+        tags: string[];
+        type: "upload" | "pre-upload";
+        url: string;
+        version: number;
+        version_id: string;
+      };
+    };
+    size: number;
+    percent: number;
+    status: "done" | "failed";
+    thumbUrl: string;
+    type: string;
+    uid: string;
+    xhr: typeof XMLHttpRequest;
+  };
+};
+
+export type AddNewProductUploadType = {
+  isShowMainUpload: boolean;
+  isShowAdditionalUpload_1: boolean;
+  isShowAdditionalUpload_2: boolean;
+  isShowAdditionalUpload_3: boolean;
+  isShowAdditionalUpload_4: boolean;
+};
+
+export type UploadFormType = {
+  category: string;
+  description: string;
+  discount_price: string | undefined;
+  price: number;
+  short_description: string;
+  title: string;
+  main_image: UploadType;
+  detailed_image_1: UploadType;
+  detailed_image_2: UploadType;
+  detailed_image_3: UploadType;
+  detailed_image_4: UploadType;
+};
+
+export type AddFlowerType = {
+  title: string;
+  price: number;
+  discount: boolean;
+  discount_price: number;
+  short_description: string;
+  description: string;
+  main_image: string;
+  detailed_images: string[];
+  category: string;
+};

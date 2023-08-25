@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import Card from "./Card";
 import { Carousel } from "antd";
 import { hero_mock } from "../../../utils";
@@ -13,4 +13,4 @@ const Hore: FC = () => {
   );
 };
 
-export default Hore;
+export default memo(Hore);

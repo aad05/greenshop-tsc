@@ -1,9 +1,20 @@
-import { FC } from "react";
+import { FC, memo, useRef, useState } from "react";
 import { useAssets } from "../../hooks/useAssets";
 import Button from "../../generic/Button";
 import { useLoader } from "../../generic/Loader";
+import { useHandler } from "../../generic/Handlers";
+import { LoadingOutlined, CheckOutlined } from "@ant-design/icons";
 
 const Footer: FC = () => {
+  const [suscribeMode, setSubscribeMode] = useState<{
+    isLoading: boolean;
+    isSubscribed: boolean;
+  }>({
+    isLoading: false,
+    isSubscribed: false,
+  });
+  const emailRef = useRef<HTMLInputElement>(null);
+  const { emailSubscriber } = useHandler();
   const { IconAndImageBasedLoader } = useLoader();
   const {
     footer_flower_1,
@@ -22,6 +33,12 @@ const Footer: FC = () => {
     visa,
     amex,
   } = useAssets("icons");
+
+  const onSubscribe = async () => {
+    setSubscribeMode({ isLoading: true, isSubscribed: false });
+    await emailSubscriber({ email: String(emailRef.current?.value) });
+    setSubscribeMode({ isLoading: false, isSubscribed: true });
+  };
 
   return (
     <div>
@@ -75,11 +92,30 @@ const Footer: FC = () => {
             </h3>
             <div className="flex w-full h-[40px] mb-[17px]">
               <input
+                disabled={suscribeMode.isSubscribed}
                 className="h-full w-4/5 rounded-s-xl pl-[11px] placeholder:font-light"
                 placeholder="enter your email address..."
+                onKeyDown={(e) =>
+                  (e.key === "Enter" ||
+                    e.keyCode === 13 ||
+                    e.type === "click") &&
+                  onSubscribe()
+                }
               />
-              <Button className="h-full w-1/5 rounded-none rounded-e-xl">
-                JOIN
+              <Button
+                disabled={suscribeMode.isSubscribed}
+                onClick={onSubscribe}
+                className="h-full w-1/5 rounded-none rounded-e-xl"
+              >
+                {suscribeMode.isSubscribed ? (
+                  suscribeMode.isLoading ? (
+                    <LoadingOutlined />
+                  ) : (
+                    <CheckOutlined />
+                  )
+                ) : (
+                  "JOIN"
+                )}
               </Button>
             </div>
             <p className="font-light text-xs leading-6">
@@ -213,4 +249,4 @@ const Footer: FC = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

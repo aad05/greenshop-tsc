@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import Button from "../../../../generic/Button";
 import { useLoader } from "../../../../generic/Loader";
 
@@ -50,4 +50,4 @@ const Card: FC<CardProps> = ({
   );
 };
 
-export default Card;
+export default memo(Card);

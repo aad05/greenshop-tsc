@@ -1,5 +1,5 @@
 import { Skeleton } from "antd";
-import { useState } from "react";
+// import { useState } from "react";
 
 type text_based_loader_type = {
   length?: number;
@@ -31,22 +31,25 @@ export const useLoader = () => {
     onClick,
     type,
   }: icon_and_based_loader) => {
-    const [isLoading, setLoading] = useState<boolean>(true);
+    // const [isLoading, setLoading] = useState<boolean>(true);
+    // console.log(isLoading);
+
     return (
       <>
-        {isLoading ? (
+        {/* {isLoading ? (
           type === "image" ? (
-            <Skeleton.Image className={className} active={true} />
+            isLoading && <Skeleton.Image className={className} active={true} />
           ) : (
             <Skeleton.Avatar active={true} />
           )
-        ) : null}
+        ) : null} */}
         <img
           onClick={onClick}
-          className={`${className} ${!isLoading ? "flex" : "hidden"}`}
+          // className={`${className} ${!isLoading ? "flex" : "hidden"}`}
+          className={className}
           src={src}
           alt={alt}
-          onLoad={() => setLoading(false)}
+          // onLoad={() => setLoading(false)}
         />
       </>
     );

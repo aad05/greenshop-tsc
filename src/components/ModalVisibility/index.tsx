@@ -5,6 +5,7 @@ import Authorization from "./Modals/Authorization";
 import MobileDashboard from "../Home/Category/Dashboard/MobileDashboard";
 import Confirmation from "./Modals/Confirmation";
 import TrackOrder from "./Modals/TrackOrder";
+import AddNewPlant from "./Modals/AddNewPlant";
 
 const ModalVisibility: FC = () => {
   const {
@@ -13,6 +14,7 @@ const ModalVisibility: FC = () => {
     dashboardModalVisibility,
     confirmationModalVisibility,
     trackOrderModalVisibility,
+    addNewPlantModalVisivility,
   } = useReduxSelector((state) => state.modal);
   return (
     <>
@@ -26,6 +28,8 @@ const ModalVisibility: FC = () => {
       {confirmationModalVisibility && <Confirmation />}
       {/* Track Order Modal */}
       {trackOrderModalVisibility && <TrackOrder />}
+      {/* Add New Plant Modal */}
+      {addNewPlantModalVisivility.open && <AddNewPlant />}
     </>
   );
 };

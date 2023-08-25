@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Skeleton } from "antd";
 import { useLoader } from "../../../../../generic/Loader";
 import useQueryHandler from "../../../../../hooks/useQuery";
@@ -36,4 +36,4 @@ const Discount: FC = () => {
   );
 };
 
-export default Discount;
+export default memo(Discount);

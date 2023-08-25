@@ -4,12 +4,21 @@ import GenericButton from "../../../generic/Button";
 import { FC } from "react";
 import { useAuthUser } from "react-auth-kit";
 import { useHandler } from "../../../generic/Handlers";
+import { UploadType } from "../../../@types";
 
 const AccountDetails: FC = () => {
   const { accountDetailsUpdater } = useHandler();
   const auth = useAuthUser()();
 
-  const onFinish = (e: object) => accountDetailsUpdater({ shouldUpdate: e });
+  const onFinish = async (e: { profile_photo: UploadType }) => {
+    await accountDetailsUpdater({
+      shouldUpdate: {
+        ...e,
+        profile_photo: e.profile_photo.file.response.image_url.url,
+      },
+    });
+    console.log(e);
+  };
 
   return (
     <Form
@@ -150,7 +159,18 @@ const AccountDetails: FC = () => {
             margin: "0 8px",
           }}
         >
-          <Upload listType="picture">
+          <Upload
+            name="image"
+            action={
+              "https://greenshop.abduvoitov.com/api/upload?access_token=64bebc1e2c6d3f056a8c85b7"
+            }
+            listType="picture"
+            data={{ type: "img" }}
+            headers={{
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }}
+            accept=".png,.jpg,.jpeg"
+          >
             <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>
         </Form.Item>
