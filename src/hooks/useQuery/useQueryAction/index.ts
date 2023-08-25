@@ -16,6 +16,15 @@ const useDeleteWishlistDataFromCache = () => {
   };
 };
 
+const useDeleteProductFromCache = () => {
+  const queryClient = useQueryClient();
+  return (recievedData: MainCardType) => {
+    queryClient.setQueryData("/my-products", (oldQuery: any) => {
+      return oldQuery.filter((v: MainCardType) => v._id !== recievedData._id);
+    });
+  };
+};
+
 // Mutation
 const useAddProduct = () => {
   const axios = useAxios();
@@ -27,5 +36,17 @@ const useAddProduct = () => {
     });
   });
 };
+const useDeleteProduct = () => {
+  const axios = useAxios();
+  const deleteProductFromCache = useDeleteProductFromCache();
 
-export { useDeleteWishlistDataFromCache, useAddProduct };
+  return useMutation(({ data }: { data: MainCardType }) => {
+    deleteProductFromCache(data);
+    return axios({
+      url: `/user/product/${data.category}`,
+      method: "DELETE",
+      body: { _id: data._id },
+    });
+  });
+};
+export { useDeleteWishlistDataFromCache, useAddProduct, useDeleteProduct };

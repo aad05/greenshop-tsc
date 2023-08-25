@@ -54,6 +54,7 @@ export type MainCardType = {
   created_at?: Date;
   count?: number;
   discount_price?: number;
+  category?: string;
 };
 
 export type Product = {
