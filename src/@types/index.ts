@@ -49,10 +49,11 @@ export type MainCardType = {
   discount?: boolean;
   main_image?: string;
   title?: string;
-  price?: string;
+  price?: number;
   sold_times?: number;
   created_at?: Date;
   count?: number;
+  discount_price?: number;
 };
 
 export type Product = {

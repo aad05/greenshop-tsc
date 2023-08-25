@@ -29,7 +29,7 @@ const Dashboard: FC = () => {
     });
   };
   return (
-    <div className="bg-[#FBFBFB] w-[310px] text-xl p-[15px] max-sm:hidden">
+    <div className="bg-[#FBFBFB] w-[310px] h-fit text-xl p-[15px] max-sm:hidden">
       <h1 className="font-bold">My Account</h1>
       <div className="flex flex-col gap-3 mt-[15px] border-b border-[#46A35880] pb-[35px]">
         {dashboard_mock.map(({ Icon, title, path, id }) => (
