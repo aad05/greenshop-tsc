@@ -67,7 +67,7 @@ const Card: FC<MainCardType> = (props) => {
           </div>
         </div>
       </div>
-      <h3 className="font-normal cursor-pointer mt-[12px]">Barberton Daisy</h3>
+      <h3 className="font-normal cursor-pointer mt-[12px]">{props.title}</h3>
       <p className="text-[#46A358] font-bold">
         ${props.price}
         {false && (
