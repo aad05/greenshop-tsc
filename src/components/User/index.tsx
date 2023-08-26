@@ -9,7 +9,7 @@ const User: FC = () => {
   const useQuery = useQueryHandler();
 
   const { isLoading, isError } = useQuery({
-    queryURL: `/user/${_id}`,
+    queryURL: `/user/by_id/${_id}`,
     queryKEY: `/user-${_id}`,
     method: "GET",
   });
