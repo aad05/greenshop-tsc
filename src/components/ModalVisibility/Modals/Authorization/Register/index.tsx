@@ -49,6 +49,7 @@ const SignUp: FC = () => {
     })
       .then((res) => {
         const { data }: authResponseType = res.data;
+        localStorage.setItem("token", data.token);
         sing_in({
           token: data.token,
           expiresIn: 3600,

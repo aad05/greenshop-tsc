@@ -5,6 +5,7 @@ import { MainCardType } from "../../../../../@types";
 import { useLoader } from "../../../../../generic/Loader";
 import { useAppSearchParams } from "../../../../../hooks/useSearchParams";
 import { useNavigate } from "react-router-dom";
+import { Empty } from "antd";
 
 const Mappping: FC = () => {
   const navigate = useNavigate();
@@ -38,22 +39,28 @@ const Mappping: FC = () => {
     _id: string;
   }) => navigate(`/shop/${category}/${_id}`);
 
-  return (
+  return isLoading || isError ? (
     <div className="mt-[30px] grid grid-cols-3 gap-4 max-sm:grid-cols-2">
-      {isLoading || isError
-        ? card_based_loader({ length: 9 })
-        : data?.map((value: MainCardType) => (
-            <Card
-              clickNavigator={() =>
-                clickNavigator({
-                  category: String(category),
-                  _id: String(value._id),
-                })
-              }
-              key={value._id}
-              value={value}
-            />
-          ))}
+      {card_based_loader({ length: 9 })}
+    </div>
+  ) : !data?.length ? (
+    <div className="w-full mt-[50px]">
+      <Empty description={"Data is empty."} />
+    </div>
+  ) : (
+    <div className="mt-[30px] grid grid-cols-3 gap-4 max-sm:grid-cols-2">
+      {data?.map((value: MainCardType) => (
+        <Card
+          clickNavigator={() =>
+            clickNavigator({
+              category: String(category),
+              _id: String(value._id),
+            })
+          }
+          key={value._id}
+          value={value}
+        />
+      ))}
     </div>
   );
 };

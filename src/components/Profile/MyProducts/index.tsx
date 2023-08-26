@@ -6,6 +6,7 @@ import { setAddNewPlantModalVisibility } from "../../../redux/modalSlice";
 import useQueryHandler from "../../../hooks/useQuery";
 import { useLoader } from "../../../generic/Loader";
 import { MainCardType } from "../../../@types";
+import { Empty } from "antd";
 
 const MyProducts: FC = () => {
   const { my_product_based_loader } = useLoader();
@@ -41,6 +42,17 @@ const MyProducts: FC = () => {
           : data.map((value: MainCardType) => (
               <Product key={value._id} {...value} />
             ))}
+        {isLoading ||
+          (!data?.length && (
+            <Empty
+              className="mt-[10px]"
+              description={
+                <div>
+                  <h3 className="text-[18px] text-bold">No products yet...</h3>
+                </div>
+              }
+            />
+          ))}
       </div>
     </div>
   );

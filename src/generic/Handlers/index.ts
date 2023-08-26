@@ -160,10 +160,29 @@ export const useHandler = () => {
       notify("smth_wrong");
     }
   };
+
+  const followUser = ({ _id }: { _id: string }) => {
+    userUpdater({
+      shouldUpdate: { followers: [...auth()?.followers, _id] },
+    });
+    notify("followed");
+  };
+
+  const unFollowUser = ({ _id }: { _id: string }) => {
+    userUpdater({
+      shouldUpdate: {
+        followers: auth()?.followers.filter((v: string) => v !== _id),
+      },
+    });
+    notify("unfollowed");
+  };
+
   return {
     likeHandler,
     accountDetailsUpdater,
     addressUpdater,
     emailSubscriber,
+    followUser,
+    unFollowUser,
   };
 };

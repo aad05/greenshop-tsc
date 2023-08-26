@@ -1,3 +1,10 @@
+import {
+  UserSwitchOutlined,
+  ShoppingCartOutlined,
+  HighlightOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
+
 type hero_mock_type = {
   id: number;
   title: string;
@@ -6,6 +13,12 @@ type hero_mock_type = {
   description: string;
   flower_1: string;
   flower_2: string;
+};
+
+type followers_dashboard_type = {
+  tooltip_title: string;
+  key: number;
+  Icon: React.ForwardRefExoticComponent<any>;
 };
 
 export const hero_mock: hero_mock_type[] = [
@@ -48,4 +61,11 @@ export const hero_mock: hero_mock_type[] = [
     flower_2:
       "https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Fimages%2Fflower2.png?alt=media&token=905a94e2-1250-4e56-9dcb-d16bbb1a31ca",
   },
+];
+
+export const followers_dashboard: followers_dashboard_type[] = [
+  { tooltip_title: "Followers", key: 1, Icon: UserSwitchOutlined },
+  { tooltip_title: "Products", key: 2, Icon: ShoppingCartOutlined },
+  { tooltip_title: "Posts", key: 3, Icon: HighlightOutlined },
+  { tooltip_title: "Likees", key: 4, Icon: HeartOutlined },
 ];

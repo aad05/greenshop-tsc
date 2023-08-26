@@ -3,20 +3,29 @@ import {
   HeartFilled,
   SearchOutlined,
   ShoppingCartOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { MainCardType } from "../../../../../@types";
 import { useLoader } from "../../../../../generic/Loader";
+import { useAuthUser } from "react-auth-kit";
+import { useHandler } from "../../../../../generic/Handlers";
+import { useAuthDecider } from "../../../../../tools/authDecider";
+import { setAuthModalVisibility } from "../../../../../redux/modalSlice";
+import { useReduxDispatch } from "../../../../../hooks/useRedux";
 
-const Card: FC<MainCardType> = ({
-  category,
-  _id,
-  main_image,
-  price,
-  title,
-}) => {
+const Card: FC<MainCardType> = (props) => {
+  const { category, _id, main_image, price, title } = props;
+  const auth = useAuthUser()();
+  const dispatch = useReduxDispatch();
   const navigate = useNavigate();
+  const { likeHandler } = useHandler();
+  const { auth_decider_func } = useAuthDecider();
   const { IconAndImageBasedLoader } = useLoader();
+
+  const foundData = auth?.wishlist.find(
+    (v: { flower_id: string }) => v?.flower_id === _id,
+  );
 
   return (
     <div className="">
@@ -36,8 +45,27 @@ const Card: FC<MainCardType> = ({
           <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer">
             <ShoppingCartOutlined />
           </div>
-          <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer">
-            <HeartFilled className="text-[red]" />
+          <div
+            onClick={() =>
+              auth_decider_func({
+                withoutAuth: () =>
+                  dispatch(
+                    setAuthModalVisibility({ open: true, loading: false }),
+                  ),
+                withAuth: () =>
+                  likeHandler({
+                    category: String(category),
+                    main_flower_data: props,
+                  }),
+              })
+            }
+            className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer"
+          >
+            {foundData?.flower_id === _id ? (
+              <HeartFilled className="text-[red]" />
+            ) : (
+              <HeartOutlined />
+            )}
           </div>
           <div
             onClick={() => navigate(`/shop/${category}/${_id}`)}

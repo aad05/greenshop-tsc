@@ -138,6 +138,14 @@ export const useLoader = () => {
     );
   };
 
+  const followers_loader = () => {
+    return Array.from({ length: 10 }).map((_, i) => (
+      <div key={i}>
+        <Skeleton active={true} avatar></Skeleton>
+      </div>
+    ));
+  };
+
   return {
     text_based_loader,
     IconAndImageBasedLoader,
@@ -145,5 +153,6 @@ export const useLoader = () => {
     order_based_loader,
     my_product_based_loader,
     tab_loader,
+    followers_loader,
   };
 };

@@ -12,7 +12,9 @@ type status_string_type =
   | "removed_from_wishlist"
   | "account_details_updated"
   | "address_updated"
-  | "email_success";
+  | "email_success"
+  | "followed"
+  | "unfollowed";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -80,6 +82,10 @@ export const useNotificationAPI = () => {
         });
       case "email_success":
         return notification.success({ message: "Successfully subscribed!" });
+      case "followed":
+        return notification.success({ message: "Successfully followed!" });
+      case "unfollowed":
+        return notification.success({ message: "Successfully unfollowed!" });
       default:
         return notification.error({
           message: "Missing status!",

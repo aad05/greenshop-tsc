@@ -3,8 +3,10 @@ import { FC } from "react";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks/useRedux";
 import { setTrackOrderModalVisibility } from "../../../../redux/modalSlice";
 import Card from "./Card";
+import { useDeleteTrackOrder } from "../../../../hooks/useQuery/useQueryAction";
 
 const TrackOrder: FC = () => {
+  const { mutate } = useDeleteTrackOrder();
   const dispatch = useReduxDispatch();
   const { track_order } = useReduxSelector((state) => state.shopping);
   const { trackOrderModalVisibility } = useReduxSelector(
@@ -27,8 +29,10 @@ const TrackOrder: FC = () => {
         dispatch(setTrackOrderModalVisibility());
       }}
       title="Detailed Order"
-      footer={false}
       width={600}
+      okText={"Delete"}
+      okButtonProps={{ danger: true }}
+      onOk={() => mutate({ _id: String(track_order?._id) })}
     >
       <div className="grid grid-cols-4 max-sm:grid-cols-2">
         <div className="border-r m-[4px] border-[#46A35833]">
@@ -37,7 +41,9 @@ const TrackOrder: FC = () => {
         </div>
         <div className="border-r m-[4px] border-[#46A35833]">
           <h3 className="font-light">Date</h3>
-          <p className="font-bold">{new Date().toDateString()}</p>
+          <p className="font-bold">
+            {new Date(String(track_order?.created_at)).toDateString()}
+          </p>
         </div>
         <div className="border-r m-[4px] border-[#46A35833]">
           <h3 className="font-light">Total</h3>

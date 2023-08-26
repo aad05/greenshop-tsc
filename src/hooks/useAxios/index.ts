@@ -1,6 +1,8 @@
 // import { useNavigate } from "react-router-dom";
 // import { useSignOut } from "react-auth-kit";
 import axios from "axios";
+import { useAuthUser } from "react-auth-kit";
+import { AuthUserType } from "../../@types";
 
 interface AxiosProp {
   url: string;
@@ -12,6 +14,7 @@ interface AxiosProp {
 }
 
 export const useAxios = () => {
+  const auth: AuthUserType = useAuthUser()() ?? {};
   const { REACT_APP_BASE_URL } = process.env;
   //   const navigate = useNavigate();
   //   const signOut = useSignOut();
@@ -27,7 +30,9 @@ export const useAxios = () => {
     } = props;
     return await axios({
       method,
-      url: `${REACT_APP_BASE_URL}${url}?access_token=64bebc1e2c6d3f056a8c85b7`,
+      url: `${REACT_APP_BASE_URL}${url}?access_token=${
+        auth._id ?? "64bebc1e2c6d3f056a8c85b7"
+      }`,
       data: {
         ...body,
       },

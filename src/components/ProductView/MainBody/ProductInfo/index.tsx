@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Product } from "../../../../@types";
-import { Descriptions, Rate, Skeleton } from "antd";
+import { Descriptions, Rate, Skeleton, Tooltip } from "antd";
 import Button from "../../../../generic/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthDecider } from "../../../../tools/authDecider";
@@ -9,23 +9,49 @@ import { setAuthModalVisibility } from "../../../../redux/modalSlice";
 import { addDataToShopping } from "../../../../redux/shoppingSlice";
 import { HeartOutlined } from "@ant-design/icons";
 import { useNotificationAPI } from "../../../../generic/NotificationAPI";
+import useQueryHandler from "../../../../hooks/useQuery";
 
 const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
+  const useQuery = useQueryHandler();
   const notify = useNotificationAPI();
   const navigate = useNavigate();
   const dispatch = useReduxDispatch();
   const { auth_decider_func } = useAuthDecider();
   const { category } = useParams();
 
+  const response = useQuery({
+    queryURL: `/user/by_id/${data?.created_by}`,
+    queryKEY: `/user-${data?.created_by}`,
+    method: "GET",
+  });
+
   return (
     <div className={`${className}`}>
-      <h1 className="font-bold text-[28px]">
-        {isLoading ?? isError ? <Skeleton.Input /> : data?.title}
-      </h1>
       <div className="flex justify-between">
-        <h3 className="font-bold text-[#46A358] text-[22px]">
-          {isLoading ?? isError ? <Skeleton.Input /> : `$${data?.price}`}
-        </h3>
+        <div className="flex items-center gap-4">
+          {response.isLoading || response.isError ? (
+            <Skeleton.Avatar active={true} />
+          ) : (
+            <Tooltip title={`${response.data?.name} ${response.data?.surname}`}>
+              <img
+                onClick={() => navigate(`/user/${data?.created_by}`)}
+                className="rounded-full w-[50px] h-[50px] cursor-pointer"
+                src={String(response.data?.profile_photo)}
+                alt={response.data?.name}
+              />
+            </Tooltip>
+          )}
+          <div>
+            <div>
+              <h1 className="font-bold text-[28px]">
+                {isLoading ?? isError ? <Skeleton.Input /> : data?.title}
+              </h1>
+              <h3 className="font-bold text-[#46A358] text-[22px]">
+                {isLoading ?? isError ? <Skeleton.Input /> : `$${data?.price}`}
+              </h3>
+            </div>
+          </div>
+        </div>
         <div className="flex gap-2 justify-center items-center font-light text-[12px]">
           <Rate defaultValue={data?.rate} />{" "}
           <p>{data?.comments.length} Customer Review</p>

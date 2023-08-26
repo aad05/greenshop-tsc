@@ -70,6 +70,7 @@ export type Product = {
     short_description: string;
     _id: string;
     description: string;
+    created_by?: string;
   };
   isError?: boolean;
 };
@@ -122,6 +123,8 @@ export type OrderType = {
 
 export type AuthUserType = {
   name?: string;
+  _id?: string;
+  followers?: string[];
 };
 
 export type UploadType = {
@@ -217,6 +220,7 @@ export type UserType = {
   surname?: string;
   followers?: string[];
   profile_photo?: string;
+  _id?: string;
 };
 
 export type LoadingType = { isLoading: boolean; isError: boolean };
