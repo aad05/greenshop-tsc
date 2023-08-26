@@ -211,3 +211,12 @@ export type AddFlowerType = {
   detailed_images: string[];
   category: string;
 };
+
+export type UserType = {
+  name?: string;
+  surname?: string;
+  followers?: string[];
+  profile_photo?: string;
+};
+
+export type LoadingType = { isLoading: boolean; isError: boolean };

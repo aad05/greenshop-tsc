@@ -95,8 +95,8 @@ export const useLoader = () => {
     ));
   };
   const my_product_based_loader = ({ length = 5 }) => {
-    return Array.from({ length }).map(() => (
-      <div className="bg-[#FBFBFB] h-[70px] w-full mt-[11px] flex">
+    return Array.from({ length }).map((_, i) => (
+      <div key={i} className="bg-[#FBFBFB] h-[70px] w-full mt-[11px] flex">
         <div className="w-[40%] flex items-center gap-2">
           <Skeleton.Image className="w-[70px] h-[70px]" active={true} />
           <div>
@@ -127,11 +127,23 @@ export const useLoader = () => {
       </div>
     ));
   };
+
+  const tab_loader = () => {
+    return (
+      <div className="w-full border-b border-[#F0F0F0] pb-[5px] flex gap-3">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Skeleton.Input key={i} size="small" active={true} />
+        ))}
+      </div>
+    );
+  };
+
   return {
     text_based_loader,
     IconAndImageBasedLoader,
     card_based_loader,
     order_based_loader,
     my_product_based_loader,
+    tab_loader,
   };
 };

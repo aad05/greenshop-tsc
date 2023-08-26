@@ -16,6 +16,12 @@ import MyProducts from "../../components/Profile/MyProducts";
 import Address from "../../components/Profile/Address";
 import Wishlist from "../../components/Profile/Wishlist";
 import TrackOrder from "../../components/Profile/TrackOrder";
+import User from "../../components/User";
+import About from "../../components/User/Body/About";
+import Products from "../../components/User/Body/Products";
+import Posts from "../../components/User/Body/Posts";
+import Likees from "../../components/User/Body/Likees";
+import Followers from "../../components/User/Body/Followers";
 
 type main_route_type = {
   id: number;
@@ -34,6 +40,11 @@ type dashboard_items = {
   title: string;
 };
 
+export type ProfleTabType = {
+  key: string;
+  label: string;
+  Children: FC;
+};
 export const dashboard_mock: dashboard_items[] = [
   {
     path: "",
@@ -100,5 +111,38 @@ export const main_route: main_route_type[] = [
     hasChild: true,
     children: dashboard_mock,
     shouldAuth: true,
+  },
+  {
+    id: 5,
+    path: "/user/:_id",
+    Component: User,
+  },
+];
+
+export const profile_tab_items: ProfleTabType[] = [
+  {
+    key: "1",
+    label: "About",
+    Children: About,
+  },
+  {
+    key: "2",
+    label: "Products",
+    Children: Products,
+  },
+  {
+    key: "3",
+    label: "Posts",
+    Children: Posts,
+  },
+  {
+    key: "4",
+    label: "Likees",
+    Children: Likees,
+  },
+  {
+    key: "5",
+    label: "Followers",
+    Children: Followers,
   },
 ];
