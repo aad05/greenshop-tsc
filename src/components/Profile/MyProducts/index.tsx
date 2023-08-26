@@ -8,7 +8,7 @@ import { useLoader } from "../../../generic/Loader";
 import { MainCardType } from "../../../@types";
 
 const MyProducts: FC = () => {
-  const { card_based_loader } = useLoader();
+  const { my_product_based_loader } = useLoader();
   const useQuery = useQueryHandler();
   const dispatch = useReduxDispatch();
 
@@ -17,7 +17,6 @@ const MyProducts: FC = () => {
     queryKEY: "/my-products",
     method: "GET",
   });
-  console.log(data, isLoading);
 
   return (
     <div className="w-full">
@@ -38,7 +37,7 @@ const MyProducts: FC = () => {
       </div>
       <div className="flex flex-col gap-3">
         {isLoading || isError
-          ? card_based_loader({ length: 5 })
+          ? my_product_based_loader({ length: 5 })
           : data.map((value: MainCardType) => (
               <Product key={value._id} {...value} />
             ))}

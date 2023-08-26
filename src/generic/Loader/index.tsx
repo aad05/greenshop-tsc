@@ -1,4 +1,5 @@
-import { Skeleton } from "antd";
+import { Skeleton, Tooltip } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 // import { useState } from "react";
 
 type text_based_loader_type = {
@@ -93,11 +94,44 @@ export const useLoader = () => {
       </div>
     ));
   };
-
+  const my_product_based_loader = ({ length = 5 }) => {
+    return Array.from({ length }).map(() => (
+      <div className="bg-[#FBFBFB] h-[70px] w-full mt-[11px] flex">
+        <div className="w-[40%] flex items-center gap-2">
+          <Skeleton.Image className="w-[70px] h-[70px]" active={true} />
+          <div>
+            <h3>
+              <Skeleton.Input active={true} />
+            </h3>
+            <p className="font-light text-[14px]">
+              SKU: <Skeleton.Input active={true} />
+            </p>
+          </div>
+        </div>
+        <div className="w-[20%] flex items-center text-[#727272]">
+          <Skeleton.Input active={true} />
+        </div>
+        <div className="w-[40%] flex items-center justify-between pr-[10px]">
+          <h3>
+            $<Skeleton.Input active={true} />
+          </h3>
+          <div className="flex gap-4">
+            <Tooltip title="Edit">
+              <EditOutlined className="cursor-pointer" />
+            </Tooltip>
+            <Tooltip title="Delete">
+              <DeleteOutlined className="cursor-pointer" />
+            </Tooltip>
+          </div>
+        </div>
+      </div>
+    ));
+  };
   return {
     text_based_loader,
     IconAndImageBasedLoader,
     card_based_loader,
     order_based_loader,
+    my_product_based_loader,
   };
 };
