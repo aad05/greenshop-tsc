@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { main_route } from "../utils/root_utils";
-import { useIsAuthenticated } from "react-auth-kit";
+import { RequireAuth, useIsAuthenticated } from "react-auth-kit";
 import NotFound from "../components/status/NotFound";
 import ModalVisibility from "../components/ModalVisibility";
 
@@ -18,6 +18,8 @@ const Root: FC = () => {
       localStorage.setItem("total_price", JSON.stringify(0));
     }
   }, []);
+
+  console.log(authed);
 
   return (
     <>
@@ -48,6 +50,17 @@ const Root: FC = () => {
                     )}
                   </Route>
                 )
+              ) : shouldAuth ? (
+                <Route
+                  key={id}
+                  path={path}
+                  element={
+                    <RequireAuth
+                      loginPath="/not-found"
+                      children={<Component />}
+                    />
+                  }
+                />
               ) : (
                 <Route key={id} path={path} element={<Component />} />
               ),

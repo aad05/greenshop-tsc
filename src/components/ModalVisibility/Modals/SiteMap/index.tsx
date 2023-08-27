@@ -48,8 +48,11 @@ const SiteNap: FC = () => {
         >
           <h3 className="font-normal text-base">Home</h3>
         </div>
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
-          <h3 className="font-normal text-base">Shop</h3>
+        <div
+          onClick={() => navigate("/blog")}
+          className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold"
+        >
+          <h3 className="font-normal text-base">Blog</h3>
         </div>
         {authed && (
           <div className="mt-[15px]">

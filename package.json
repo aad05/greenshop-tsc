@@ -19,6 +19,7 @@
     "react-auth-kit": "^2.12.4",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",

@@ -1,7 +1,11 @@
 import { Breadcrumb } from "antd";
 import { useNavigate } from "react-router-dom";
 
-type BreadCrumbType = "product_card" | "product_view" | "product_checkout";
+type BreadCrumbType =
+  | "product_card"
+  | "product_view"
+  | "product_checkout"
+  | "create_blog";
 
 const useBreadCrumbAPI = () => {
   const navigate = useNavigate();
@@ -39,6 +43,22 @@ const useBreadCrumbAPI = () => {
           },
           {
             title: "Checkout",
+          },
+        ];
+      case "create_blog":
+        return [
+          {
+            title: "Home",
+            onClick: () => navigate("/"),
+            className: "cursor-pointer",
+          },
+          {
+            title: "Blog",
+            onClick: () => navigate("/blog"),
+            className: "cursor-pointer",
+          },
+          {
+            title: "Create Blog",
           },
         ];
     }

@@ -22,6 +22,9 @@ import Products from "../../components/User/Body/Products";
 import Posts from "../../components/User/Body/Posts";
 import Likees from "../../components/User/Body/Likees";
 import Followers from "../../components/User/Body/Followers";
+import Blog from "../../pages/blog";
+import CreateBlog from "../../components/Blog/Create";
+import Rendering from "../../components/Blog/Rendering";
 
 type main_route_type = {
   id: number;
@@ -91,21 +94,38 @@ export const main_route: main_route_type[] = [
   },
   {
     id: 1,
+    path: "/blog",
+    Component: Blog,
+  },
+  {
+    id: 2,
+    path: "/blog/create-blog",
+    Component: CreateBlog,
+    shouldAuth: true,
+  },
+  {
+    id: 3,
+    path: "/blog/:created_by/:_id",
+    Component: Rendering,
+    shouldAuth: true,
+  },
+  {
+    id: 4,
     path: "/shop/:category/:_id",
     Component: ProductView,
   },
   {
-    id: 2,
+    id: 5,
     path: "/product-card",
     Component: ProductCard,
   },
   {
-    id: 3,
+    id: 6,
     path: "/product-checkout",
     Component: ProductCheckout,
   },
   {
-    id: 4,
+    id: 7,
     path: "/profile",
     Component: Profile,
     hasChild: true,
@@ -113,7 +133,7 @@ export const main_route: main_route_type[] = [
     shouldAuth: true,
   },
   {
-    id: 5,
+    id: 8,
     path: "/user/:_id",
     Component: User,
   },

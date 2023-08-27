@@ -115,7 +115,7 @@ const Follower: FC<{ _id: string }> = ({ _id }) => {
               <Skeleton.Avatar />
             ) : (
               <>
-                <LinkOutlined /> Observer
+                <LinkOutlined /> Observe
               </>
             )}
           </div>,

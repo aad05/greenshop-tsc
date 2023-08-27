@@ -14,7 +14,8 @@ type status_string_type =
   | "address_updated"
   | "email_success"
   | "followed"
-  | "unfollowed";
+  | "unfollowed"
+  | "blog_create_success";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -86,6 +87,8 @@ export const useNotificationAPI = () => {
         return notification.success({ message: "Successfully followed!" });
       case "unfollowed":
         return notification.success({ message: "Successfully unfollowed!" });
+      case "blog_create_success":
+        return notification.success({ message: "Successfully published!" });
       default:
         return notification.error({
           message: "Missing status!",

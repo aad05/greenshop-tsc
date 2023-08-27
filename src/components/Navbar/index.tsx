@@ -42,7 +42,9 @@ const Navbar: FC = () => {
           <h3 className="cursor-pointer" onClick={() => navigate("/")}>
             Home
           </h3>
-          <h3 className="cursor-pointer">Shop</h3>
+          <h3 className="cursor-pointer" onClick={() => navigate("/blog")}>
+            Blog
+          </h3>
         </div>
         <div className="flex-1 justify-end flex gap-8 max-sm:hidden">
           <SearchOutlined className="cursor-pointer text-[20px]" />

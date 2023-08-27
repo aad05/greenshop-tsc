@@ -9,6 +9,8 @@ import { useHandler } from "../../../generic/Handlers";
 import { useAxios } from "../../useAxios";
 import { setTrackOrderModalVisibility } from "../../../redux/modalSlice";
 import { useReduxDispatch } from "../../useRedux";
+import { useNavigate } from "react-router-dom";
+import { useNotificationAPI } from "../../../generic/NotificationAPI";
 
 // Cache Handler
 const useDeleteWishlistDataFromCache = () => {
@@ -110,7 +112,29 @@ const useDeleteTrackOrder = () => {
     });
   });
 };
-
+const useCreateBlog = () => {
+  const navigate = useNavigate();
+  const notify = useNotificationAPI();
+  const axios = useAxios();
+  return useMutation(
+    ({
+      data,
+    }: {
+      data: { title: string; short_description: string; content: string };
+    }) => {
+      return axios({
+        url: "/user/blog",
+        method: "POST",
+        body: {
+          ...data,
+        },
+      }).then(() => {
+        notify("blog_create_success");
+        navigate("/blog");
+      });
+    },
+  );
+};
 export {
   useDeleteWishlistDataFromCache,
   useAddProduct,
@@ -118,4 +142,5 @@ export {
   useFollowUser,
   useUnFollowUser,
   useDeleteTrackOrder,
+  useCreateBlog,
 };

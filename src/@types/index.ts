@@ -224,3 +224,13 @@ export type UserType = {
 };
 
 export type LoadingType = { isLoading: boolean; isError: boolean };
+
+export type BlogCardType = {
+  title: string;
+  _id: string;
+  content: string;
+  short_description: string;
+  created_by: string;
+  views: number;
+  reaction_length: number;
+};

@@ -1,6 +1,11 @@
-import { Skeleton, Tooltip } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-// import { useState } from "react";
+import { Card, Skeleton, Tooltip } from "antd";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  CommentOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
 
 type text_based_loader_type = {
   length?: number;
@@ -137,6 +142,25 @@ export const useLoader = () => {
       </div>
     );
   };
+  const post_based_loader = () => {
+    return Array.from({ length: 10 }).map(() => (
+      <Card
+        actions={[
+          <div>
+            <EyeOutlined /> ~
+          </div>,
+          <div>
+            <CommentOutlined /> ~
+          </div>,
+          <div>
+            <HeartOutlined /> ~
+          </div>,
+        ]}
+      >
+        <Skeleton active={true} />
+      </Card>
+    ));
+  };
 
   const followers_loader = () => {
     return Array.from({ length: 10 }).map((_, i) => (
@@ -154,5 +178,6 @@ export const useLoader = () => {
     my_product_based_loader,
     tab_loader,
     followers_loader,
+    post_based_loader,
   };
 };
