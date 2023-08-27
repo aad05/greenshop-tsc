@@ -135,6 +135,19 @@ const useCreateBlog = () => {
     },
   );
 };
+const useBlogView = () => {
+  const axios = useAxios();
+  return useMutation(({ _id }: { _id: string }) => {
+    return axios({
+      url: "/user/blog/view",
+      method: "PUT",
+      body: {
+        _id,
+      },
+    });
+  });
+};
+
 export {
   useDeleteWishlistDataFromCache,
   useAddProduct,
@@ -143,4 +156,5 @@ export {
   useUnFollowUser,
   useDeleteTrackOrder,
   useCreateBlog,
+  useBlogView,
 };

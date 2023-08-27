@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import useQueryHandler from "../../../hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import { Skeleton, Tooltip } from "antd";
@@ -7,11 +7,14 @@ import Button from "../../../generic/Button";
 import { useAuthUser } from "react-auth-kit";
 import { AuthUserType } from "../../../@types";
 import {
+  useBlogView,
   useFollowUser,
   useUnFollowUser,
 } from "../../../hooks/useQuery/useQueryAction";
+import { EyeOutlined, CommentOutlined, HeartOutlined } from "@ant-design/icons";
 
 const Rendering: FC = () => {
+  const { mutate: viewMutate } = useBlogView();
   const { mutate: unFollowMutate } = useUnFollowUser();
   const { mutate: followMutate } = useFollowUser();
   const auth: AuthUserType = useAuthUser()() ?? {};
@@ -35,6 +38,10 @@ const Rendering: FC = () => {
   });
   const isBlogLoaded = isError || isLoading;
   const isuserLoaded = isUserError || isUserLoading;
+
+  useEffect(() => {
+    viewMutate({ _id: String(_id) });
+  }, []);
 
   return (
     <div className="w-[60%] m-auto max-lg:w-[100%] py-[50px]">
@@ -94,6 +101,23 @@ const Rendering: FC = () => {
             className="mt-[50px]"
             dangerouslySetInnerHTML={{ __html: data?.content }}
           />
+          <div className="mt-[30px] flex gap-4">
+            <Tooltip title="Views">
+              <p className="cursor-pointer">
+                <EyeOutlined /> {data?.views}
+              </p>
+            </Tooltip>
+            <Tooltip title="Comments">
+              <p className="cursor-pointer">
+                <CommentOutlined /> {0}
+              </p>
+            </Tooltip>
+            <Tooltip title="Likees">
+              <p className="cursor-pointer">
+                <HeartOutlined /> {data.reaction_length}
+              </p>
+            </Tooltip>
+          </div>
         </div>
       )}
     </div>
