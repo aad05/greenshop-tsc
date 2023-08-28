@@ -2,12 +2,13 @@ import { Tooltip } from "antd";
 import { useLoader } from "../../../generic/Loader";
 import { useAuthDecider } from "../../../tools/authDecider";
 import { PlusCircleOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useQueryHandler from "../../../hooks/useQuery";
 import Blog from "./Card";
 import { BlogCardType } from "../../../@types";
 
 const Posts = () => {
+  const [searchParams] = useSearchParams();
   const useQuery = useQueryHandler();
   const navigate = useNavigate();
   const { auth_decider_html } = useAuthDecider();
@@ -15,8 +16,11 @@ const Posts = () => {
 
   const { data, isLoading, isError } = useQuery({
     queryURL: "/user/blog",
-    queryKEY: "/blog",
+    queryKEY: `/blog?search=${searchParams.get("search") ?? ""}`,
     method: "GET",
+    params: {
+      search: searchParams.get("search") ?? "",
+    },
   });
 
   return (

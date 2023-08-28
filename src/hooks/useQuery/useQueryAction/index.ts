@@ -13,6 +13,14 @@ import { useNavigate } from "react-router-dom";
 import { useNotificationAPI } from "../../../generic/NotificationAPI";
 
 // Cache Handler
+const useAddProductToCache = () => {
+  const queryClient = useQueryClient();
+  return (flower: object) => {
+    queryClient.setQueryData("/my-products", (oldQuery: any) => {
+      return [...oldQuery, flower];
+    });
+  };
+};
 const useDeleteWishlistDataFromCache = () => {
   const { likeHandler } = useHandler();
   const queryClient = useQueryClient();
@@ -40,15 +48,26 @@ const useDeleteTrackOrderFromCache = () => {
     });
   };
 };
+const useDeletBlogFromCache = () => {
+  const queryClient = useQueryClient();
+  return (_id: string) => {
+    queryClient.setQueryData("/blog", (oldQuery: any) => {
+      return oldQuery.filter((v: { _id: string }) => v._id !== _id);
+    });
+  };
+};
 
 // Mutation
 const useAddProduct = () => {
+  const addProduct = useAddProductToCache();
   const axios = useAxios();
   return useMutation(({ uploadData }: { uploadData: AddFlowerType }) => {
     return axios({
       url: `/flower/category/${uploadData.category}`,
       method: "POST",
       body: { ...uploadData },
+    }).then((res) => {
+      addProduct(res.data.data);
     });
   });
 };
@@ -147,6 +166,20 @@ const useBlogView = () => {
     });
   });
 };
+const useDeleteBlog = () => {
+  const deleteFromCache = useDeletBlogFromCache();
+  const axios = useAxios();
+  return useMutation((_id: string) => {
+    deleteFromCache(_id);
+    return axios({
+      url: "/user/blog",
+      method: "DELETE",
+      body: {
+        _id,
+      },
+    });
+  });
+};
 
 export {
   useDeleteWishlistDataFromCache,
@@ -157,4 +190,5 @@ export {
   useDeleteTrackOrder,
   useCreateBlog,
   useBlogView,
+  useDeleteBlog,
 };

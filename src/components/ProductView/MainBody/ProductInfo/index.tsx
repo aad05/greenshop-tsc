@@ -7,11 +7,15 @@ import { useAuthDecider } from "../../../../tools/authDecider";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { setAuthModalVisibility } from "../../../../redux/modalSlice";
 import { addDataToShopping } from "../../../../redux/shoppingSlice";
-import { HeartOutlined } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { useNotificationAPI } from "../../../../generic/NotificationAPI";
 import useQueryHandler from "../../../../hooks/useQuery";
+import { useAuthUser } from "react-auth-kit";
+import { useHandler } from "../../../../generic/Handlers";
 
 const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
+  const auth = useAuthUser()();
+  const { likeHandler } = useHandler();
   const useQuery = useQueryHandler();
   const notify = useNotificationAPI();
   const navigate = useNavigate();
@@ -24,6 +28,10 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
     queryKEY: `/user-${data?.created_by}`,
     method: "GET",
   });
+
+  const foundData = auth?.wishlist.find(
+    (v: { flower_id: string }) => v?.flower_id === data?._id,
+  );
 
   return (
     <div className={`${className}`}>
@@ -54,7 +62,7 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
         </div>
         <div className="flex gap-2 justify-center items-center font-light text-[12px]">
           <Rate defaultValue={data?.rate} />{" "}
-          <p>{data?.comments.length} Customer Review</p>
+          <p>{data?.comments?.length} Customer Review</p>
         </div>
       </div>
       <div className="border border-[#46A35880] mt-[12px]" />
@@ -123,16 +131,24 @@ const ProductInfo: FC<Product> = ({ className, isLoading, isError, data }) => {
         <Button
           onClick={() =>
             auth_decider_func({
-              withoutAuth: () => {
+              withoutAuth: () =>
                 dispatch(
                   setAuthModalVisibility({ open: true, loading: false }),
-                );
-              },
+                ),
+              withAuth: () =>
+                likeHandler({
+                  category: String(category),
+                  main_flower_data: data,
+                }),
             })
           }
           className="w-[40px] h-[40px] bg-transparent border border-[#46A358] text-[20px] "
         >
-          <HeartOutlined className="text-black" />
+          {foundData?.flower_id === data?._id ? (
+            <HeartFilled className="text-[red]" />
+          ) : (
+            <HeartOutlined className="text-[#000]" />
+          )}
         </Button>
       </div>
       <Descriptions className="mt-[12px]">

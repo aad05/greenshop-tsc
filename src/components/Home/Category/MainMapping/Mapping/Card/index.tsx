@@ -95,10 +95,10 @@ const Card: FC<CardType> = ({ value, clickNavigator }) => {
         {value.title}
       </h3>
       <p className="text-[#46A358] font-bold">
-        ${value.price}
+        ${value?.discount ? value.discount_price : value.price}
         {value?.discount && (
           <span className="font-thin text-[#A5A5A5] ml-[5px] line-through">
-            $229.00
+            ${value.price}
           </span>
         )}
       </p>

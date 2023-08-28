@@ -52,26 +52,21 @@ export type MainCardType = {
   price?: number;
   sold_times?: number;
   created_at?: Date;
+  created_by?: string;
   count?: number;
   discount_price?: number;
   category?: string;
+  short_description?: string;
+  detailed_images?: string[];
+  description?: string;
+  comments?: [];
+  rate?: number;
 };
 
 export type Product = {
   className?: string;
   isLoading?: boolean;
-  data?: {
-    detailed_images: string[];
-    main_image: string;
-    title: string;
-    price: string;
-    rate: number;
-    comments: [];
-    short_description: string;
-    _id: string;
-    description: string;
-    created_by?: string;
-  };
+  data: MainCardType;
   isError?: boolean;
 };
 

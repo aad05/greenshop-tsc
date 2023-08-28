@@ -30,7 +30,7 @@ const ImageGallery: FC<Product> = ({ className, isLoading, isError, data }) => {
                 />
               </div>
             ))
-          : data?.detailed_images.map((src, _idx) => (
+          : data?.detailed_images?.map((src, _idx) => (
               <div
                 key={_idx}
                 className="w-[100px] h-[100px] bg-[#e5e5e5] cursor-pointer border-2 hover:border-[#46A358] transition-colors"

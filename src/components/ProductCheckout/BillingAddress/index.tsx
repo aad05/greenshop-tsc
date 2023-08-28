@@ -25,7 +25,7 @@ const BillingAddress: FC = () => {
     setLoading(true);
     try {
       await axios({
-        url: "/user/make-order",
+        url: "/order/make-order",
         method: "POST",
         body: {
           shop_list: getter({ key: "shopping_card" }),

@@ -24,7 +24,7 @@ const ProductDescription: FC<Product> = (props) => {
           }`}
           onClick={() => setActive("reviews")}
         >
-          Reviews ({props.data?.comments.length ?? "0"})
+          Reviews ({props.data?.comments?.length ?? "0"})
         </h3>
       </div>
       {active === "description" ? <Description {...props} /> : <Reviews />}
