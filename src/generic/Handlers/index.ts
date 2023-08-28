@@ -75,8 +75,6 @@ export const useHandler = () => {
         });
       }
     } catch (error) {
-      console.log(error);
-
       notify("smth_wrong");
     }
   };

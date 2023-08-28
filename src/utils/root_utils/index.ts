@@ -107,7 +107,6 @@ export const main_route: main_route_type[] = [
     id: 3,
     path: "/blog/:created_by/:_id",
     Component: Rendering,
-    shouldAuth: true,
   },
   {
     id: 4,

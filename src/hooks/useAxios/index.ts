@@ -30,13 +30,14 @@ export const useAxios = () => {
     } = props;
     return await axios({
       method,
-      url: `${REACT_APP_BASE_URL}${url}?access_token=${
-        auth._id ?? "64bebc1e2c6d3f056a8c85b7"
-      }`,
+      url: `${REACT_APP_BASE_URL}${url}`,
       data: {
         ...body,
       },
-      params: { ...params },
+      params: {
+        access_token: auth._id ?? "64bebc1e2c6d3f056a8c85b7",
+        ...params,
+      },
       headers: {
         Authorization: `${
           includeToken && `Bearer ${localStorage.getItem("token")}`

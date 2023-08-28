@@ -19,8 +19,6 @@ const Root: FC = () => {
     }
   }, []);
 
-  console.log(authed);
-
   return (
     <>
       <ModalVisibility />

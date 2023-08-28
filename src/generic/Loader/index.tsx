@@ -14,7 +14,7 @@ type text_based_loader_type = {
 type icon_and_based_loader = {
   src: string;
   className?: string;
-  alt: string;
+  alt?: string;
   onClick?: () => any;
   type: "image" | "icon";
 };
@@ -38,7 +38,6 @@ export const useLoader = () => {
     type,
   }: icon_and_based_loader) => {
     // const [isLoading, setLoading] = useState<boolean>(true);
-    // console.log(isLoading);
 
     return (
       <>

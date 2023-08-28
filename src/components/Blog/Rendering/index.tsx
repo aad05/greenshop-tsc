@@ -18,8 +18,13 @@ import {
   HeartOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons";
+import { useAuthDecider } from "../../../tools/authDecider";
+import { useReduxDispatch } from "../../../hooks/useRedux";
+import { setAuthModalVisibility } from "../../../redux/modalSlice";
 
 const Rendering: FC = () => {
+  const dispatch = useReduxDispatch();
+  const { auth_decider_func } = useAuthDecider();
   const { mutateAsync: deleteMutate } = useDeleteBlog();
   const { mutate: viewMutate } = useBlogView();
   const { mutate: unFollowMutate } = useUnFollowUser();
@@ -97,7 +102,18 @@ const Rendering: FC = () => {
               ) : (
                 <GenericButton
                   className="px-[20px] py-[8px]"
-                  onClick={() => followMutate({ data: userData })}
+                  onClick={() => {
+                    auth_decider_func({
+                      withAuth: () => followMutate({ data: userData }),
+                      withoutAuth: () =>
+                        dispatch(
+                          setAuthModalVisibility({
+                            open: true,
+                            loading: false,
+                          }),
+                        ),
+                    });
+                  }}
                 >
                   Follow
                 </GenericButton>
@@ -154,7 +170,18 @@ const Rendering: FC = () => {
               ) : (
                 <GenericButton
                   className="px-[20px] py-[8px]"
-                  onClick={() => followMutate({ data: userData })}
+                  onClick={() => {
+                    auth_decider_func({
+                      withAuth: () => followMutate({ data: userData }),
+                      withoutAuth: () =>
+                        dispatch(
+                          setAuthModalVisibility({
+                            open: true,
+                            loading: false,
+                          }),
+                        ),
+                    });
+                  }}
                 >
                   Follow
                 </GenericButton>

@@ -17,7 +17,6 @@ const AccountDetails: FC = () => {
         profile_photo: e.profile_photo.file.response.image_url.url,
       },
     });
-    console.log(e);
   };
 
   return (

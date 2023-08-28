@@ -26,7 +26,6 @@ const ImageGallery: FC<Product> = ({ className, isLoading, isError, data }) => {
                   className="w-full h-full"
                   type="image"
                   src={""}
-                  alt=""
                 />
               </div>
             ))
