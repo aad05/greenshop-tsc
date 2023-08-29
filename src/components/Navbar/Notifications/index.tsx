@@ -30,26 +30,26 @@ const Notification: FC = () => {
           {data?.notification_stack.map(
             (v: notification_stack_type, i: number) => (
               <div
-                className="flex items-center gap-4 border-b border-b-[#e5e5e5] mt-[5px] pb-[5px]"
+                className="flex items-center gap-2 border-b border-b-[#e5e5e5] mt-[5px] pb-[5px] mx-[10px]"
                 key={i}
               >
-                <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#45A358] text-white">
+                <div className="flex justify-center items-center w-[35px] h-[30px] rounded-full bg-[#45A358] text-white">
                   {v.type === "follow_stack" ? (
                     <UserOutlined />
                   ) : (
                     <SendOutlined />
                   )}
                 </div>
-                <div>
+                <div className="w-full">
                   <h3 className="text-bold">{v.message}</h3>
-                  <div className="flex justify-between">
+                  <div className="w-full flex justify-between gap-4">
                     <p
                       onClick={() => navigate(`/user/${v.user_id}`)}
                       className="text-[12px] cursor-pointer text-[#45A358]"
                     >
                       Go to profile
                     </p>
-                    <p className="text-[12px] cursor-pointer ">
+                    <p className="text-[12px] cursor-pointer">
                       {new Date(v.time_stamp).toLocaleDateString("en-us", {
                         month: "short",
                         day: "numeric",
