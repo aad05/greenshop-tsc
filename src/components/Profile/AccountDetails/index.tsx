@@ -14,7 +14,9 @@ const AccountDetails: FC = () => {
     await accountDetailsUpdater({
       shouldUpdate: {
         ...e,
-        profile_photo: e.profile_photo.file.response.image_url.url,
+        profile_photo:
+          e?.profile_photo?.file?.response?.image_url?.url ??
+          "https://alqadir.edu.pk/wp-content/uploads/2022/09/BS-Islamic-Studies-2022.jpg",
       },
     });
   };

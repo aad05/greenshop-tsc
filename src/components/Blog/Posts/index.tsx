@@ -5,9 +5,13 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useQueryHandler from "../../../hooks/useQuery";
 import Blog from "./Card";
-import { BlogCardType } from "../../../@types";
+import { AuthUserType, BlogCardType } from "../../../@types";
+import { useAuthUser } from "react-auth-kit";
+import { useNotificationAPI } from "../../../generic/NotificationAPI";
 
 const Posts = () => {
+  const auth: AuthUserType = useAuthUser()() ?? {};
+  const notify = useNotificationAPI();
   const [searchParams] = useSearchParams();
   const useQuery = useQueryHandler();
   const navigate = useNavigate();
@@ -29,7 +33,11 @@ const Posts = () => {
         withAuth: (
           <Tooltip title="New Article">
             <PlusCircleOutlined
-              onClick={() => navigate("/blog/create-blog")}
+              onClick={() =>
+                auth.permission?.create
+                  ? navigate("/blog/create-blog")
+                  : notify("not_premium")
+              }
               className="cursor-pointer text-[30px]"
             />
           </Tooltip>

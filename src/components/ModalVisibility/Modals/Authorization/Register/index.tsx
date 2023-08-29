@@ -70,7 +70,7 @@ const SignUp: FC = () => {
       dispatch(setGoogleAuthModalVisibility(true));
       mutate({
         email: String(result.user.email),
-        type: "sign-up",
+        type: "sign_up",
         name: String(result.user.displayName?.split(" ")[0]),
       });
     } catch (error) {

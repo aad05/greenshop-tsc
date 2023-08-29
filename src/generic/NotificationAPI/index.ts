@@ -18,7 +18,8 @@ type status_string_type =
   | "blog_create_success"
   | "invitation_sent"
   | "google_auth_success"
-  | "not_support";
+  | "not_support"
+  | "not_premium";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -105,6 +106,10 @@ export const useNotificationAPI = () => {
       case "not_support":
         return notification.info({
           message: "Not yet supported!",
+        });
+      case "not_premium":
+        return notification.info({
+          message: "Your account has not been approved by admins!",
         });
       default:
         return notification.error({

@@ -120,6 +120,12 @@ export type AuthUserType = {
   name?: string;
   _id?: string;
   followers?: string[];
+  permission?: {
+    create: boolean;
+    delete: boolean;
+    read: boolean;
+    update: boolean;
+  };
 };
 
 export type UploadType = {

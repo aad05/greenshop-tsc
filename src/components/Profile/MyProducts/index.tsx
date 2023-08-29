@@ -5,10 +5,14 @@ import { useReduxDispatch } from "../../../hooks/useRedux";
 import { setAddNewPlantModalVisibility } from "../../../redux/modalSlice";
 import useQueryHandler from "../../../hooks/useQuery";
 import { useLoader } from "../../../generic/Loader";
-import { MainCardType } from "../../../@types";
+import { AuthUserType, MainCardType } from "../../../@types";
 import { Empty } from "antd";
+import { useAuthUser } from "react-auth-kit";
+import { useNotificationAPI } from "../../../generic/NotificationAPI";
 
 const MyProducts: FC = () => {
+  const notify = useNotificationAPI();
+  const auth: AuthUserType = useAuthUser()() ?? {};
   const { my_product_based_loader } = useLoader();
   const useQuery = useQueryHandler();
   const dispatch = useReduxDispatch();
@@ -18,15 +22,18 @@ const MyProducts: FC = () => {
     queryKEY: "/my-products",
     method: "GET",
   });
+  console.log();
 
   return (
     <div className="w-full">
       <Button
         className="ml-auto px-[15px] py-[8px]"
         onClick={() =>
-          dispatch(
-            setAddNewPlantModalVisibility({ open: true, loading: false }),
-          )
+          auth.permission?.create
+            ? dispatch(
+                setAddNewPlantModalVisibility({ open: true, loading: false }),
+              )
+            : notify("not_premium")
         }
       >
         Add new

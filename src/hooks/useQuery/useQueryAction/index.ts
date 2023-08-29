@@ -216,17 +216,17 @@ const useAuthUserWithGoogle = () => {
   return useMutation(
     ({
       email,
-      type,
+      type = "sign_in",
       name = " ",
       surname = " ",
     }: {
       email: string;
-      type?: "sign_in" | "sign-up";
+      type?: "sign_in" | "sign_up";
       name?: string;
       surname?: string;
     }) => {
       return axios({
-        url: `/user/sign-${type === "sign-up" ? "up" : "in"}/google`,
+        url: `/user/sign-${type === "sign_up" ? "up" : "in"}/google`,
         method: "POST",
         body: {
           email,
