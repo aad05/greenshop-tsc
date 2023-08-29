@@ -9,14 +9,22 @@ import {
   PlusCircleOutlined,
   MinusOutlined,
   UserOutlined,
+  SendOutlined,
 } from "@ant-design/icons";
 import { useAuthUser } from "react-auth-kit";
 import {
   useFollowUser,
+  useSendInvitation,
   useUnFollowUser,
 } from "../../../hooks/useQuery/useQueryAction";
+import { useAuthDecider } from "../../../tools/authDecider";
+import { useReduxDispatch } from "../../../hooks/useRedux";
+import { setAuthModalVisibility } from "../../../redux/modalSlice";
 
 const Header: FC<LoadingType> = ({ isLoading, isError }) => {
+  const dispatch = useReduxDispatch();
+  const { auth_decider_func, auth_decider_html } = useAuthDecider();
+  const { mutate: invitationMutate } = useSendInvitation();
   const { mutate: unFollowMutate } = useUnFollowUser();
   const { mutate: followMutate } = useFollowUser();
   const { _id } = useParams();
@@ -85,6 +93,19 @@ const Header: FC<LoadingType> = ({ isLoading, isError }) => {
               >
                 <WechatOutlined /> Start chat
               </Button>
+              {auth_decider_html({
+                withAuth:
+                  auth._id === String(_id) ? (
+                    <></>
+                  ) : (
+                    <Button
+                      onClick={() => invitationMutate(String(_id))}
+                      className="py-[10px] px-[15px]"
+                    >
+                      <SendOutlined /> Send Invitation
+                    </Button>
+                  ),
+              })}
               {auth.followers?.includes(String(_id)) ? (
                 <Button
                   onClick={() => unFollowMutate({ data })}
@@ -98,7 +119,18 @@ const Header: FC<LoadingType> = ({ isLoading, isError }) => {
                 </Button>
               ) : (
                 <Button
-                  onClick={() => followMutate({ data })}
+                  onClick={() =>
+                    auth_decider_func({
+                      withAuth: () => followMutate({ data }),
+                      withoutAuth: () =>
+                        dispatch(
+                          setAuthModalVisibility({
+                            open: true,
+                            loading: false,
+                          }),
+                        ),
+                    })
+                  }
                   className="py-[10px] px-[15px]"
                 >
                   <PlusCircleOutlined /> Follow

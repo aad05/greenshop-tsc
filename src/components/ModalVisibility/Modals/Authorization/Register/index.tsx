@@ -12,8 +12,14 @@ import {
   GoogleOutlined,
   FacebookFilled,
 } from "@ant-design/icons";
-import { setAuthModalVisibility } from "../../../../../redux/modalSlice";
+import {
+  setAuthModalVisibility,
+  setGoogleAuthModalVisibility,
+} from "../../../../../redux/modalSlice";
 import Button from "../../../../../generic/Button";
+import { AuthResponseType } from "../../../../../@types";
+import { signInWithGoogle } from "../../../../../config/config";
+import { useAuthUserWithGoogle } from "../../../../../hooks/useQuery/useQueryAction";
 
 type onAuth = {
   surname: string;
@@ -22,16 +28,8 @@ type onAuth = {
   confirmed_password: string;
 };
 
-type authDataType = {
-  token: string;
-  user: object;
-};
-
-type authResponseType = {
-  data: authDataType;
-};
-
 const SignUp: FC = () => {
+  const { mutate } = useAuthUserWithGoogle();
   const { authModalVisibility } = useReduxSelector((state) => state.modal);
   const notify = useNotificationAPI();
   const dispatch = useReduxDispatch();
@@ -48,7 +46,7 @@ const SignUp: FC = () => {
       body: { ...e },
     })
       .then((res) => {
-        const { data }: authResponseType = res.data;
+        const { data }: AuthResponseType = res.data;
         localStorage.setItem("token", data.token);
         sing_in({
           token: data.token,
@@ -63,6 +61,21 @@ const SignUp: FC = () => {
         dispatch(setAuthModalVisibility({ open: true, loading: false }));
         return notify(status);
       });
+  };
+
+  const googleAuthHandler = async () => {
+    try {
+      dispatch(setAuthModalVisibility({ open: false, loading: false }));
+      const result = await signInWithGoogle();
+      dispatch(setGoogleAuthModalVisibility(true));
+      mutate({
+        email: String(result.user.email),
+        type: "sign-up",
+        name: String(result.user.displayName?.split(" ")[0]),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -151,11 +164,19 @@ const SignUp: FC = () => {
       <Divider className="font-normal text-xs " plain>
         Or register with
       </Divider>
-      <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md mb-[15px]">
+      <button
+        disabled={authModalVisibility.loading}
+        onClick={googleAuthHandler}
+        className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md mb-[15px]"
+      >
         <GoogleOutlined className="pl-[15px]" />
         Continue with Google
       </button>
-      <button className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md">
+      <button
+        disabled={authModalVisibility.loading}
+        onClick={() => notify("not_support")}
+        className="w-full cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] rounded-md"
+      >
         <FacebookFilled className="pl-[15px]" />
         Continue with Facebook
       </button>

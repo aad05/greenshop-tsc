@@ -13,24 +13,22 @@ import {
   useReduxDispatch,
   useReduxSelector,
 } from "../../../../../hooks/useRedux";
-import { setAuthModalVisibility } from "../../../../../redux/modalSlice";
+import {
+  setAuthModalVisibility,
+  setGoogleAuthModalVisibility,
+} from "../../../../../redux/modalSlice";
 import Button from "../../../../../generic/Button";
+import { signInWithGoogle } from "../../../../../config/config";
+import { useAuthUserWithGoogle } from "../../../../../hooks/useQuery/useQueryAction";
+import { AuthResponseType } from "../../../../../@types";
 
 type onAuth = {
   email: string;
   password: string;
 };
 
-type authDataType = {
-  token: string;
-  user: object;
-};
-
-type authResponseType = {
-  data: authDataType;
-};
-
 const SignIn: FC = () => {
+  const { mutate } = useAuthUserWithGoogle();
   const { authModalVisibility } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const axios = useAxios();
@@ -41,7 +39,7 @@ const SignIn: FC = () => {
     dispatch(setAuthModalVisibility({ open: true, loading: true }));
     axios({ url: "/user/sign-in", method: "POST", body: { ...e } })
       .then((res) => {
-        const { data }: authResponseType = res.data;
+        const { data }: AuthResponseType = res.data;
         localStorage.setItem("token", data.token);
         sing_in({
           token: data.token,
@@ -56,6 +54,17 @@ const SignIn: FC = () => {
         dispatch(setAuthModalVisibility({ open: true, loading: false }));
         return notify(status);
       });
+  };
+
+  const googleAuthHandler = async () => {
+    try {
+      dispatch(setAuthModalVisibility({ open: false, loading: false }));
+      const result = await signInWithGoogle();
+      dispatch(setGoogleAuthModalVisibility(true));
+      mutate({ email: String(result.user.email) });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -105,15 +114,27 @@ const SignIn: FC = () => {
       <Divider className="font-normal text-xs " plain>
         Or login with
       </Divider>
-      <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px]">
+      <button
+        disabled={authModalVisibility.loading}
+        onClick={() => notify("not_support")}
+        className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px]"
+      >
         <FacebookFilled className="pl-[15px]" />
-        Login with Google
-      </button>
-      <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md">
-        <GoogleOutlined className="pl-[15px]" />
         Login with Facebook
       </button>
-      <button className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mt-[15px]">
+      <button
+        disabled={authModalVisibility.loading}
+        onClick={googleAuthHandler}
+        className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md"
+      >
+        <GoogleOutlined className="pl-[15px]" />
+        Login with Google
+      </button>
+      <button
+        disabled={authModalVisibility.loading}
+        onClick={() => notify("not_support")}
+        className="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mt-[15px]"
+      >
         <ScanOutlined className="pl-[15px]" />
         Login with Qr Code
       </button>

@@ -229,3 +229,19 @@ export type BlogCardType = {
   views: number;
   reaction_length: number;
 };
+
+export type notification_stack_type = {
+  type: "follow_stack" | "invitation_stack";
+  message: string;
+  user_id?: string;
+  time_stamp: number;
+};
+
+type authDataType = {
+  token: string;
+  user: object;
+};
+
+export type AuthResponseType = {
+  data: authDataType;
+};

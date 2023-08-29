@@ -15,7 +15,10 @@ type status_string_type =
   | "email_success"
   | "followed"
   | "unfollowed"
-  | "blog_create_success";
+  | "blog_create_success"
+  | "invitation_sent"
+  | "google_auth_success"
+  | "not_support";
 
 export const useNotificationAPI = () => {
   const notFoundError = {
@@ -53,6 +56,8 @@ export const useNotificationAPI = () => {
     switch (status) {
       case 409:
         return notification.error(notFoundError);
+      case 406:
+        return notification.error({ message: "Email already registered!" });
       case "not_equal":
         return notification.error(notEqualError);
       case "added_to_shopping_cart":
@@ -89,6 +94,18 @@ export const useNotificationAPI = () => {
         return notification.success({ message: "Successfully unfollowed!" });
       case "blog_create_success":
         return notification.success({ message: "Successfully published!" });
+      case "invitation_sent":
+        return notification.success({
+          message: "Your invitation has been sent!",
+        });
+      case "google_auth_success":
+        return notification.success({
+          message: "Successfully authenticated via Google!",
+        });
+      case "not_support":
+        return notification.info({
+          message: "Not yet supported!",
+        });
       default:
         return notification.error({
           message: "Missing status!",

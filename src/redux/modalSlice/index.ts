@@ -12,6 +12,7 @@ type modalSliceType = {
   confirmationModalVisibility: boolean;
   trackOrderModalVisibility: boolean;
   addNewPlantModalVisivility: shouldLoadModalType;
+  googleAuthModalVisibility: boolean;
 };
 
 const initialState: modalSliceType = {
@@ -27,6 +28,7 @@ const initialState: modalSliceType = {
     open: false,
     loading: false,
   },
+  googleAuthModalVisibility: false,
 };
 
 const modalSlice = createSlice({
@@ -51,6 +53,9 @@ const modalSlice = createSlice({
     setAddNewPlantModalVisibility(state, { payload }) {
       state.addNewPlantModalVisivility = payload;
     },
+    setGoogleAuthModalVisibility(state, { payload }) {
+      state.googleAuthModalVisibility = !state.googleAuthModalVisibility;
+    },
   },
 });
 export const {
@@ -60,5 +65,6 @@ export const {
   setConfirmationModalVisibility,
   setTrackOrderModalVisibility,
   setAddNewPlantModalVisibility,
+  setGoogleAuthModalVisibility,
 } = modalSlice.actions;
 export default modalSlice.reducer;

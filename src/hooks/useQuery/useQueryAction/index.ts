@@ -4,13 +4,18 @@ import {
   MainCardType,
   OrderType,
   UserType,
+  AuthResponseType,
 } from "../../../@types";
 import { useHandler } from "../../../generic/Handlers";
 import { useAxios } from "../../useAxios";
-import { setTrackOrderModalVisibility } from "../../../redux/modalSlice";
+import {
+  setGoogleAuthModalVisibility,
+  setTrackOrderModalVisibility,
+} from "../../../redux/modalSlice";
 import { useReduxDispatch } from "../../useRedux";
 import { useNavigate } from "react-router-dom";
 import { useNotificationAPI } from "../../../generic/NotificationAPI";
+import { useSignIn } from "react-auth-kit";
 
 // Cache Handler
 const useAddProductToCache = () => {
@@ -180,6 +185,69 @@ const useDeleteBlog = () => {
     });
   });
 };
+const useSendInvitation = () => {
+  const notify = useNotificationAPI();
+  const axios = useAxios();
+
+  return useMutation((_id: string) => {
+    notify("invitation_sent");
+    return axios({
+      url: "/user/notification/invite",
+      method: "POST",
+      body: {
+        _id,
+      },
+    });
+  });
+};
+
+const useAuthUserWithGoogle = () => {
+  const notify = useNotificationAPI();
+  const axios = useAxios();
+  const dispatch = useReduxDispatch();
+  const sing_in = useSignIn();
+
+  return useMutation(
+    ({
+      email,
+      type,
+      name = " ",
+      surname = " ",
+    }: {
+      email: string;
+      type?: "sign_in" | "sign-up";
+      name?: string;
+      surname?: string;
+    }) => {
+      return axios({
+        url: `/user/sign-${type === "sign-up" ? "up" : "in"}/google`,
+        method: "POST",
+        body: {
+          email,
+          name,
+          surname,
+        },
+      })
+        .then((res) => {
+          const { data }: AuthResponseType = res.data;
+          localStorage.setItem("token", data.token);
+          sing_in({
+            token: data.token,
+            expiresIn: 3600,
+            tokenType: "Bearer",
+            authState: data.user,
+          });
+          dispatch(setGoogleAuthModalVisibility(false));
+          notify("google_auth_success");
+        })
+        .catch((error) => {
+          dispatch(setGoogleAuthModalVisibility(false));
+          const status = error.response.status;
+          return notify(status);
+        });
+    },
+  );
+};
 
 export {
   useDeleteWishlistDataFromCache,
@@ -191,4 +259,6 @@ export {
   useCreateBlog,
   useBlogView,
   useDeleteBlog,
+  useSendInvitation,
+  useAuthUserWithGoogle,
 };

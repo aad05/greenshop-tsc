@@ -35,7 +35,7 @@ const AccountDetails: FC = () => {
         name: String(auth?.name),
         surname: String(auth?.surname),
         email: String(auth?.email),
-        phone_number: String(auth?.phone_number),
+        phone_number: String(auth?.phone_number ?? ""),
         username: String(auth?.username),
       }}
       onFinish={onFinish}
