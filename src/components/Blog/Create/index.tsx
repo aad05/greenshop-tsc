@@ -19,6 +19,9 @@ const CreateBlog = () => {
     short_description: string;
   }) => {
     if (!e.content.replace(/(<([^>]+)>)/gi, "")) return notify("missing_value");
+
+    if (!e.short_description.replace(/\s/g, "")) return notify("missing_value");
+
     setPublishing(true);
     await mutateAsync({ data: { ...e } });
     setPublishing(false);
@@ -42,6 +45,8 @@ const CreateBlog = () => {
               placeholder="Short desription of the post"
               className="resize-none"
               autoSize
+              showCount
+              maxLength={250}
             />
           </Form.Item>
           <Form.Item

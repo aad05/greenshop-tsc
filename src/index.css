@@ -65,3 +65,8 @@ img {
 .ant-tabs .ant-tabs-ink-bar {
   background: #46a358 !important;
 }
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload-list.ant-upload-list-picture-card
+  .ant-upload-list-item-actions {
+  z-index: 0;
+}

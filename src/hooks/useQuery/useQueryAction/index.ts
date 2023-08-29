@@ -13,7 +13,7 @@ import {
   setTrackOrderModalVisibility,
 } from "../../../redux/modalSlice";
 import { useReduxDispatch } from "../../useRedux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useNotificationAPI } from "../../../generic/NotificationAPI";
 import { useSignIn } from "react-auth-kit";
 
@@ -54,11 +54,17 @@ const useDeleteTrackOrderFromCache = () => {
   };
 };
 const useDeletBlogFromCache = () => {
+  const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
   return (_id: string) => {
-    queryClient.setQueryData("/blog", (oldQuery: any) => {
-      return oldQuery.filter((v: { _id: string }) => v._id !== _id);
-    });
+    try {
+      queryClient.setQueryData(
+        `/blog?search=${searchParams.get("search")}`,
+        (oldQuery: any) => {
+          return oldQuery.filter((v: { _id: string }) => v._id !== _id);
+        },
+      );
+    } catch (error) {}
   };
 };
 

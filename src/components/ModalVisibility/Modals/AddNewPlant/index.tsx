@@ -173,6 +173,7 @@ const AddNewPlant: FC = () => {
             }}
           >
             <Input
+              max={1000}
               addonBefore="$"
               type="number"
               placeholder="Type your product..."
@@ -221,7 +222,7 @@ const AddNewPlant: FC = () => {
               margin: "0 8px",
             }}
           >
-            <Input placeholder="Discount price..." />
+            <Input max={1000} type="number" placeholder="Discount price..." />
           </Form.Item>
         </Form.Item>
         <Form.Item

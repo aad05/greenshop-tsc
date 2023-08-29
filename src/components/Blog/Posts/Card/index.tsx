@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card, Typography } from "antd";
 import { EyeOutlined, CommentOutlined, HeartOutlined } from "@ant-design/icons";
 import { FC } from "react";
 import { BlogCardType } from "../../../../@types";
@@ -33,7 +33,9 @@ const Blog: FC<BlogCardType> = ({
       >
         {title}
       </h1>
-      <p className="mt-[10px] text-[12px]">{short_description}</p>
+      <Typography spellCheck={true} className="mt-[10px] text-[12px]">
+        {short_description}
+      </Typography>
     </Card>
   );
 };
